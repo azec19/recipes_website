@@ -1,0 +1,42 @@
+
+// server.js (ESM)
+import 'dotenv/config'
+import express from 'express'
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger/swagger.json' with { type: 'json' }
+
+// ⚠️ Import ESM du router applicatif
+import userRouter from './Presentation/Routes/user.routes.js'
+
+const app = express()
+const PORT = process.env.PORT ?? 3000
+
+// Middlewares de base
+app.use(express.json())
+
+// Healthcheck simple
+app.get('/', (_req, res) => res.send('API OK'))
+
+// Swagger uniquement sur /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+// ⚠️ Toutes les autres routes applicatives
+app.use('/', userRouter)     // ou app.use('/api', userRouter) si tu préfères un préfixe
+
+// 404 si aucune route ne matche (hors Swagger)
+app.use((req, res, _next) => {
+  if (req.path.startsWith('/api-docs')) return res.end() // laisse Swagger gérer
+  res.status(404).json({ error: 'Not Found' })
+})
+
+// Handler d’erreurs (dernier middleware)
+app.use((err, _req, res, _next) => {
+  console.error(err)
+  res.status(500).json({ error: 'Internal Server Error' })
+})
+
+// Lancement du serveur
+app.listen(PORT, () => {
+  console.log(`Server ready on http://localhost:${PORT}`)
+  console.log(`Swagger UI    → http://localhost:${PORT}/api-docs`)
+})

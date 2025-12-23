@@ -1,0 +1,26 @@
+goal :
+Create a WEBSITE for recipes of everyday
+
+Add/delete/Edit recipes
+
+recipes :
+    - ingredients
+    - instructions (timing, steps...)
+    - tools to have
+    - total time
+    - required attention
+    - calorie, type d'aport nutritionel
+    - mood (festif, chill, chic...)
+
+
+technical idea :
+Manage recipes with oriented object language as C# or java for exemple
+interface of website with react (you can check for something else)
+database : local or cloud ?
+running on raspberry pi (check performances required)
+Manage users : no idea of how to do this
+Github to support project
+
+
+Choix backend :
+Rust AXum
