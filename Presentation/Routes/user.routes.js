@@ -9,8 +9,8 @@ const router = Router()
 // Define routes
 router.get('/users/:id', userController.getUserById);
 router.post('/users', userController.createUser);
-router.post('/users/:email', userController.deleteUser);
 router.get('/users', userController.getAllUser);
+router.delete('/users/:email', userController.deleteUser);
 
 
 export default router

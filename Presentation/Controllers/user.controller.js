@@ -32,7 +32,8 @@ export async function createUser(req, res){
 
 export async function deleteUser(req, res){
     try {
-        const newUser = await userService.deleteUser(req.body.email);
+        console.log(req.params)
+        const newUser = await userService.deleteUser(req.params.email);
         res.status(201).json(newUser);
     } catch (error) {
         res.status(400).json({ message: error.message });

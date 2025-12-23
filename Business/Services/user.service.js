@@ -26,6 +26,7 @@ export async function createUser(name, email){
 
 export async function deleteUser(email){
     const existing = await userDAO.findByemail(email);
+    console.log(email)
     if (!existing) {
         throw new Error("User doesn't exist");
     }
