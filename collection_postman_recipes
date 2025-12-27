@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "5977dbc2-32bd-4472-b42a-ae5bc3ab6d1d",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13900946"
+	},
+	"item": [
+		{
+			"name": "Get all user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"})\r",
+							"let jsonData = pm.response.json()\r",
+							"\r",
+							"pm.execution.setNextRequest('Create user')"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200)\r",
+							"    const jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.name).to.eql('Postman')\r",
+							"    pm.expect(jsonData.email).to.eql('Postman@example.com')  \r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.execution.setNextRequest('Delete user')"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users/{{id}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201)\r",
+							"    const jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.name).to.eql('Postman')\r",
+							"    pm.expect(jsonData.email).to.eql('Postman@example.com')\r",
+							"    pm.environment.set(\"name\", jsonData.name);\r",
+							"    pm.environment.set(\"email\", jsonData.email);\r",
+							"    pm.environment.set(\"id\", jsonData.id);\r",
+							"})\r",
+							"\r",
+							"\r",
+							"pm.execution.setNextRequest('Get user by id')"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"Name\": \"Postman\",\r\n  \"email\": \"Postman@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/users/",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201)\r",
+							"    const jsonData = pm.response.json()\r",
+							"    pm.expect(jsonData.name).to.eql('Postman')\r",
+							"    pm.expect(jsonData.email).to.eql('Postman@example.com')\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/users/{{email}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"users",
+						"{{email}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
