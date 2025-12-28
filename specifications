@@ -3,6 +3,8 @@ Create a WEBSITE for recipes of everyday
 
 Add/delete/Edit recipes
 
+link with calendar nextcloud
+
 recipes :
     - ingredients
     - instructions (timing, steps...)
