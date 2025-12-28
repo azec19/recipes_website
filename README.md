@@ -71,3 +71,23 @@ Repositories.
 Be careful!
 Converters must only handle data transformation. They should not include any business logic or
 validation.
+
+
+
+
+## instalation backend 
+database postgresql : 
+- install postgresql 
+- run commande "createdb recipes"
+- install npm
+- run "npm install" insides backend directories
+- run "npm install prisma tsx @types/pg --save-dev
+npm install @prisma/client @prisma/adapter-pg dotenv pg"
+- check .env files with database url 
+- run "npx prisma migrate dev --name init"
+- run "npm start server.js"
+
+## installation frontend
+- run "npm isntall"
+- run "npm run dev"
+
