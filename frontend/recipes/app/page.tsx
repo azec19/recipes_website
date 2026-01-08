@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function Home() {
   return (
     <div className="flex justify-between font-sans dark:bg-black">
-      <main className="flex flex-row gap-x-20 py-3 px-3 min-w-screen bg-white dark:bg-black sm:items-start">
+      <main className="flex flex-row gap-x-20 py-3 px-3 min-w-screen bg-(--color-background) sm:items-start">
         <Image
           className="dark:invert"
           src="/logo.svg"
@@ -13,7 +13,7 @@ export default function Home() {
           priority
         />
         <div className="text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+          <h1 className="max-w-xs text-3xl font-script text-5xl leading-10 tracking-tight text-black dark:text-zinc-50">
             recipes 
           </h1>
         </div>
