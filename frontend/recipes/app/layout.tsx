@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 import { Great_Vibes } from 'next/font/google'
+import { Inika } from 'next/font/google'
+
 
 const greatVibes = Great_Vibes({
   subsets: ['latin'],
@@ -10,6 +12,13 @@ const greatVibes = Great_Vibes({
   variable: '--font-script',
 })
 
+
+const inika = Inika({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: '--font-inika',
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,7 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${greatVibes.variable} ${inika.variable} antialiased`}
       >
         {children}
       </body>

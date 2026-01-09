@@ -1,9 +1,11 @@
 import Image from "next/image";
+import { App } from "./list"
 
 export default function Home() {
   return (
-    <div className="flex justify-between font-sans dark:bg-black">
-      <main className="flex flex-row gap-x-20 py-3 px-3 min-w-screen bg-(--color-background) sm:items-start">
+    <div className="font-inika">
+      <main className="flex justify-between py-3 px-3 min-w-screen bg-(--color-background) sm:items-start">
+      <div className="flex">
         <Image
           className="dark:invert"
           src="/logo.svg"
@@ -13,35 +15,39 @@ export default function Home() {
           priority
         />
         <div className="text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-script text-5xl leading-10 tracking-tight text-black dark:text-zinc-50">
-            recipes 
+          <h1 className="max-w-xs font-script text-7xl leading-19 tracking-tight text-black dark:text-zinc-50">
+            Recipes 
           </h1>
         </div>
-        <div className="flex flex-row gap-x-10 justify-between ext-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            login
-            </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            add a new recipes
-          </a>
         </div>
+        <div className="flex justify-between gap-x-15 font-medium">
+          
+          <button
+            className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          >
+            Add a new recipe
+          </button>
+          <button
+            className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          >
+          Ingredient
+          </button>
+
+          <button
+            className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+          >
+          Calendar
+          </button>
+</div>
+          <button
+            className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2"
+          >
+            
+            Log in
+            </button>
+
+       <App />
+
       </main>
     </div>
   );
