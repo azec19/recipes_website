@@ -19,3 +19,31 @@ model User {
   email   String   @unique
   name    String
 }
+
+model Ingredient {
+  id      Int     @id @default(autoincrement())
+  Name    String  @unique 
+  Type    String
+  Quantity Float
+  Unit    String
+}
+
+
+model Recipe {
+
+  id      Int      @id @default(autoincrement())
+  Name    String   @unique
+  Date    DateTime @default(now())
+  Autor   String
+  Description String
+  Instructions String
+  Ingredients  Ingredient[]
+  mood    Mood
+  preparation_time String
+  cooking_time String
+  quantity  String
+  photo     String
+  Tools     String[]
+  calorie   String
+
+}
