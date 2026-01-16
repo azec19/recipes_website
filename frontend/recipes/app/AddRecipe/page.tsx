@@ -1,6 +1,6 @@
 'use client'
 
-import Bandeau from "../Bandeau/Bandeau.tsx"
+import Bandeau from "../Bandeau/Bandeau"
 import { useState } from 'react';
 
 const ROUNDED = 8 
@@ -10,9 +10,6 @@ export default function app(){
   return (
     <div>
     <Bandeau />  
-
-
-
         <div className="bg-white text-black font-inika mx-[20%] my-[3%] p-[3%] rounded-[30]">            
             <div className="text-center text-[50px]">
             <h1> Add a new recipe </h1>

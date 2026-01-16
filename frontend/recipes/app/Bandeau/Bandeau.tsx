@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { App } from "./list"
+import App from "../list";
+import { Link } from "react-router";
 
 export default function Bandeau() {
   return (
@@ -22,22 +23,25 @@ export default function Bandeau() {
         </div>
         <div className="flex justify-between gap-x-15 font-medium">
           
-          <button
+          <a
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+            href="/AddRecipe"
           >
             Add a new recipe
-          </button>
-          <button
+          </a>
+          <a
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+            href="/Ingredient"
           >
           Ingredient
-          </button>
+          </a>
 
-          <button
+          <a
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+            href="/AddRecipe"
           >
           Calendar
-          </button>
+          </a>
 </div>
           <button
             className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2"

@@ -1,4 +1,4 @@
-import Bandeau from "./Bandeau/Bandeau.tsx"
+import Bandeau from "./Bandeau/Bandeau"
 
 export default function Home() {
   return(<Bandeau />)
