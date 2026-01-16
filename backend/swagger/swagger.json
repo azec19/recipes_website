@@ -10,44 +10,72 @@
       "url": "http://localhost:3000"
     }
   ],
+  "tags": [
+    {
+      "name": "Users",
+      "description": "Opérations liées aux utilisateurs"
+    },
+    {
+      "name": "Ingredients",
+      "description": "Gestion des ingrédients"
+    },
+    {
+      "name": "Recipes",
+      "description": "Gestion des recettes"
+    },
+    {
+      "name": "Image",
+      "description": "Gestion des images"
+    }
+  ],
   "paths": {
-    "/users": {
-      "get": {
-        "summary": "Get all users",
-        "responses": {
-          "200": {
-            "description": "A list of users",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
+    "/upload": {
       "post": {
         "summary": "Create a new user",
+        "tags": [
+          "Image"
+        ],
         "requestBody": {
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/UserwithouID"
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Le fichier à téléverser (champ **file**)."
+                  }
+                },
+                "required": [
+                  "file"
+                ]
               }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The newly created user",
-            "content": {
-              "application/json": {
-                "schema": {
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The newly created user"
+        }
+      }
+    }
+  },
+  "/users": {
+    "get": {
+      "summary": "Get all users",
+      "tags": [
+        "Users"
+      ],
+      "responses": {
+        "200": {
+          "description": "A list of users",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
                   "$ref": "#/components/schemas/User"
                 }
               }
@@ -56,46 +84,24 @@
         }
       }
     },
-    "/users/{id}": {
-      "get": {
-        "summary": "Get user by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
+    "post": {
+      "summary": "Create a new user",
+      "tags": [
+        "Users"
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
             "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
+              "$ref": "#/components/schemas/UserwithouID"
             }
           }
         }
       },
-      "put": {
-        "summary": "Update user by ID",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
+      "responses": {
+        "200": {
+          "description": "The newly created user",
           "content": {
             "application/json": {
               "schema": {
@@ -103,14 +109,116 @@
               }
             }
           }
-        },
-        "responses": {
-          "200": {
-            "description": "The updated user",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
+        }
+      }
+    }
+  },
+  "/users/id/{id}": {
+    "get": {
+      "summary": "Get user by ID",
+      "tags": [
+        "Users"
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update user by ID",
+      "tags": [
+        "Users"
+      ],
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/User"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The updated user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/users/email/{email}": {
+    "delete": {
+      "summary": "Delete user by email",
+      "tags": [
+        "Users"
+      ],
+      "parameters": [
+        {
+          "name": "email",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "User deleted successfully"
+        }
+      }
+    }
+  },
+  "/ingredient": {
+    "get": {
+      "summary": "Get all ingredients",
+      "tags": [
+        "Ingredients"
+      ],
+      "responses": {
+        "200": {
+          "description": "A list ingredients",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Ingredient"
                 }
               }
             }
@@ -118,56 +226,579 @@
         }
       }
     },
-    "/users/{email}": {
-      "delete": {
-        "summary": "Delete user by email",
-        "parameters": [
-          {
-            "name": "email",
-            "in": "path",
-            "required": true,
+    "post": {
+      "summary": "Create a new Ingredient",
+      "tags": [
+        "Ingredients"
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
             "schema": {
-              "type": "string"
+              "$ref": "#/components/schemas/Ingredient"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "User deleted successfully"
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The newly created ingredient",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
           }
         }
       }
     }
   },
-  "components": {
-    "schemas": {
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer"
-          },
-          "Name": {
+  "/ingredient/name/{name}": {
+    "get": {
+      "summary": "Get ingredient by name",
+      "tags": [
+        "Ingredients"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
             "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The ingredient",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update ingredient by name",
+      "tags": [
+        "Ingredients"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Ingredient"
+            }
           }
         }
       },
-      "UserwithouID": {
-        "type": "object",
-        "properties": {
-          "Name": {
+      "responses": {
+        "200": {
+          "description": "The updated ingredient",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete ingredient by name",
+      "tags": [
+        "Ingredients"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
             "type": "string"
-          },
-          "email": {
-            "type": "string",
-            "format": "email"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Ingredient deleted successfully"
+        }
+      }
+    }
+  },
+  "/ingredient/type/{type}": {
+    "get": {
+      "summary": "Get ingredient by type",
+      "tags": [
+        "Ingredients"
+      ],
+      "parameters": [
+        {
+          "type": "type",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The ingredient",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Ingredient"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe": {
+    "get": {
+      "summary": "Get all recipes",
+      "tags": [
+        "Recipes"
+      ],
+      "responses": {
+        "200": {
+          "description": "A list recipes",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "post": {
+      "summary": "Create a new Recipe",
+      "tags": [
+        "Recipes"
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Recipe"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The newly created recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Recipe"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe/name/{name}": {
+    "get": {
+      "summary": "Get recipe by name",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Recipe"
+              }
+            }
+          }
+        }
+      }
+    },
+    "put": {
+      "summary": "Update recipe by name",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Recipe"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The updated recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Recipe"
+              }
+            }
+          }
+        }
+      }
+    },
+    "delete": {
+      "summary": "Delete recipe by name",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "name",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "Recipe deleted successfully"
+        }
+      }
+    }
+  },
+  "/recipe/Autor/{autor}": {
+    "get": {
+      "summary": "Get recipe by Autor",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "autor",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe/mood/{mood}": {
+    "get": {
+      "summary": "Get recipe by mood",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "mood",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "$ref": "#/components/schemas/Mood"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe/preparation_time/{time}": {
+    "get": {
+      "summary": "Get recipe with less than *time* for preparation time",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "time",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe/cooking_time/{time}": {
+    "get": {
+      "summary": "Get recipe with less than *time* for cooking time",
+      "tags": [
+        "Recipes"
+      ],
+      "parameters": [
+        {
+          "name": "time",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "/recipe/Ingredient/": {
+    "post": {
+      "summary": "get list of recipes with specific ingredient's name",
+      "tags": [
+        "Recipes"
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The recipe",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     }
   }
+},
+"components": {
+  "schemas": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "UserwithouID": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string",
+          "format": "email"
+        }
+      }
+    },
+    "Ingredient": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string"
+        },
+        "Type": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "number",
+          "format": "float"
+        },
+        "Unit": {
+          "type": "string"
+        }
+      }
+    },
+    "Mood": {
+      "type": "string",
+      "enum": [
+        "CHILL",
+        "PARTY",
+        "BEFORE",
+        "MAIN_DISHES",
+        "DESERT"
+      ]
+    },
+    "Recipe": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Date": {
+          "type": "string"
+        },
+        "Autor": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        },
+        "Instructions": {
+          "type": "string"
+        },
+        "Ingredients": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Ingredient"
+          }
+        },
+        "Mood": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Mood"
+          }
+        },
+        "Preparation_time": {
+          "type": "string"
+        },
+        "Cooking_time": {
+          "type": "string"
+        },
+        "Quantity": {
+          "type": "string"
+        },
+        "Photo": {
+          "type": "string"
+        },
+        "Tools": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "Calorie": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
 }

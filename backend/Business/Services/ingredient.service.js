@@ -1,7 +1,7 @@
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
 
 export async function getIngredientByName(name) {
-    const ingredient = await ingredientDAO.findById(id);
+    const ingredient = await ingredientDAO.findByName(name);
     if (!ingredient) {
         throw new Error("Ingredient not found");
     }
@@ -41,12 +41,15 @@ export async function deleteIngredient(name){
 };
 
 export async function updateIngredient(name, type, quantity, unit){
-    const existing = await ingredientDAO.findByName(name);
-    if (!existing) {
+    const ingredient = await ingredientDAO.findByName(name);
+    if (!ingredient) {
         throw new Error("Ingredient doesn't exist");
     }
+    type = type ? type : ingredient.type
+    quantity = quantity ? quantity : ingredient.quantity
+    unit = unit ? unit : ingredient.unit
     return ingredientDAO.updateIngredient(name, type, quantity, unit);
 };
 
-const ingredientService = { getIngredientById, createIngredient, getAllIngredient,deleteIngredient, updateIngredient };
+const ingredientService = { getIngredientByName, getIngredientByType, createIngredient, getAllIngredient, deleteIngredient, updateIngredient };
 export default ingredientService;

@@ -1,6 +1,16 @@
 import { prisma } from './prisma.js'
 
-export async function createrecipe(name, date, autor, description, instructions, ingredients, mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
+export async function GetAllRecipe() {
+    // Fetch all recipes
+    return await prisma.recipe.findMany({
+        include: {
+            Ingredients: true
+        }
+    }
+    );
+}
+
+export async function CreateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
     // Create a new recipe
     const recipe = await prisma.recipe.create({
         data: {
@@ -8,86 +18,82 @@ export async function createrecipe(name, date, autor, description, instructions,
             Date: date,
             Autor: autor,
             Description: description,
-            Intructions: instructions,
-            Ingredients: ingredients,
-            Mood: mood,
-            PreparationTime: preparationTime, 
-            CookingTime: cookingTime, 
-            Quantity: quantity, 
-            Photo: photo, 
+            Instructions: instructions,
+            Ingredients: { connectOrCreate: ingredients },
+            mood: Mood,
+            Preparation_time: preparationTime,
+            Cooking_time: cookingTime,
+            Quantity: quantity,
+            Photo: photo,
             Tools: tools,
-            Calorie: calorie {
+            Calorie: calorie
         },
     })
     return recipe
 }
 
-export async function deleterecipe(name) {
-    // Create a new recipe
-    const recipe = await prisma.recipe.delete({
+export async function findByName(name) {
+    // Fetch recipes with right name
+    return await prisma.recipe.findUnique({
         where: {
-          Name: Name
+            Name: name,
         },
     })
-    return recipe
 }
 
-export async function updaterecipe(name, date, autor, description, instructions, ingredients, mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
+export async function UpdateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
     // Create a new recipe
+    console.log(ingredients);
+    
     const recipe = await prisma.recipe.update({
         where: {
-          Name: name
+            Name: name
         },
         data: {
             Date: date,
             Autor: autor,
             Description: description,
-            Intructions: instructions,
-            Ingredients: ingredients,
-            Mood: mood,
-            PreparationTime: preparationTime, 
-            CookingTime: cookingTime, 
-            Quantity: quantity, 
-            Photo: photo, 
+            Instructions: instructions,
+            Ingredients: { connectOrCreate: ingredients },
+            mood: Mood,
+            Preparation_time: preparationTime,
+            Cooking_time: cookingTime,
+            Quantity: quantity,
+            Photo: photo,
             Tools: tools,
-            Calorie: calorie        }
+            Calorie: calorie
+        }
+    })
+    return recipe
+}
+
+export async function DeleteRecipe(name) {
+    // Create a new recipe
+    const recipe = await prisma.recipe.delete({
+        where: {
+            Name: name
+        },
     })
     return recipe
 }
 
 
-export async function GetAllrecipe() {
-    // Fetch all recipes
-    return await prisma.recipe.findMany();
-}
-
-export async function findByName(name) {
-    // Fetch recipes with right ID
-    return await prisma.recipe.findUnique({
-        where: {
-          Name: name,
-        },
-    })
-}
-
-export async function findByAutor(Autor) {
+export async function findByAutor(autor) {
     // Fetch recipes with right ID
     return await prisma.recipe.findMany({
         where: {
-          Autor: autor
-        },
-    })
-}
-
-export async function findByMood(mood) {
-    // Fetch recipes with right ID
-    return await prisma.recipe.findMany({
-        where: {
-          Mood: mood
+            Autor: autor
         },
     })
 }
 
 
-const recipeRepository = {findByMood, findByName, findByAutor, createrecipe, GetAllrecipe, deleterecipe, updaterecipe};
+const recipeRepository = {
+    GetAllRecipe,
+    CreateRecipe,
+    findByName,
+    UpdateRecipe,
+    DeleteRecipe,
+    findByAutor,
+}
 export default recipeRepository;

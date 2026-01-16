@@ -46,7 +46,7 @@ export async function GetAllIngredient() {
 }
 
 export async function findByName(name) {
-    // Fetch ingredients with right ID
+    // Fetch ingredients with right name
     return await prisma.ingredient.findUnique({
         where: {
           Name: name,
@@ -55,10 +55,10 @@ export async function findByName(name) {
 }
 
 export async function findByType(type) {
-    // Fetch ingredients with right ID
+    // Fetch ingredients with right type
     return await prisma.ingredient.findMany({
         where: {
-          Type: type,
+          Type: type
         },
     })
 }

@@ -6,6 +6,9 @@ export async function getUserById(req, res) {
             const user = await userService.getUserById(id);
             res.status(200).json(user);
         }
+        else {
+            res.status(404).json({ message: "id invalid in the request" });
+        }
     } catch (error) {
         res.status(404).json({ message: error.message });
     }

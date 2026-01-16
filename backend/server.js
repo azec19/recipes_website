@@ -4,9 +4,13 @@ import 'dotenv/config'
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './swagger/swagger.json' with { type: 'json' }
+import multer from 'multer'
+import path from 'path'
 
 // ⚠️ Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
+import ingredientRouter from './Presentation/Routes/ingredient.routes.js'
+import recipeRouter from './Presentation/Routes/recipe.routes.js'
 
 const app = express()
 const PORT = process.env.PORT ?? 3000
@@ -20,8 +24,34 @@ app.get('/', (_req, res) => res.send('API OK'))
 // Swagger uniquement sur /api-docs
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
+// Configure Multer Storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'upload/'); // Files will be stored in the 'uploads' folder
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Middleware to serve static files (optional)
+app.use(express.static('public'));
+
+// Route for file upload
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded!');
+  }
+  res.send(`File uploaded successfully! Filename: ${req.file.filename}`);
+});
+
 // ⚠️ Toutes les autres routes applicatives
 app.use('/', userRouter)     // ou app.use('/api', userRouter) si tu préfères un préfixe
+app.use('/', ingredientRouter)     // ou app.use('/api', ingredientRouter) si tu préfères un préfixe
+app.use('/', recipeRouter)     // ou app.use('/api', recipeRouter) si tu préfères un préfixe
 
 // 404 si aucune route ne matche (hors Swagger)
 app.use((req, res, _next) => {

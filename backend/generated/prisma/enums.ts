@@ -9,7 +9,12 @@
 * 🟢 You can import this file directly.
 */
 
+export const Mood = {
+  CHILL: 'CHILL',
+  PARTY: 'PARTY',
+  BEFORE: 'BEFORE',
+  MAIN_DISHES: 'MAIN_DISHES',
+  DESERT: 'DESERT'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type Mood = (typeof Mood)[keyof typeof Mood]
