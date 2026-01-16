@@ -1,7 +1,7 @@
 This project follows the layered architecture pattern.
 # Presentation layer
 ## Data Transfer Objects (DTOs)
-DTOs are used to structure and standardize data exchange between Controllers and external clients.
+DTOs are used to structure and standardize data exchange between Controller and external clients.
 They are categorized in two categories:
 - Request DTOs: Define the expected structure of client requests.
 - Response DTOs: Define the structure of responses sent back to clients.
