@@ -1,60 +1,60 @@
-'use client'
-
-import { log } from "console"
 import Bandeau from "../Bandeau/Bandeau"
-import { FormEvent } from 'react'
+import { fetchAllIngredients, onSubmit } from "../lib/data"
+import { Ingredient, Types_, Units_ } from "../lib/type"
+import styles from "./page.module.css"
+import DataGrid from "./datagrid"
 
 const ROUNDED = 8
 
 
 
-export default function app() {
+export default async function app() {
 
-    async function onSubmit(event: FormEvent<HTMLFormElement >) {
-        event.preventDefault()
-        const form = event.currentTarget;
-        const data = {
-            Name: form.name_.value,
-            Type: form.type.value,
-            Quantity: parseFloat(form.quantity.value),
-            Unit: form.unit.value 
-        };
-        console.log(data);
-        
-        const response = await fetch('/api/ingredient', {
-            method: 'POST',
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
+    
 
-        // Handle response if necessary
-        const result = await response.json()
-        // ...
-    }
+
+
+    const ingredients:Ingredient[] = await fetchAllIngredients()
+
+
+    type Types = keyof typeof Types_
+    const types: Types[] = Object.keys(Types_) as Types[];
+
+
+    type Units = keyof typeof Units_
+    const units: Units[] = Object.keys(Units_) as Units[];
 
     return (
         <div>
             <Bandeau />
+
+            <DataGrid ingredients={ingredients}/>
+            
             <div className="bg-white text-black font-inika mx-[20%] my-[3%] p-[3%] rounded-[30]">
                 <div className="text-center text-[50px]">
-                    <h1> Add a new ingredient </h1>
+                    <h1> Ajout d'un nouvel ingrédient </h1>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={onSubmit}>
+                    <form action={onSubmit}>
                         <div className="mb-3">
-                            <input type="text" placeholder="Ingredient's name" className="border" style={{ borderRadius: ROUNDED }} name="name_" />
+                            <input type="text" placeholder="Ingredient's name" className="border rounded-lg" name="name_" />
                         </div>
                         <div className="mb-3">
-                            <input type="text" placeholder="Ingredient's type" className="border" style={{ borderRadius: ROUNDED }} name="type" />
+                            <select className="border rounded-lg" name="type">
+                                {types.map(type => (
+                                    <option key={type} value={type}>{Types_[type]}</option>
+                                ))}
+                            </select>
                         </div>
                         <div className="mb-3">
-                            <input type="number" step="0.1" placeholder="Ingredient's quantity" className="border" style={{ borderRadius: ROUNDED }} name="quantity" />
+                            <input type="number" step="0.1" placeholder="Ingredient's quantity" className="border rounded-lg" name="quantity" />
                         </div>
                         <div className="mb-3">
-                            <input type="text" placeholder="Ingredient's unit" className="border" style={{ borderRadius: ROUNDED }} name="unit" />
+                            <select className="border rounded-lg" name="unit">
+                                {units.map(unit => (
+                                    <option key={unit} value={unit}>{Units_[unit]}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <button type="submit" className="btn btn-primary">Submit</button>

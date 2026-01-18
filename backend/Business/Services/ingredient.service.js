@@ -27,7 +27,7 @@ export async function getAllIngredient() {
 export async function createIngredient(name, type, quantity, unit){
     const existing = await ingredientDAO.findByName(name);
     if (existing) {
-        throw new Error("Ingredient already exists");
+        updateIngredient(name, type, existing.Quantity + quantity, unit)
     }
     return ingredientDAO.createIngredient(name, type, quantity, unit);
 };
