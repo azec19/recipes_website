@@ -8,7 +8,7 @@ const router = Router()
 // Define routes
 router.get('/ingredient/name/:name', ingredientController.getIngredientByName);
 router.get('/ingredient/type/:type', ingredientController.getIngredientByType);
-router.put('/ingredient/name/:name', ingredientController.updateIngredient);
+router.put('/ingredient', ingredientController.updateIngredient);
 router.post('/ingredient', ingredientController.createIngredient);
 router.get('/ingredient', ingredientController.getAllIngredient);
 router.delete('/ingredient/name/:name', ingredientController.deleteIngredient);

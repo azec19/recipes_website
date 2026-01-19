@@ -40,15 +40,18 @@ export async function deleteIngredient(name){
     return ingredientDAO.deleteIngredient(name);
 };
 
-export async function updateIngredient(name, type, quantity, unit){
-    const ingredient = await ingredientDAO.findByName(name);
+export async function updateIngredient(id, name, type, quantity, unit){
+    console.log(id);
+    
+    const ingredient = await ingredientDAO.findById(id);
     if (!ingredient) {
         throw new Error("Ingredient doesn't exist");
     }
+    name = name ? name : ingredient.name
     type = type ? type : ingredient.type
     quantity = quantity ? quantity : ingredient.quantity
     unit = unit ? unit : ingredient.unit
-    return ingredientDAO.updateIngredient(name, type, quantity, unit);
+    return ingredientDAO.updateIngredient(id, name, type, quantity, unit);
 };
 
 const ingredientService = { getIngredientByName, getIngredientByType, createIngredient, getAllIngredient, deleteIngredient, updateIngredient };

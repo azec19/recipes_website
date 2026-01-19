@@ -8,7 +8,7 @@ export async function createIngredient(name, type, quantity, unit) {
             Type: type,
             Quantity: quantity,
             Unit: unit,
-            
+
         },
     })
     return ingredient
@@ -24,16 +24,17 @@ export async function deleteIngredient(name) {
     return ingredient
 }
 
-export async function updateIngredient(name, type, quantity, unit) {
+export async function updateIngredient(id_, name, type, quantity, unit) {
     // Create a new ingredient
     const ingredient = await prisma.ingredient.update({
         where: {
-          Name: name,
+            id: id_,
         },
         data: {
-          Type: type,
-          Quantity: quantity,
-          Unit: unit
+            Name: name,
+            Type: type,
+            Quantity: quantity,
+            Unit: unit
         }
     })
     return ingredient
@@ -45,11 +46,21 @@ export async function GetAllIngredient() {
     return await prisma.ingredient.findMany();
 }
 
+export async function findById(id_) {
+    // Fetch ingredients with right name
+    return await prisma.ingredient.findUnique({
+        where: {
+            id: id_
+        },
+    })
+}
+
+
 export async function findByName(name) {
     // Fetch ingredients with right name
     return await prisma.ingredient.findUnique({
         where: {
-          Name: name,
+            Name: name,
         },
     })
 }
@@ -58,10 +69,10 @@ export async function findByType(type) {
     // Fetch ingredients with right type
     return await prisma.ingredient.findMany({
         where: {
-          Type: type
+            Type: type
         },
     })
 }
 
-const ingredientRepository = {findByType, findByName, createIngredient, GetAllIngredient, deleteIngredient, updateIngredient};
+const ingredientRepository = { findById, findByType, findByName, createIngredient, GetAllIngredient, deleteIngredient, updateIngredient };
 export default ingredientRepository;

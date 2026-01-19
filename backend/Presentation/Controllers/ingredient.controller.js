@@ -59,7 +59,7 @@ export async function deleteIngredient(req, res) {
 
 export async function updateIngredient(req, res) {
     try {
-            const newingredient = await ingredientService.updateIngredient(req.params.name, req.body.Type, req.body.Quantity, req.body.Unit);
+            const newingredient = await ingredientService.updateIngredient(req.body.id, req.body.Name, req.body.Type, req.body.Quantity, req.body.Unit);
             res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });

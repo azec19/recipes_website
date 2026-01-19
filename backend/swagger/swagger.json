@@ -253,6 +253,34 @@
           }
         }
       }
+    },
+    "put": {
+      "summary": "Update ingredient by name",
+      "tags": [
+        "Ingredients"
+      ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Ingredient"
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "The updated ingredient",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "/ingredient/name/{name}": {
@@ -274,44 +302,6 @@
       "responses": {
         "200": {
           "description": "The ingredient",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Ingredient"
-              }
-            }
-          }
-        }
-      }
-    },
-    "put": {
-      "summary": "Update ingredient by name",
-      "tags": [
-        "Ingredients"
-      ],
-      "parameters": [
-        {
-          "name": "name",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "requestBody": {
-        "required": true,
-        "content": {
-          "application/json": {
-            "schema": {
-              "$ref": "#/components/schemas/Ingredient"
-            }
-          }
-        }
-      },
-      "responses": {
-        "200": {
-          "description": "The updated ingredient",
           "content": {
             "application/json": {
               "schema": {
@@ -718,6 +708,9 @@
     "Ingredient": {
       "type": "object",
       "properties": {
+        "id": {
+          "type": "integer"
+        },
         "Name": {
           "type": "string"
         },
