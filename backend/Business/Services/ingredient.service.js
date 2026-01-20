@@ -16,6 +16,8 @@ export async function getIngredientByType(type) {
     return ingredients;
 };
 
+
+
 export async function getAllIngredient() {
     const ingredients = await ingredientDAO.GetAllIngredient();
     if (!ingredients) {

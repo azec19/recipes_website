@@ -28,3 +28,11 @@ export type Ingredient = {
     Quantity: Float16Array;
     Unit: Units_
 }
+
+export enum Mood {
+    CHILL,
+    PARTY,
+    BEFORE,
+    MAIN_DISHES,
+    DESERT
+}

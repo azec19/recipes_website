@@ -1,7 +1,6 @@
 import Bandeau from "../Bandeau/Bandeau"
 import { fetchAllIngredients, onSubmit } from "../lib/data"
 import { Ingredient, Types_, Units_ } from "../lib/type"
-import styles from "./page.module.css"
 import DataGrid from "./datagrid"
 
 const ROUNDED = 8

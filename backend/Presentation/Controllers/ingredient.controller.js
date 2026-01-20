@@ -30,6 +30,9 @@ export async function getIngredientByName(req, res) {
     }
 };
 
+
+
+
 export async function getAllIngredient(req, res) {
     try {
         const ingredients = await ingredientService.getAllIngredient();

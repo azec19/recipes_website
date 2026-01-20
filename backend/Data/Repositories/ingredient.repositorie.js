@@ -74,5 +74,7 @@ export async function findByType(type) {
     })
 }
 
-const ingredientRepository = { findById, findByType, findByName, createIngredient, GetAllIngredient, deleteIngredient, updateIngredient };
-export default ingredientRepository;
+
+
+    const ingredientRepository = {findById, findByType, findByName, createIngredient, GetAllIngredient, deleteIngredient, updateIngredient };
+    export default ingredientRepository;

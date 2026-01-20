@@ -18,3 +18,31 @@ export const Mood = {
 } as const
 
 export type Mood = (typeof Mood)[keyof typeof Mood]
+
+
+export const Types = {
+  FECULENT: 'FECULENT',
+  LEGUME: 'LEGUME',
+  FRUIT: 'FRUIT',
+  LAITIER: 'LAITIER',
+  VIANDE: 'VIANDE',
+  POISSON: 'POISSON',
+  MATIERE_GRASSE: 'MATIERE_GRASSE',
+  EPICE: 'EPICE',
+  LIQUIDE: 'LIQUIDE',
+  AUTRE: 'AUTRE'
+} as const
+
+export type Types = (typeof Types)[keyof typeof Types]
+
+
+export const Units = {
+  KG: 'KG',
+  GR: 'GR',
+  L: 'L',
+  CL: 'CL',
+  DL: 'DL',
+  UNITE: 'UNITE'
+} as const
+
+export type Units = (typeof Units)[keyof typeof Units]

@@ -36,7 +36,21 @@ export async function findByName(name) {
     // Fetch recipes with right name
     return await prisma.recipe.findUnique({
         where: {
-            Name: name,
+            Name: {
+                contains: name,
+                mode: 'insensitive'
+            },
+        },
+    })
+}
+
+export async function FullTextSearch(text) {
+    return await prisma.ingredient.findMany({
+        where: {
+            Name: {
+                contains: text,
+                mode: 'insensitive'
+            },
         },
     })
 }
@@ -82,7 +96,10 @@ export async function findByAutor(autor) {
     // Fetch recipes with right ID
     return await prisma.recipe.findMany({
         where: {
-            Autor: autor
+            Autor: {
+                contains: autor,
+                mode: 'insensitive'
+            },
         },
     })
 }

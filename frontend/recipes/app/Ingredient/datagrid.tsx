@@ -8,8 +8,8 @@ import {
   ModuleRegistry,
   CellValueChangedEvent,
   CellClickedEvent,
-  GetRowIdFunc,
   GetRowIdParams,
+  GridOptions
 } from 'ag-grid-community';
 import { Ingredient, Types_, Units_ } from "../lib/type"
 
@@ -42,6 +42,12 @@ async function DeleteIngredient(event: CellClickedEvent<Ingredient>) {
   });
 }
 
+const gridOptions: GridOptions = {
+    pagination: true,
+    paginationPageSize: 10,
+    paginationPageSizeSelector: [5,10,20,50],
+}
+
 export default function GridComponent(ingredient: Props) {
   const [rowData, setRowData] = useState<Ingredient[]>(ingredient.ingredients);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
@@ -68,7 +74,9 @@ export default function GridComponent(ingredient: Props) {
       onCellClicked: (event: CellClickedEvent) => {
         DeleteIngredient(event)
         event.api?.applyTransaction({ remove: [event.data] });
-      }
+      },
+      valueGetter: () => "Delete",
+      cellStyle : {cursor: 'pointer', 'text-align':'center'}
     }
   ]);
 
@@ -79,12 +87,14 @@ export default function GridComponent(ingredient: Props) {
 
 
   return (
-    <div style={{ width: "80vw", height: 500 }}>
-      <AgGridReact
+    <div className='bg-white text-black w-[80vw] mx-[5%] p-[3%] rounded-[30]'>
+      <AgGridReact 
         rowData={rowData}
         columnDefs={columnDefs}
+        gridOptions={gridOptions}
         onCellValueChanged={onCellValueChanged}
         getRowId={getRowId}
+        domLayout="autoHeight"
       />
     </div>
   )

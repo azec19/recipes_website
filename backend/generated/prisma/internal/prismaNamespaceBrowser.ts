@@ -126,3 +126,32 @@ export const QueryMode = {
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
+
+export const UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  name: 'name'
+} as const
+
+export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const IngredientOrderByRelevanceFieldEnum = {
+  Name: 'Name'
+} as const
+
+export type IngredientOrderByRelevanceFieldEnum = (typeof IngredientOrderByRelevanceFieldEnum)[keyof typeof IngredientOrderByRelevanceFieldEnum]
+
+
+export const RecipeOrderByRelevanceFieldEnum = {
+  Name: 'Name',
+  Autor: 'Autor',
+  Description: 'Description',
+  Instructions: 'Instructions',
+  Quantity: 'Quantity',
+  Photo: 'Photo',
+  Tools: 'Tools',
+  Calorie: 'Calorie'
+} as const
+
+export type RecipeOrderByRelevanceFieldEnum = (typeof RecipeOrderByRelevanceFieldEnum)[keyof typeof RecipeOrderByRelevanceFieldEnum]
+

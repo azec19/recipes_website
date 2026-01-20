@@ -7,6 +7,7 @@
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
+  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -21,6 +22,28 @@ enum Mood {
   DESERT
 }
 
+enum Types {
+    FECULENT
+    LEGUME
+    FRUIT
+    LAITIER
+    VIANDE
+    POISSON
+    MATIERE_GRASSE
+    EPICE
+    LIQUIDE
+    AUTRE
+}
+
+enum Units {
+    KG
+    GR
+    L
+    CL
+    DL
+    UNITE
+}
+
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -30,9 +53,9 @@ model User {
 model Ingredient {
   id       Int     @id @default(autoincrement())
   Name     String  @unique
-  Type     String
+  Type     Types
   Quantity Float
-  Unit     String
+  Unit     Units
   recipe   Recipe[]
 }
 

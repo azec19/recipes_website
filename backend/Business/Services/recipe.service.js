@@ -66,6 +66,14 @@ export async function getRecipeByName(name) {
     return recipe;
 };
 
+export async function getRecipeByFullTextSearch(text) {
+    const ingredients = await ingredientDAO.FullTextSearch(text);
+    if (!ingredients) {
+        throw new Error("Ingredient not found");
+    }
+    return ingredients;
+};
+
 export async function updateRecipe(Name,
     Date,
     Autor,

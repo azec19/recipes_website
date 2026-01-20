@@ -1,7 +1,7 @@
 'use client'
 
 import Bandeau from "../Bandeau/Bandeau"
-import { useState } from 'react';
+import SearchBar from "./searchBar"
 
 const ROUNDED = 8 
 export default function app(){
@@ -10,6 +10,8 @@ export default function app(){
   return (
     <div>
     <Bandeau />  
+    <h1 className="text-center font-inika text-[50px]">List des recettes</h1>
+    <SearchBar/>
         <div className="bg-white text-black font-inika mx-[20%] my-[3%] p-[3%] rounded-[30]">            
             <div className="text-center text-[50px]">
             <h1> Add a new recipe </h1>

@@ -722,6 +722,35 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+export const UserOrderByRelevanceFieldEnum = {
+  email: 'email',
+  name: 'name'
+} as const
+
+export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
+
+
+export const IngredientOrderByRelevanceFieldEnum = {
+  Name: 'Name'
+} as const
+
+export type IngredientOrderByRelevanceFieldEnum = (typeof IngredientOrderByRelevanceFieldEnum)[keyof typeof IngredientOrderByRelevanceFieldEnum]
+
+
+export const RecipeOrderByRelevanceFieldEnum = {
+  Name: 'Name',
+  Autor: 'Autor',
+  Description: 'Description',
+  Instructions: 'Instructions',
+  Quantity: 'Quantity',
+  Photo: 'Photo',
+  Tools: 'Tools',
+  Calorie: 'Calorie'
+} as const
+
+export type RecipeOrderByRelevanceFieldEnum = (typeof RecipeOrderByRelevanceFieldEnum)[keyof typeof RecipeOrderByRelevanceFieldEnum]
+
+
 
 /**
  * Field references
@@ -757,6 +786,20 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
+ * Reference to a field of type 'Types'
+ */
+export type EnumTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Types'>
+    
+
+
+/**
+ * Reference to a field of type 'Types[]'
+ */
+export type ListEnumTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Types[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -767,6 +810,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Units'
+ */
+export type EnumUnitsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Units'>
+    
+
+
+/**
+ * Reference to a field of type 'Units[]'
+ */
+export type ListEnumUnitsFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Units[]'>
     
 
 

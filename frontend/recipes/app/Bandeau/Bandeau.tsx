@@ -24,9 +24,9 @@ export default function Bandeau() {
           
           <Link
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            href="/AddRecipe"
+            href="/Recipe"
           >
-            Ajout d'une nouvelle recette
+            Recettes
           </Link>
           <Link
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
