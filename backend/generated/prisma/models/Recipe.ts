@@ -298,7 +298,6 @@ export type RecipeOrderByWithRelationInput = {
   Tools?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
   Ingredients?: Prisma.IngredientOrderByRelationAggregateInput
-  _relevance?: Prisma.RecipeOrderByRelevanceInput
 }
 
 export type RecipeWhereUniqueInput = Prisma.AtLeast<{
@@ -498,12 +497,6 @@ export type StringNullableListFilter<$PrismaModel = never> = {
   hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
   hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
   isEmpty?: boolean
-}
-
-export type RecipeOrderByRelevanceInput = {
-  fields: Prisma.RecipeOrderByRelevanceFieldEnum | Prisma.RecipeOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type RecipeCountOrderByAggregateInput = {

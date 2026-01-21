@@ -18,6 +18,7 @@ export async function createRecipe(Name,
     Preparation_time,
     Cooking_time,
     Quantity,
+    Difficultie,
     Photo,
     Tools,
     Calorie,) {
@@ -53,6 +54,7 @@ export async function createRecipe(Name,
         parseInt(Preparation_time),
         parseInt(Cooking_time),
         Quantity,
+        Difficultie,
         Photo,
         Tools,
         Calorie,);
@@ -84,6 +86,7 @@ export async function updateRecipe(Name,
     Preparation_time,
     Cooking_time,
     Quantity,
+    Difficultie,
     Photo,
     Tools,
     Calorie,) {
@@ -112,6 +115,7 @@ export async function updateRecipe(Name,
     Preparation_time = Preparation_time ? Preparation_time : recipe.Preparation_time
     Cooking_time = Cooking_time ? Cooking_time : recipe.Cooking_time
     Quantity = Quantity ? Quantity : recipe.Quantity
+    Difficultie = Difficultie ? Difficultie : recipe.Difficultie
     Photo = Photo ? Photo : recipe.Photo
     Tools = Tools ? Tools : recipe.Tools
     Calorie = Calorie ? Calorie : recipe.Calorie
@@ -127,6 +131,7 @@ export async function updateRecipe(Name,
         Preparation_time,
         Cooking_time,
         Quantity,
+        Difficultie,
         Photo,
         Tools,
         Calorie,);

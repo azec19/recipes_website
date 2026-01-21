@@ -4,10 +4,10 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
-  previewFeatures = ["fullTextSearchPostgres"]
 }
 
 datasource db {
@@ -59,6 +59,14 @@ model Ingredient {
   recipe   Recipe[]
 }
 
+enum Difficulties {
+    EASY
+    MEDIUM
+    TECHNICAL
+    HARD
+    IMPOSSIBLE
+}
+
 model Recipe {
   id               Int          @id @default(autoincrement())
   Name             String       @unique
@@ -71,6 +79,7 @@ model Recipe {
   Preparation_time Int
   Cooking_time     Int
   Quantity         String
+  Difficultie      Difficulties
   Photo            String
   Tools            String[]
   Calorie          String

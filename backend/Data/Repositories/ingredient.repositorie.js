@@ -1,3 +1,4 @@
+import { equal } from 'node:assert'
 import { prisma } from './prisma.js'
 
 export async function createIngredient(name, type, quantity, unit) {
@@ -26,6 +27,8 @@ export async function deleteIngredient(name) {
 
 export async function updateIngredient(id_, name, type, quantity, unit) {
     // Create a new ingredient
+    console.log(typeof id_);
+    
     const ingredient = await prisma.ingredient.update({
         where: {
             id: id_,
@@ -58,9 +61,14 @@ export async function findById(id_) {
 
 export async function findByName(name) {
     // Fetch ingredients with right name
-    return await prisma.ingredient.findUnique({
+    console.log(name);
+    
+    return await prisma.ingredient.findFirst({
         where: {
-            Name: name,
+           Name: {
+                equals: name,
+                mode: 'insensitive',
+            },
         },
     })
 }

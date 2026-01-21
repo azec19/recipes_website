@@ -23,6 +23,7 @@ export async function createRecipe(req, res) {
             req.body.Preparation_time,
             req.body.Cooking_time,
             req.body.Quantity,
+            req.body.Difficultie,
             req.body.Photo,
             req.body.Tools,
             req.body.Calorie,);
@@ -62,6 +63,7 @@ export async function updateRecipe(req, res) {
             req.body.Preparation_time,
             req.body.Cooking_time,
             req.body.Quantity,
+            req.body.Difficultie,
             req.body.Photo,
             req.body.Tools,
             req.body.Calorie,);

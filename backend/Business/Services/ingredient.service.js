@@ -29,7 +29,7 @@ export async function getAllIngredient() {
 export async function createIngredient(name, type, quantity, unit){
     const existing = await ingredientDAO.findByName(name);
     if (existing) {
-        updateIngredient(name, type, existing.Quantity + quantity, unit)
+        return updateIngredient(existing.id, name, type, existing.Quantity + quantity, unit)
     }
     return ingredientDAO.createIngredient(name, type, quantity, unit);
 };
@@ -43,8 +43,6 @@ export async function deleteIngredient(name){
 };
 
 export async function updateIngredient(id, name, type, quantity, unit){
-    console.log(id);
-    
     const ingredient = await ingredientDAO.findById(id);
     if (!ingredient) {
         throw new Error("Ingredient doesn't exist");

@@ -16,13 +16,11 @@ import type * as Prisma from "./prismaNamespace.ts"
 
 
 const config: runtime.GetPrismaClientConfig = {
-  "previewFeatures": [
-    "fullTextSearchPostgres"
-  ],
-  "clientVersion": "7.2.0",
-  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
+  "previewFeatures": [],
+  "clientVersion": "7.3.0",
+  "engineVersion": "9d6ad21cbbceab97458517b147a6a09ff43aa735",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider        = \"prisma-client\"\n  output          = \"../generated/prisma\"\n  previewFeatures = [\"fullTextSearchPostgres\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Mood {\n  CHILL\n  PARTY\n  BEFORE\n  MAIN_DISHES\n  DESERT\n}\n\nenum Types {\n  FECULENT\n  LEGUME\n  FRUIT\n  LAITIER\n  VIANDE\n  POISSON\n  MATIERE_GRASSE\n  EPICE\n  LIQUIDE\n  AUTRE\n}\n\nenum Units {\n  KG\n  GR\n  L\n  CL\n  DL\n  UNITE\n}\n\nmodel User {\n  id    Int    @id @default(autoincrement())\n  email String @unique\n  name  String\n}\n\nmodel Ingredient {\n  id       Int      @id @default(autoincrement())\n  Name     String   @unique\n  Type     Types\n  Quantity Float\n  Unit     Units\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id               Int          @id @default(autoincrement())\n  Name             String       @unique\n  Date             DateTime     @default(now())\n  Autor            String\n  Description      String\n  Instructions     String\n  Ingredients      Ingredient[]\n  mood             Mood[]\n  Preparation_time Int\n  Cooking_time     Int\n  Quantity         String\n  Photo            String\n  Tools            String[]\n  Calorie          String\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nenum Mood {\n  CHILL\n  PARTY\n  BEFORE\n  MAIN_DISHES\n  DESERT\n}\n\nenum Types {\n  FECULENT\n  LEGUME\n  FRUIT\n  LAITIER\n  VIANDE\n  POISSON\n  MATIERE_GRASSE\n  EPICE\n  LIQUIDE\n  AUTRE\n}\n\nenum Units {\n  KG\n  GR\n  L\n  CL\n  DL\n  UNITE\n}\n\nmodel User {\n  id    Int    @id @default(autoincrement())\n  email String @unique\n  name  String\n}\n\nmodel Ingredient {\n  id       Int      @id @default(autoincrement())\n  Name     String   @unique\n  Type     Types\n  Quantity Float\n  Unit     Units\n  recipe   Recipe[]\n}\n\nmodel Recipe {\n  id               Int          @id @default(autoincrement())\n  Name             String       @unique\n  Date             DateTime     @default(now())\n  Autor            String\n  Description      String\n  Instructions     String\n  Ingredients      Ingredient[]\n  mood             Mood[]\n  Preparation_time Int\n  Cooking_time     Int\n  Quantity         String\n  Photo            String\n  Tools            String[]\n  Calorie          String\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -39,12 +37,14 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.mjs"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_fast_bg.postgresql.wasm-base64.mjs")
     return await decodeBase64AsWasm(wasm)
-  }
+  },
+
+  importName: "./query_compiler_fast_bg.js"
 }
 
 

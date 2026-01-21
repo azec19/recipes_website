@@ -766,6 +766,16 @@
           "DESERT"
         ]
       },
+      "Difficulties": {
+        "type": "string",
+        "enum": [
+          "EASY",
+          "MEDIUM",
+          "TECHNICAL",
+          "HARD",
+          "IMPOSSIBLE"
+        ]
+      },
       "Recipe": {
         "type": "object",
         "properties": {
@@ -800,13 +810,16 @@
             }
           },
           "Preparation_time": {
-            "type": "string"
+            "type": "integer"
           },
           "Cooking_time": {
-            "type": "string"
+            "type": "integer"
           },
           "Quantity": {
             "type": "string"
+          },
+          "Difficultie": {
+            "$ref": "#/components/schemas/Difficulties"
           },
           "Photo": {
             "type": "string"

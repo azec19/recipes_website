@@ -1,3 +1,4 @@
+import { diff } from 'node:util';
 import { prisma } from './prisma.js'
 
 export async function GetAllRecipe() {
@@ -10,7 +11,7 @@ export async function GetAllRecipe() {
     );
 }
 
-export async function CreateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
+export async function CreateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
     const recipe = await prisma.recipe.create({
         data: {
@@ -24,6 +25,7 @@ export async function CreateRecipe(name, date, autor, description, instructions,
             Preparation_time: preparationTime,
             Cooking_time: cookingTime,
             Quantity: quantity,
+            Difficultie: difficultie,
             Photo: photo,
             Tools: tools,
             Calorie: calorie
@@ -34,7 +36,7 @@ export async function CreateRecipe(name, date, autor, description, instructions,
 
 export async function findByName(name) {
     // Fetch recipes with right name
-    return await prisma.recipe.findUnique({
+    return await prisma.recipe.findFirst({
         where: {
             Name: {
                 contains: name,
@@ -55,7 +57,7 @@ export async function FullTextSearch(text) {
     })
 }
 
-export async function UpdateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, photo, tools, calorie) {
+export async function UpdateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
     console.log(ingredients);
     
@@ -73,6 +75,7 @@ export async function UpdateRecipe(name, date, autor, description, instructions,
             Preparation_time: preparationTime,
             Cooking_time: cookingTime,
             Quantity: quantity,
+            Difficultie: difficultie,
             Photo: photo,
             Tools: tools,
             Calorie: calorie

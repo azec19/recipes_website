@@ -36,3 +36,29 @@ export enum Mood {
     MAIN_DISHES,
     DESERT
 }
+
+export enum Difficulties {
+    EASY = 0,
+    MEDIUM,
+    TECHNICAL,
+    HARD,
+    IMPOSSIBLE,
+}
+
+export type Recipe = {
+  id : Int16Array;
+  Name : string;
+  Date : Date;
+  Autor : string;
+  Description : string;
+  Instructions : string;
+  Ingredients : Ingredient[];
+  mood : Mood[];
+  Preparation_time : Int16Array;
+  Cooking_time : Int16Array;
+  Quantity : string;
+  Difficultie : Difficulties;
+  Photo : string;
+  Tools : string[];
+  Calorie : string;
+}

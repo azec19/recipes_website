@@ -230,7 +230,6 @@ export type IngredientOrderByWithRelationInput = {
   Quantity?: Prisma.SortOrder
   Unit?: Prisma.SortOrder
   recipe?: Prisma.RecipeOrderByRelationAggregateInput
-  _relevance?: Prisma.IngredientOrderByRelevanceInput
 }
 
 export type IngredientWhereUniqueInput = Prisma.AtLeast<{
@@ -324,12 +323,6 @@ export type IngredientUncheckedUpdateManyInput = {
   Type?: Prisma.EnumTypesFieldUpdateOperationsInput | $Enums.Types
   Quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   Unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
-}
-
-export type IngredientOrderByRelevanceInput = {
-  fields: Prisma.IngredientOrderByRelevanceFieldEnum | Prisma.IngredientOrderByRelevanceFieldEnum[]
-  sort: Prisma.SortOrder
-  search: string
 }
 
 export type IngredientCountOrderByAggregateInput = {
