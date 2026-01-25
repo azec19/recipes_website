@@ -53,7 +53,7 @@ export async function updateRecipe(req, res) {
     try {
         const newrecipe = await recipeService.updateRecipe(
             req.body.id,
-            req.body.name,
+            req.body.Name,
             req.body.Date,
             req.body.Autor,
             req.body.Description,

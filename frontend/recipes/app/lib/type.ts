@@ -30,11 +30,11 @@ export type Ingredient = {
 }
 
 export enum Mood {
-    CHILL,
-    PARTY,
-    BEFORE,
-    MAIN_DISHES,
-    DESERT
+    CHILL = "Chill",
+    PARTY = "Party",
+    BEFORE = "Before",
+    MAIN_DISHES = "Main dishe",
+    DESERT = "Desert"
 }
 
 export enum Difficulties {

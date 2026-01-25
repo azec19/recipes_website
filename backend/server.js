@@ -7,7 +7,7 @@ import swaggerDocument from './swagger/swagger.json' with { type: 'json' }
 import multer from 'multer'
 import path from 'path'
 
-// ⚠️ Import ESM du router applicatif
+// Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
 import ingredientRouter from './Presentation/Routes/ingredient.routes.js'
 import recipeRouter from './Presentation/Routes/recipe.routes.js'
@@ -30,8 +30,7 @@ const storage = multer.diskStorage({
     cb(null, 'upload/'); // Files will be stored in the 'uploads' folder
   },
   filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
+    cb(null, file.originalname);
   },
 });
 
@@ -48,10 +47,10 @@ app.post('/upload', upload.single('file'), (req, res) => {
   res.send(`File uploaded successfully! Filename: ${req.file.filename}`);
 });
 
-// ⚠️ Toutes les autres routes applicatives
-app.use('/', userRouter)     // ou app.use('/api', userRouter) si tu préfères un préfixe
-app.use('/', ingredientRouter)     // ou app.use('/api', ingredientRouter) si tu préfères un préfixe
-app.use('/', recipeRouter)     // ou app.use('/api', recipeRouter) si tu préfères un préfixe
+// Toutes les autres routes applicatives
+app.use('/', userRouter)     
+app.use('/', ingredientRouter)
+app.use('/', recipeRouter)    
 
 // 404 si aucune route ne matche (hors Swagger)
 app.use((req, res, _next) => {

@@ -7,6 +7,12 @@ export async function fetchAllRecipes(): Promise<Recipe[]> {
     return json
 }
 
+export async function fetchRecipesByName(name:string): Promise<Recipe> {
+    const res = await fetch('http://localhost:3001/api/recipe/name/'+name);
+    let json = await res.json();
+    return json
+}
+
 export async function fetchAllIngredients(): Promise<Ingredient[]> {
     const res = await fetch('http://localhost:3001/api/ingredient');
     let json = await res.json();

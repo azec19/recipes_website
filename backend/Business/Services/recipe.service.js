@@ -22,7 +22,7 @@ export async function createRecipe(Name,
     Photo,
     Tools,
     Calorie,) {
-        
+
     const existing = await recipeDAO.findByName(Name);
     if (existing) {
         throw new Error("Recipe already exists");
@@ -77,7 +77,7 @@ export async function getRecipeByFullTextSearch(text) {
     return ingredients;
 };
 
-export async function updateRecipe(id, 
+export async function updateRecipe(id,
     Name,
     Date,
     Autor,
@@ -92,21 +92,23 @@ export async function updateRecipe(id,
     Photo,
     Tools,
     Calorie,) {
-    const recipe = await recipeDAO.findById(Name);
+    const recipe = await recipeDAO.findById(id);
     if (!recipe) {
         throw new Error("Recipe doesn't exist");
     }
 
     let ingredientsConnectOrCreate = []
-    ingredientsConnectOrCreate = Ingredients.map(i => ({
-        where: { Name: i.Name },
-        create: {
-            Name: i.Name,
-            Type: i.Type,
-            Quantity: i.Quantity,
-            Unit: i.Unit
-        }
-    }));
+    if (Ingredients) {
+        ingredientsConnectOrCreate = Ingredients.map(i => ({
+            where: { Name: i.Name },
+            create: {
+                Name: i.Name,
+                Type: i.Type,
+                Quantity: i.Quantity,
+                Unit: i.Unit
+            }
+        }));
+    }
     Name = Name ? Name : recipe.Name
     Date = Date ? Date : recipe.Date
     Autor = Autor ? Autor : recipe.Autor
