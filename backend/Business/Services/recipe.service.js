@@ -22,10 +22,11 @@ export async function createRecipe(Name,
     Photo,
     Tools,
     Calorie,) {
-    // const existing = await recipeDAO.findByName(Name);
-    // if (existing) {
-    //     throw new Error("Recipe already exists");
-    // }
+        
+    const existing = await recipeDAO.findByName(Name);
+    if (existing) {
+        throw new Error("Recipe already exists");
+    }
 
 
     const date_ = new Date(date)
@@ -76,7 +77,8 @@ export async function getRecipeByFullTextSearch(text) {
     return ingredients;
 };
 
-export async function updateRecipe(Name,
+export async function updateRecipe(id, 
+    Name,
     Date,
     Autor,
     Description,
@@ -90,7 +92,7 @@ export async function updateRecipe(Name,
     Photo,
     Tools,
     Calorie,) {
-    const recipe = await recipeDAO.findByName(Name);
+    const recipe = await recipeDAO.findById(Name);
     if (!recipe) {
         throw new Error("Recipe doesn't exist");
     }
@@ -120,8 +122,7 @@ export async function updateRecipe(Name,
     Tools = Tools ? Tools : recipe.Tools
     Calorie = Calorie ? Calorie : recipe.Calorie
 
-    console.log(ingredientsConnectOrCreate);
-    return recipeDAO.UpdateRecipe(Name,
+    return recipeDAO.UpdateRecipe(id, Name,
         Date,
         Autor,
         Description,

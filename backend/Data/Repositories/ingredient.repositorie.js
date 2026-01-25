@@ -27,7 +27,6 @@ export async function deleteIngredient(name) {
 
 export async function updateIngredient(id_, name, type, quantity, unit) {
     // Create a new ingredient
-    console.log(typeof id_);
     
     const ingredient = await prisma.ingredient.update({
         where: {
@@ -61,7 +60,6 @@ export async function findById(id_) {
 
 export async function findByName(name) {
     // Fetch ingredients with right name
-    console.log(name);
     
     return await prisma.ingredient.findFirst({
         where: {

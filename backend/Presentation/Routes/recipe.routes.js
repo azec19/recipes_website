@@ -9,8 +9,8 @@ const router = Router()
 
 router.get('/recipe', recipeController.getAllRecipe);
 router.post('/recipe', recipeController.createRecipe);
+router.put('/recipe', recipeController.updateRecipe);
 router.get('/recipe/name/:name', recipeController.getRecipeByName);
-router.put('/recipe/name/:name', recipeController.updateRecipe);
 router.delete('/recipe/name/:name', recipeController.deleteRecipe);
 router.get('/recipe/autor/:autor', recipeController.getRecipeByAutor);
 router.get('/recipe/mood/:mood', recipeController.getRecipeByMood);

@@ -11,6 +11,7 @@ export async function getAllRecipe(req, res) {
 };
 
 export async function createRecipe(req, res) {
+    
     try {
         const newrecipe = await recipeService.createRecipe(
             req.body.Name,
@@ -19,7 +20,7 @@ export async function createRecipe(req, res) {
             req.body.Description,
             req.body.Instructions,
             req.body.Ingredients,
-            req.body.mood,
+            req.body.Mood,
             req.body.Preparation_time,
             req.body.Cooking_time,
             req.body.Quantity,
@@ -49,17 +50,16 @@ export async function getRecipeByName(req, res) {
 };
 
 export async function updateRecipe(req, res) {
-    console.log(req.params.name);
-    
     try {
         const newrecipe = await recipeService.updateRecipe(
-            req.params.name,
+            req.body.id,
+            req.body.name,
             req.body.Date,
             req.body.Autor,
             req.body.Description,
             req.body.Instructions,
             req.body.Ingredients,
-            req.body.mood,
+            req.body.Mood,
             req.body.Preparation_time,
             req.body.Cooking_time,
             req.body.Quantity,

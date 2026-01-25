@@ -44,6 +44,14 @@ enum Units {
     UNITE
 }
 
+enum Difficulties {
+    EASY
+    MEDIUM
+    TECHNICAL
+    HARD
+    IMPOSSIBLE
+}
+
 model User {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -57,14 +65,6 @@ model Ingredient {
   Quantity Float
   Unit     Units
   recipe   Recipe[]
-}
-
-enum Difficulties {
-    EASY
-    MEDIUM
-    TECHNICAL
-    HARD
-    IMPOSSIBLE
 }
 
 model Recipe {

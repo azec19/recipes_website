@@ -698,6 +698,7 @@ export const RecipeScalarFieldEnum = {
   Preparation_time: 'Preparation_time',
   Cooking_time: 'Cooking_time',
   Quantity: 'Quantity',
+  Difficultie: 'Difficultie',
   Photo: 'Photo',
   Tools: 'Tools',
   Calorie: 'Calorie'
@@ -823,6 +824,20 @@ export type ListEnumMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaM
  * Reference to a field of type 'Mood'
  */
 export type EnumMoodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Mood'>
+    
+
+
+/**
+ * Reference to a field of type 'Difficulties'
+ */
+export type EnumDifficultiesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulties'>
+    
+
+
+/**
+ * Reference to a field of type 'Difficulties[]'
+ */
+export type ListEnumDifficultiesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Difficulties[]'>
     
 
 /**

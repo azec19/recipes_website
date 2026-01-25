@@ -11,8 +11,10 @@ export async function GetAllRecipe() {
     );
 }
 
-export async function CreateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
+export async function CreateRecipe(name, date, autor, description, instructions, ingredients, mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
+    
+    console.log(difficultie);
     const recipe = await prisma.recipe.create({
         data: {
             Name: name,
@@ -21,7 +23,7 @@ export async function CreateRecipe(name, date, autor, description, instructions,
             Description: description,
             Instructions: instructions,
             Ingredients: { connectOrCreate: ingredients },
-            mood: Mood,
+            mood: mood,
             Preparation_time: preparationTime,
             Cooking_time: cookingTime,
             Quantity: quantity,
@@ -36,36 +38,34 @@ export async function CreateRecipe(name, date, autor, description, instructions,
 
 export async function findByName(name) {
     // Fetch recipes with right name
-    return await prisma.recipe.findFirst({
+    console.log(name);
+    
+    const temp = await prisma.recipe.findFirst({
         where: {
             Name: {
                 contains: name,
                 mode: 'insensitive'
             },
         },
+        include: {
+            Ingredients: true
+        }
     })
-}
-
-export async function FullTextSearch(text) {
-    return await prisma.ingredient.findMany({
-        where: {
-            Name: {
-                contains: text,
-                mode: 'insensitive'
-            },
-        },
-    })
-}
-
-export async function UpdateRecipe(name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
-    // Create a new recipe
-    console.log(ingredients);
+    // console.log(temp);
+    return temp;
     
+}
+
+
+export async function UpdateRecipe(id_, name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
+    // Create a new recipe
+
     const recipe = await prisma.recipe.update({
         where: {
-            Name: name
+            id: id_,
         },
         data: {
+            Name: name,
             Date: date,
             Autor: autor,
             Description: description,
@@ -94,6 +94,17 @@ export async function DeleteRecipe(name) {
     return recipe
 }
 
+export async function findById(id_) {
+    // Fetch recipe with right name
+    return await prisma.recipe.findUnique({
+        where: {
+            id: id_
+        },
+        include: {
+            Ingredients: true
+        }
+    })
+}
 
 export async function findByAutor(autor) {
     // Fetch recipes with right ID
@@ -104,6 +115,9 @@ export async function findByAutor(autor) {
                 mode: 'insensitive'
             },
         },
+        include: {
+            Ingredients: true
+        }
     })
 }
 
@@ -114,6 +128,7 @@ const recipeRepository = {
     findByName,
     UpdateRecipe,
     DeleteRecipe,
+    findById,
     findByAutor,
 }
 export default recipeRepository;

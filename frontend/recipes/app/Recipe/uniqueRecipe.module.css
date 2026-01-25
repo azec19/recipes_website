@@ -1,0 +1,39 @@
+.grid {
+    margin: auto;
+    width: 20vw;
+    height: 30vh;
+    padding: 10px;
+    display: grid;
+    background-color: transparent;
+    grid-template-columns: auto auto;
+    grid-template-rows: repeat(5, auto);
+}
+.box {
+    padding: 0px;
+  }
+  
+.photo{
+    grid-column: 1;
+    grid-row: 1/6;
+}
+.name {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: 200%;
+}
+.preparation {
+    grid-column: 2;
+    grid-row: 2;
+}
+.cooking {
+    grid-column: 2;
+    grid-row: 3;
+}
+.difficulties {
+    grid-column: 2;
+    grid-row: 4;
+}
+.mood {
+    grid-column: 2;
+    grid-row: 5;
+}

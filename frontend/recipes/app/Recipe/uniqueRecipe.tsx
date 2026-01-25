@@ -1,14 +1,21 @@
 import { Recipe } from "../lib/type"
+import style from './uniqueRecipe.module.css'
 
-export default function recipe(recipe: Recipe) {
+type Props = {
+    recipe: Recipe;
+};
+
+export default function recipe({ recipe }: Props) {
+    console.log(recipe);
+
     return (
-        <div className="container">
-            <div className="item photo"> fetching {recipe.Photo} </div>
-            <div className="item name">{recipe.Name} </div>
-            <div className="item preparation">{recipe.Preparation_time} </div>
-            <div className="item cooking"> {recipe.Cooking_time}</div>
-            <div className="item difficulties">{recipe.Difficultie} </div>
-            <div className="item mood"> {recipe.mood}</div>
+        <div className={style.grid}>
+            <div className={`${style.box} ${style.photo}`}>fetching {recipe.Photo}</div>
+            <div className={`${style.box} ${style.name}`}>{recipe.Name}</div>
+            <div className={`${style.box} ${style.preparation}`}>temps de préparation :{recipe.Preparation_time}</div>
+            <div className={`${style.box} ${style.cooking}`}>temps de cuisson :{recipe.Cooking_time}</div>
+            <div className={`${style.box} ${style.difficulties}`}>Difficulté :{recipe.Difficultie}</div>
+            <div className={`${style.box} ${style.mood}`}>Type : {recipe.mood}</div>
         </div>
     )
 }

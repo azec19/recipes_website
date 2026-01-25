@@ -103,6 +103,7 @@ export const RecipeScalarFieldEnum = {
   Preparation_time: 'Preparation_time',
   Cooking_time: 'Cooking_time',
   Quantity: 'Quantity',
+  Difficultie: 'Difficultie',
   Photo: 'Photo',
   Tools: 'Tools',
   Calorie: 'Calorie'

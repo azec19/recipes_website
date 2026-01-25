@@ -1,17 +1,21 @@
-'use client'
 
 import Bandeau from "../Bandeau/Bandeau"
 import SearchBar from "./searchBar"
+import RecipeContent from "./uniqueRecipe"
+import {Recipe} from "../lib/type"
+import {fetchAllRecipes} from "../lib/data"
+import recipe from "./uniqueRecipe"
 
 const ROUNDED = 8 
-export default function app(){
+export default async function app(){
 
-
+const recipes: Recipe[] = await fetchAllRecipes()
   return (
     <div>
     <Bandeau />  
     <h1 className="text-center font-inika text-[50px]">List des recettes</h1>
     <SearchBar/>
+    <RecipeContent recipe={recipes[1]}/>
         <div className="bg-white text-black font-inika mx-[20%] my-[3%] p-[3%] rounded-[30]">            
             <div className="text-center text-[50px]">
             <h1> Add a new recipe </h1>

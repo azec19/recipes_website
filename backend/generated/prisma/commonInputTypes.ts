@@ -146,6 +146,13 @@ export type DateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
+export type EnumDifficultiesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Difficulties | Prisma.EnumDifficultiesFieldRefInput<$PrismaModel>
+  in?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel> | $Enums.Difficulties
+}
+
 export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -158,6 +165,16 @@ export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type EnumDifficultiesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Difficulties | Prisma.EnumDifficultiesFieldRefInput<$PrismaModel>
+  in?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDifficultiesWithAggregatesFilter<$PrismaModel> | $Enums.Difficulties
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -290,6 +307,13 @@ export type NestedDateTimeFilter<$PrismaModel = never> = {
   not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string
 }
 
+export type NestedEnumDifficultiesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Difficulties | Prisma.EnumDifficultiesFieldRefInput<$PrismaModel>
+  in?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel> | $Enums.Difficulties
+}
+
 export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>
@@ -302,6 +326,16 @@ export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeFilter<$PrismaModel>
+}
+
+export type NestedEnumDifficultiesWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.Difficulties | Prisma.EnumDifficultiesFieldRefInput<$PrismaModel>
+  in?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  notIn?: $Enums.Difficulties[] | Prisma.ListEnumDifficultiesFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDifficultiesWithAggregatesFilter<$PrismaModel> | $Enums.Difficulties
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDifficultiesFilter<$PrismaModel>
 }
 
 

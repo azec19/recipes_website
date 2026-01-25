@@ -446,6 +446,34 @@
             }
           }
         }
+      },
+      "put": {
+        "summary": "Update recipe by name",
+        "tags": [
+          "Recipes"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Recipe"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated recipe",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/recipe/name/{name}": {
@@ -467,44 +495,6 @@
         "responses": {
           "200": {
             "description": "The recipe",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Recipe"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "summary": "Update recipe by name",
-        "tags": [
-          "Recipes"
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Recipe"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "The updated recipe",
             "content": {
               "application/json": {
                 "schema": {

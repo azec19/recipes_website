@@ -46,3 +46,14 @@ export const Units = {
 } as const
 
 export type Units = (typeof Units)[keyof typeof Units]
+
+
+export const Difficulties = {
+  EASY: 'EASY',
+  MEDIUM: 'MEDIUM',
+  TECHNICAL: 'TECHNICAL',
+  HARD: 'HARD',
+  IMPOSSIBLE: 'IMPOSSIBLE'
+} as const
+
+export type Difficulties = (typeof Difficulties)[keyof typeof Difficulties]

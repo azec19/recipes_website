@@ -1,5 +1,11 @@
-import { Ingredient } from "./type"
+import { Ingredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
+
+export async function fetchAllRecipes(): Promise<Recipe[]> {
+    const res = await fetch('http://localhost:3001/api/recipe');
+    let json = await res.json();
+    return json
+}
 
 export async function fetchAllIngredients(): Promise<Ingredient[]> {
     const res = await fetch('http://localhost:3001/api/ingredient');

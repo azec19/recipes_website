@@ -48,6 +48,7 @@ export type RecipeMinAggregateOutputType = {
   Preparation_time: number | null
   Cooking_time: number | null
   Quantity: string | null
+  Difficultie: $Enums.Difficulties | null
   Photo: string | null
   Calorie: string | null
 }
@@ -62,6 +63,7 @@ export type RecipeMaxAggregateOutputType = {
   Preparation_time: number | null
   Cooking_time: number | null
   Quantity: string | null
+  Difficultie: $Enums.Difficulties | null
   Photo: string | null
   Calorie: string | null
 }
@@ -77,6 +79,7 @@ export type RecipeCountAggregateOutputType = {
   Preparation_time: number
   Cooking_time: number
   Quantity: number
+  Difficultie: number
   Photo: number
   Tools: number
   Calorie: number
@@ -106,6 +109,7 @@ export type RecipeMinAggregateInputType = {
   Preparation_time?: true
   Cooking_time?: true
   Quantity?: true
+  Difficultie?: true
   Photo?: true
   Calorie?: true
 }
@@ -120,6 +124,7 @@ export type RecipeMaxAggregateInputType = {
   Preparation_time?: true
   Cooking_time?: true
   Quantity?: true
+  Difficultie?: true
   Photo?: true
   Calorie?: true
 }
@@ -135,6 +140,7 @@ export type RecipeCountAggregateInputType = {
   Preparation_time?: true
   Cooking_time?: true
   Quantity?: true
+  Difficultie?: true
   Photo?: true
   Tools?: true
   Calorie?: true
@@ -238,6 +244,7 @@ export type RecipeGroupByOutputType = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools: string[]
   Calorie: string
@@ -277,6 +284,7 @@ export type RecipeWhereInput = {
   Preparation_time?: Prisma.IntFilter<"Recipe"> | number
   Cooking_time?: Prisma.IntFilter<"Recipe"> | number
   Quantity?: Prisma.StringFilter<"Recipe"> | string
+  Difficultie?: Prisma.EnumDifficultiesFilter<"Recipe"> | $Enums.Difficulties
   Photo?: Prisma.StringFilter<"Recipe"> | string
   Tools?: Prisma.StringNullableListFilter<"Recipe">
   Calorie?: Prisma.StringFilter<"Recipe"> | string
@@ -294,6 +302,7 @@ export type RecipeOrderByWithRelationInput = {
   Preparation_time?: Prisma.SortOrder
   Cooking_time?: Prisma.SortOrder
   Quantity?: Prisma.SortOrder
+  Difficultie?: Prisma.SortOrder
   Photo?: Prisma.SortOrder
   Tools?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
@@ -314,6 +323,7 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   Preparation_time?: Prisma.IntFilter<"Recipe"> | number
   Cooking_time?: Prisma.IntFilter<"Recipe"> | number
   Quantity?: Prisma.StringFilter<"Recipe"> | string
+  Difficultie?: Prisma.EnumDifficultiesFilter<"Recipe"> | $Enums.Difficulties
   Photo?: Prisma.StringFilter<"Recipe"> | string
   Tools?: Prisma.StringNullableListFilter<"Recipe">
   Calorie?: Prisma.StringFilter<"Recipe"> | string
@@ -331,6 +341,7 @@ export type RecipeOrderByWithAggregationInput = {
   Preparation_time?: Prisma.SortOrder
   Cooking_time?: Prisma.SortOrder
   Quantity?: Prisma.SortOrder
+  Difficultie?: Prisma.SortOrder
   Photo?: Prisma.SortOrder
   Tools?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
@@ -355,6 +366,7 @@ export type RecipeScalarWhereWithAggregatesInput = {
   Preparation_time?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   Cooking_time?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   Quantity?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
+  Difficultie?: Prisma.EnumDifficultiesWithAggregatesFilter<"Recipe"> | $Enums.Difficulties
   Photo?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   Tools?: Prisma.StringNullableListFilter<"Recipe">
   Calorie?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
@@ -370,6 +382,7 @@ export type RecipeCreateInput = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools?: Prisma.RecipeCreateToolsInput | string[]
   Calorie: string
@@ -387,6 +400,7 @@ export type RecipeUncheckedCreateInput = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools?: Prisma.RecipeCreateToolsInput | string[]
   Calorie: string
@@ -403,6 +417,7 @@ export type RecipeUpdateInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -420,6 +435,7 @@ export type RecipeUncheckedUpdateInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -437,6 +453,7 @@ export type RecipeCreateManyInput = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools?: Prisma.RecipeCreateToolsInput | string[]
   Calorie: string
@@ -452,6 +469,7 @@ export type RecipeUpdateManyMutationInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -468,6 +486,7 @@ export type RecipeUncheckedUpdateManyInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -510,6 +529,7 @@ export type RecipeCountOrderByAggregateInput = {
   Preparation_time?: Prisma.SortOrder
   Cooking_time?: Prisma.SortOrder
   Quantity?: Prisma.SortOrder
+  Difficultie?: Prisma.SortOrder
   Photo?: Prisma.SortOrder
   Tools?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
@@ -531,6 +551,7 @@ export type RecipeMaxOrderByAggregateInput = {
   Preparation_time?: Prisma.SortOrder
   Cooking_time?: Prisma.SortOrder
   Quantity?: Prisma.SortOrder
+  Difficultie?: Prisma.SortOrder
   Photo?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
 }
@@ -545,6 +566,7 @@ export type RecipeMinOrderByAggregateInput = {
   Preparation_time?: Prisma.SortOrder
   Cooking_time?: Prisma.SortOrder
   Quantity?: Prisma.SortOrder
+  Difficultie?: Prisma.SortOrder
   Photo?: Prisma.SortOrder
   Calorie?: Prisma.SortOrder
 }
@@ -610,6 +632,10 @@ export type RecipeUpdatemoodInput = {
   push?: $Enums.Mood | $Enums.Mood[]
 }
 
+export type EnumDifficultiesFieldUpdateOperationsInput = {
+  set?: $Enums.Difficulties
+}
+
 export type RecipeUpdateToolsInput = {
   set?: string[]
   push?: string | string[]
@@ -625,6 +651,7 @@ export type RecipeCreateWithoutIngredientsInput = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools?: Prisma.RecipeCreateToolsInput | string[]
   Calorie: string
@@ -641,6 +668,7 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   Preparation_time: number
   Cooking_time: number
   Quantity: string
+  Difficultie: $Enums.Difficulties
   Photo: string
   Tools?: Prisma.RecipeCreateToolsInput | string[]
   Calorie: string
@@ -681,6 +709,7 @@ export type RecipeScalarWhereInput = {
   Preparation_time?: Prisma.IntFilter<"Recipe"> | number
   Cooking_time?: Prisma.IntFilter<"Recipe"> | number
   Quantity?: Prisma.StringFilter<"Recipe"> | string
+  Difficultie?: Prisma.EnumDifficultiesFilter<"Recipe"> | $Enums.Difficulties
   Photo?: Prisma.StringFilter<"Recipe"> | string
   Tools?: Prisma.StringNullableListFilter<"Recipe">
   Calorie?: Prisma.StringFilter<"Recipe"> | string
@@ -696,6 +725,7 @@ export type RecipeUpdateWithoutIngredientsInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -712,6 +742,7 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -728,6 +759,7 @@ export type RecipeUncheckedUpdateManyWithoutIngredientsInput = {
   Preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   Cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
   Quantity?: Prisma.StringFieldUpdateOperationsInput | string
+  Difficultie?: Prisma.EnumDifficultiesFieldUpdateOperationsInput | $Enums.Difficulties
   Photo?: Prisma.StringFieldUpdateOperationsInput | string
   Tools?: Prisma.RecipeUpdateToolsInput | string[]
   Calorie?: Prisma.StringFieldUpdateOperationsInput | string
@@ -775,6 +807,7 @@ export type RecipeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   Preparation_time?: boolean
   Cooking_time?: boolean
   Quantity?: boolean
+  Difficultie?: boolean
   Photo?: boolean
   Tools?: boolean
   Calorie?: boolean
@@ -793,6 +826,7 @@ export type RecipeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Preparation_time?: boolean
   Cooking_time?: boolean
   Quantity?: boolean
+  Difficultie?: boolean
   Photo?: boolean
   Tools?: boolean
   Calorie?: boolean
@@ -809,6 +843,7 @@ export type RecipeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   Preparation_time?: boolean
   Cooking_time?: boolean
   Quantity?: boolean
+  Difficultie?: boolean
   Photo?: boolean
   Tools?: boolean
   Calorie?: boolean
@@ -825,12 +860,13 @@ export type RecipeSelectScalar = {
   Preparation_time?: boolean
   Cooking_time?: boolean
   Quantity?: boolean
+  Difficultie?: boolean
   Photo?: boolean
   Tools?: boolean
   Calorie?: boolean
 }
 
-export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "Name" | "Date" | "Autor" | "Description" | "Instructions" | "mood" | "Preparation_time" | "Cooking_time" | "Quantity" | "Photo" | "Tools" | "Calorie", ExtArgs["result"]["recipe"]>
+export type RecipeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "Name" | "Date" | "Autor" | "Description" | "Instructions" | "mood" | "Preparation_time" | "Cooking_time" | "Quantity" | "Difficultie" | "Photo" | "Tools" | "Calorie", ExtArgs["result"]["recipe"]>
 export type RecipeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   Ingredients?: boolean | Prisma.Recipe$IngredientsArgs<ExtArgs>
   _count?: boolean | Prisma.RecipeCountOutputTypeDefaultArgs<ExtArgs>
@@ -854,6 +890,7 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     Preparation_time: number
     Cooking_time: number
     Quantity: string
+    Difficultie: $Enums.Difficulties
     Photo: string
     Tools: string[]
     Calorie: string
@@ -1291,6 +1328,7 @@ export interface RecipeFieldRefs {
   readonly Preparation_time: Prisma.FieldRef<"Recipe", 'Int'>
   readonly Cooking_time: Prisma.FieldRef<"Recipe", 'Int'>
   readonly Quantity: Prisma.FieldRef<"Recipe", 'String'>
+  readonly Difficultie: Prisma.FieldRef<"Recipe", 'Difficulties'>
   readonly Photo: Prisma.FieldRef<"Recipe", 'String'>
   readonly Tools: Prisma.FieldRef<"Recipe", 'String[]'>
   readonly Calorie: Prisma.FieldRef<"Recipe", 'String'>
