@@ -1,6 +1,6 @@
 import { Recipe, Mood } from "../lib/type"
-import Image from 'next/image'
-
+import { listIngredients } from "./Formstore"
+import IngredientForm from "../Ingredient/addForm"
 
 
 export default function formRecipe() {
@@ -54,15 +54,28 @@ export default function formRecipe() {
                             <input type="text" placeholder="Auteur" name="Autor"
                                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
-                        <div className="mb-3">
-                            <input type="text" placeholder="Description" className="border" name="Description" />
+                        <div className="mb-5">
+                            <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
+                                Description de la recette
+                            </label>
+                            <textarea placeholder="Description" rows={3} name="Description"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
-                        <div className="mb-3">
+                        <div className="mb-5">
+                            <IngredientForm />
+
+
+
                             <input type="text" placeholder="Ingredients" className="border" name="Ingredients" />
                         </div>
-                        <div className="mb-3">
-                            <input type="text" placeholder="Instructions" className="border" name="Instructions" />
+                        <div className="mb-5">
+                            <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
+                                Instructions pour la recette
+                            </label>
+                            <textarea placeholder="Instructions" rows={6} name="Instructions"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
+
                         <div className="-mx-3 flex flex-wrap">
                             <div className="w-full px-3 sm:w-1/2">
                                 <div className="mb-5">
@@ -83,8 +96,12 @@ export default function formRecipe() {
                                 </div>
                             </div>
                         </div>
-                        <div className="mb-3">
-                            <input type="text" placeholder="Quantity/Amount of people" className="border" name="Quantity/Amount of people" />
+                        <div className="mb-5">
+                            <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
+                                Nombre de personne prévu
+                            </label>
+                            <input type="text" placeholder="Quantité/Nombre de personne" name="Quantity"
+                                className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div className="mb-3">
                             <input type="text" placeholder="Picture" className="border" name="Picture" />
