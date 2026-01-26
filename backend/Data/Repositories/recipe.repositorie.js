@@ -14,7 +14,6 @@ export async function GetAllRecipe() {
 export async function CreateRecipe(name, date, autor, description, instructions, ingredients, mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
     
-    console.log(difficultie);
     const recipe = await prisma.recipe.create({
         data: {
             Name: name,
@@ -38,7 +37,6 @@ export async function CreateRecipe(name, date, autor, description, instructions,
 
 export async function findByName(name) {
     // Fetch recipes with right name
-    console.log(name);
     
     const temp = await prisma.recipe.findFirst({
         where: {
@@ -51,7 +49,6 @@ export async function findByName(name) {
             Ingredients: true
         }
     })
-    // console.log(temp);
     return temp;
     
 }

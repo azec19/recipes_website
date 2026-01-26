@@ -1,6 +1,7 @@
+import GridComponent from "./datagrid";
 import { Recipe, Mood } from "../lib/type"
 import { listIngredients } from "./Formstore"
-import IngredientForm from "../Ingredient/addForm"
+import { StrictMode } from "react";
 
 
 export default function formRecipe() {
@@ -62,11 +63,7 @@ export default function formRecipe() {
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div className="mb-5">
-                            <IngredientForm />
-
-
-
-                            <input type="text" placeholder="Ingredients" className="border" name="Ingredients" />
+                            <GridComponent />
                         </div>
                         <div className="mb-5">
                             <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">

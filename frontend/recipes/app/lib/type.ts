@@ -22,10 +22,10 @@ export enum Units_ {
 }
 
 export type Ingredient = {
-    id: Int16Array;
+    id: number;
     Name: string;
     Type: Types_;
-    Quantity: Float16Array;
+    Quantity: number;
     Unit: Units_
 }
 
@@ -46,7 +46,7 @@ export enum Difficulties {
 }
 
 export type Recipe = {
-  id : Int16Array;
+  id : number;
   Name : string;
   Date : Date;
   Autor : string;
@@ -54,8 +54,8 @@ export type Recipe = {
   Instructions : string;
   Ingredients : Ingredient[];
   mood : Mood[];
-  Preparation_time : Int16Array;
-  Cooking_time : Int16Array;
+  Preparation_time : number;
+  Cooking_time : number;
   Quantity : string;
   Difficultie : Difficulties;
   Photo : string;

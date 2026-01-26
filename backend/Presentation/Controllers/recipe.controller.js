@@ -1,4 +1,3 @@
-import { log } from 'node:console';
 import recipeService from '../../Business/Services/recipe.service.js'
 
 export async function getAllRecipe(req, res) {
