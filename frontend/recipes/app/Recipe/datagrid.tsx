@@ -9,10 +9,12 @@ import {
   GetRowIdParams,
   EditableCallbackParams,
   RowEditingStoppedEvent,
-  GridOptions
+  GridOptions,
+  CellClickedEvent,
+  RowSelectionOptions
 } from 'ag-grid-community';
 import { Ingredient, Types_, Units_ } from "../lib/type"
-import IngredientForm from '../Ingredient/addForm';
+import { listIngredients } from '../lib/Formstore';
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -25,15 +27,22 @@ const units = Object.values(Object.values(Units_))
 
 const gridOptions: GridOptions = {
   pagination: true,
-  paginationPageSize: 10,
+  paginationPageSize: 5,
   paginationPageSizeSelector: [5, 10, 20, 50],
 }
 
+const rowSelection: RowSelectionOptions = {
+  mode: "multiRow",
+  groupSelects: "descendants",
+  headerCheckbox: false,
+};
+
 export default function GridComponent() {
+  const { list, add, remove } = listIngredients();
   const gridRef = useRef<AgGridReact>(null);
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
-  const [rowData, setRowData] = useState<Ingredient[]>([{ id: 5, Name: "Carotte", Type: Types_.legume, Quantity: 6, Unit: Units_.Kg }]);
+  const [rowData, setRowData] = useState<Ingredient[]>([]);
   const [pinnedBottomRowData, setPinnedBottomRowData] = useState([]);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     { field: "Name", flex: 2, filter: true, editable: true },
@@ -74,7 +83,7 @@ export default function GridComponent() {
     if (!api) {
       return;
     }
-    
+
     api.setGridOption("pinnedBottomRowData", [
       { Name: null, Type: null, Quantity: null, Unit: null },
     ]);
@@ -85,9 +94,23 @@ export default function GridComponent() {
         colKey: "Name",
       });
     });
-    
-    console.log("test");
+
   }, []);
+
+  const removeSelected = useCallback(() => {
+    const selectedRowNodes = gridRef.current!.api.getSelectedNodes();
+    const selectedIds = selectedRowNodes.map(function (rowNode) {
+      return rowNode.id;
+    });
+    const filteredData = rowData.filter(function (dataItem) {
+      if (selectedIds.indexOf(dataItem.Name) >= 0)
+        remove(dataItem.Name)
+      return selectedIds.indexOf(dataItem.Name) < 0
+    });
+    setRowData(filteredData);
+    console.log(list);
+    
+  }, [rowData]);
 
   const onRowEditingStopped = useCallback(
     (params: RowEditingStoppedEvent) => {
@@ -98,10 +121,11 @@ export default function GridComponent() {
       if (data.Name == null) {
         return;
       }
-      data.id = 2
-      rowData.push(data)
-      console.log(rowData);
-      setRowData(rowData);
+      setRowData([data, ...rowData]);
+      add(data)
+      
+      console.log(list);
+      
     },
     [rowData],
   );
@@ -118,16 +142,21 @@ export default function GridComponent() {
       >
         <div>
           <div style={{ marginBottom: "5px", minHeight: "30px" }}>
-            <button type="button" onClick={addNewRow}>Add New Row</button>
+            <button type="button" onClick={addNewRow}
+              className='mr-7 text-[#07074D] pl-3 pr-3 p-1 border border-[#07074D] rounded-xl cursor-pointer hover:text-black hover:bg-gray-300'>Ajouter un nouvel ingrédient</button>
+            <button type="button" onClick={removeSelected} 
+              className='text-[#07074D] pl-3 pr-3 p-1 border border-[#07074D] rounded-xl cursor-pointer hover:text-black hover:bg-gray-300'>Supprimer les ingrédients </button>
           </div>
         </div>
-        <div style={{ flex: "1 1 500px" }}>
+        <div style={{ flex: "1 1 305px" }}>
           <div style={gridStyle}>
             <AgGridReact
               ref={gridRef}
+              gridOptions={gridOptions}
               rowData={rowData}
               columnDefs={columnDefs}
               defaultColDef={defaultColDef}
+              rowSelection={rowSelection}
               editType={"fullRow"}
               getRowId={getRowId}
               pinnedBottomRowData={pinnedBottomRowData}

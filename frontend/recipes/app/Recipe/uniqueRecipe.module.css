@@ -4,6 +4,7 @@
     height: 30vh;
     padding: 10px;
     display: grid;
+    --test : #6b64f29f;
     background-color: transparent;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(5, auto);

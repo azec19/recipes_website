@@ -1,5 +1,5 @@
 import Bandeau from "../Bandeau/Bandeau"
-import { fetchAllIngredients, onSubmit } from "../lib/data"
+import { fetchAllIngredients, onSubmitIngredient } from "../lib/data"
 import { Ingredient } from "../lib/type"
 import DataGrid from "./datagrid"
 import IngredientForm from "./addForm"
@@ -36,7 +36,7 @@ export default async function app() {
             <div className="text-center text-[50px]">
                 <h1> Ajout d'un nouvel ingrédient </h1>
             </div>
-            <IngredientForm onSubmit={onSubmit} />
+            <IngredientForm onSubmit={onSubmitIngredient} />
 
         </div>
 

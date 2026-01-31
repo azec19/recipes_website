@@ -255,7 +255,7 @@
         }
       },
       "put": {
-        "summary": "Update ingredient by name",
+        "summary": "Update ingredient by id",
         "tags": [
           "Ingredients"
         ],

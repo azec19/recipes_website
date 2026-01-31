@@ -15,18 +15,10 @@ import recipeRouter from './Presentation/Routes/recipe.routes.js'
 const app = express()
 const PORT = process.env.PORT ?? 3000
 
-// Middlewares de base
-app.use(express.json())
-
-// Healthcheck simple
-app.get('/', (_req, res) => res.send('API OK'))
-
-// Swagger uniquement sur /api-docs
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
-
 // Configure Multer Storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    log(file)
     cb(null, 'upload/'); // Files will be stored in the 'uploads' folder
   },
   filename: (req, file, cb) => {
@@ -36,16 +28,33 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-// Middleware to serve static files (optional)
-app.use(express.static('public'));
-
 // Route for file upload
 app.post('/upload', upload.single('file'), (req, res) => {
+  console.log(req);
+  
   if (!req.file) {
     return res.status(400).send('No file uploaded!');
   }
-  res.send(`File uploaded successfully! Filename: ${req.file.filename}`);
+  res.send({
+    filename: req.file.filename,
+  });
 });
+
+// Middlewares de base
+app.use(express.json())
+
+// Healthcheck simple
+app.get('/', (_req, res) => res.send('API OK'))
+
+// Swagger uniquement sur /api-docs
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+
+
+// Middleware to serve static files (optional)
+app.use(express.static('public'));
+
+
 
 // Toutes les autres routes applicatives
 app.use('/', userRouter)     

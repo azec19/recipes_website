@@ -11,7 +11,7 @@ export default function recipe({ recipe }: Props) {
         <div className="rounded-xl overflow-hidden shadow-lg flex flex-col bg-[#515151]">
             <div className="relative ">
                 <Image className="w-full "
-                    src={recipe.Photo}
+                    src={`/recipe_picture/${recipe.Photo}`}
                     alt="Sunset in the mountains"
                     width={1000}
                     height={1000}/>

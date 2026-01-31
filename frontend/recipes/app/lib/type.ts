@@ -38,11 +38,11 @@ export enum Mood {
 }
 
 export enum Difficulties {
-    EASY = 0,
-    MEDIUM,
-    TECHNICAL,
-    HARD,
-    IMPOSSIBLE,
+    EASY = "Facile",
+    MEDIUM = "Moyen",
+    TECHNICAL = "Technique",
+    HARD = "Difficile",
+    IMPOSSIBLE = "Impossible",
 }
 
 export type Recipe = {

@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         source: '/api/:path*',
         destination: 'http://localhost:3000/:path*',
       },
+      {
+        source: '/upload',
+        destination: 'http://localhost:3000/:upload',
+      },
     ];
   },
   logging: {
