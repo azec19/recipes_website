@@ -12,7 +12,11 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/upload',
-        destination: 'http://localhost:3000/:upload',
+        destination: 'http://localhost:3000/upload',
+      },
+      {
+        source: '/images/:path*',
+        destination: 'http://localhost:3000/images/:path*',
       },
     ];
   },
@@ -20,6 +24,9 @@ const nextConfig: NextConfig = {
     fetches: {
       fullUrl: true,
     },
+  },
+  images: {
+    remotePatterns: [new URL('http://localhost:3000/images/**')],
   },
 };
 

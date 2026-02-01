@@ -10,6 +10,7 @@ const router = Router()
 router.get('/recipe', recipeController.getAllRecipe);
 router.post('/recipe', recipeController.createRecipe);
 router.put('/recipe', recipeController.updateRecipe);
+// router.get('/recipe/image/:filename', recipeController.getImageByName);
 router.get('/recipe/name/:name', recipeController.getRecipeByName);
 router.delete('/recipe/name/:name', recipeController.deleteRecipe);
 router.get('/recipe/autor/:autor', recipeController.getRecipeByAutor);

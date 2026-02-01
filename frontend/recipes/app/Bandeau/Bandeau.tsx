@@ -12,9 +12,11 @@ export default function Bandeau() {
             className="dark:invert w-[100px] h-auto max-w-none"
           />
           <div className="text-center sm:items-start sm:text-left">
-            <h1 className="max-w-xs font-script text-7xl leading-19 tracking-tight text-black dark:text-zinc-50">
-              Recettes
-            </h1>
+            <Link
+              className="max-w-xs font-script text-7xl leading-19 tracking-tight text-black dark:text-zinc-50"
+              href="/">
+              Recette
+            </Link>
           </div>
         </div>
         <div className="flex justify-between gap-x-15 font-medium">
@@ -23,7 +25,7 @@ export default function Bandeau() {
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             href="/Recipe"
           >
-            Recettes
+            Ajouter une recette
           </Link>
           <Link
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"

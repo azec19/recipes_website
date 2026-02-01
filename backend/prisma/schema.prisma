@@ -60,27 +60,50 @@ model User {
 
 model Ingredient {
   id       Int     @id @default(autoincrement())
-  Name     String  @unique
-  Type     Types
-  Quantity Float
-  Unit     Units
+  name     String  @unique
+  type     Types
+  unit     Units
+  stock StockIngredient?
   recipe   Recipe[]
+}
+
+model StockIngredient {
+  id           Int @id @default(autoincrement())
+  ingredientId Int @unique
+
+  quantity     Float
+  unit         Unit
+
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+}
+
+model RecipeIngredient {
+  recipeId     Int @unique
+  ingredientId Int @unique
+
+  quantity     Float
+  unit         Unit
+
+  recipe       Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+
+  @@id([recipeId, ingredientId])
 }
 
 model Recipe {
   id               Int          @id @default(autoincrement())
-  Name             String       @unique
-  Date             DateTime     @default(now())
-  Autor            String
-  Description      String
-  Instructions     String
-  Ingredients      Ingredient[]
+  name             String       @unique
+  date             DateTime     @default(now())
+  autor            String
+  description      String
+  instructions     String
+  ingredients      RecipeIngredient[]
   mood             Mood[]
-  Preparation_time Int
-  Cooking_time     Int
-  Quantity         String
-  Difficultie      Difficulties
-  Photo            String
-  Tools            String[]
-  Calorie          String
+  preparation_time Int
+  cooking_time     Int
+  quantity         String
+  difficultie      Difficulties
+  photo            String
+  tools            String[]
+  calorie          String
 }

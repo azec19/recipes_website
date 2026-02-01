@@ -9,6 +9,22 @@ export async function getAllRecipe(req, res) {
     }
 };
 
+// export async function getImageByName()
+// {
+//     try {
+//         const name = req.params.name;
+//         if (name) {
+//             const image = await recipeService.getImageByName(name);
+//             res.sendFile(image)
+//         }
+//         else {
+//             res.status(404).json({ message: "invalid name in the request" });
+//         }
+//     } catch (error) {
+//         res.status(404).json({ message: error.message });
+//     }
+// }
+
 export async function createRecipe(req, res) {
     
     try {

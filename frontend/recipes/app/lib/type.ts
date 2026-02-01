@@ -1,26 +1,33 @@
 export enum Types_ {
-    feculent = 'Féculent',
-    legume = 'Légume',
-    fruit = 'Fruit',
-    laitier = 'Laitier',
-    viande = 'Viande',
-    poisson = 'Poisson',
-    matiere_grasse = 'Matière grasse',
-    epice = 'Epice',
-    liquide = 'Liquide',
-    autre = 'Autre'
+    FECULENT = 'Féculent',
+    LEGUME = 'Légume',
+    FRUIT = 'Fruit',
+    LAITIER = 'Laitier',
+    VIANDE = 'Viande',
+    POISSON = 'Poisson',
+    MATIERE_GRASSE = 'Matière grasse',
+    EPICE = 'Epice',
+    LIQUIDE = 'Liquide',
+    AUTRE = 'Autre'
 }
-
+export function typeLabelToEnum(value: string): Types_ {
+  return (Object.entries(Types_) as [keyof typeof Types_, string][])
+    .find(([, v]) => v === value)?.[0] as Types_;
+}
 
 export enum Units_ {
-    Kg = 'Kilogramme',
-    Gr = 'Gramme',
+    KG = 'Kilogramme',
+    GR = 'Gramme',
     L = 'Litre',
-    cl = 'Centilitre',
-    dl = 'Décilitre',
-    unite = 'Unité',
+    CL = 'Centilitre',
+    DL = 'Décilitre',
+    UNITE = 'Unité',
 }
 
+export function unitLabelToEnum(value: string): Units_{
+  return (Object.entries(Units_) as [keyof typeof Units_, string][])
+    .find(([, v]) => v === value)?.[0] as Units_ ;
+}
 export type Ingredient = {
     id: number;
     Name: string;

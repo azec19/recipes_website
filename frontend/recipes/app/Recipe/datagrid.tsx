@@ -20,9 +20,10 @@ import { listIngredients } from '../lib/Formstore';
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 
-const types = Object.values(Object.values(Types_))
 
 const units = Object.values(Object.values(Units_))
+
+const types = Object.values(Object.values(Types_))
 
 
 const gridOptions: GridOptions = {
@@ -54,7 +55,9 @@ export default function GridComponent() {
         values: types
       },
     },
-    { field: "Quantity", flex: 1, editable: true },
+    {
+      field: "Quantity", flex: 1, editable: true, cellDataType: 'number',
+    },
     {
       field: "Unit", flex: 1, editable: true,
       filter: true,
@@ -108,8 +111,7 @@ export default function GridComponent() {
       return selectedIds.indexOf(dataItem.Name) < 0
     });
     setRowData(filteredData);
-    console.log(list);
-    
+
   }, [rowData]);
 
   const onRowEditingStopped = useCallback(
@@ -121,11 +123,12 @@ export default function GridComponent() {
       if (data.Name == null) {
         return;
       }
+      if (data.Quantity == null)
+        data.Quantity = 1;
       setRowData([data, ...rowData]);
       add(data)
-      
-      console.log(list);
-      
+
+
     },
     [rowData],
   );
@@ -144,7 +147,7 @@ export default function GridComponent() {
           <div style={{ marginBottom: "5px", minHeight: "30px" }}>
             <button type="button" onClick={addNewRow}
               className='mr-7 text-[#07074D] pl-3 pr-3 p-1 border border-[#07074D] rounded-xl cursor-pointer hover:text-black hover:bg-gray-300'>Ajouter un nouvel ingrédient</button>
-            <button type="button" onClick={removeSelected} 
+            <button type="button" onClick={removeSelected}
               className='text-[#07074D] pl-3 pr-3 p-1 border border-[#07074D] rounded-xl cursor-pointer hover:text-black hover:bg-gray-300'>Supprimer les ingrédients </button>
           </div>
         </div>

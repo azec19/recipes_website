@@ -9,36 +9,11 @@ import path from 'path'
 
 // Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
-import ingredientRouter from './Presentation/Routes/ingredient.routes.js'
+import stockIngredientRouter from './Presentation/Routes/stockIngredient.route.js'
 import recipeRouter from './Presentation/Routes/recipe.routes.js'
 
 const app = express()
 const PORT = process.env.PORT ?? 3000
-
-// Configure Multer Storage
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    log(file)
-    cb(null, 'upload/'); // Files will be stored in the 'uploads' folder
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage });
-
-// Route for file upload
-app.post('/upload', upload.single('file'), (req, res) => {
-  console.log(req);
-  
-  if (!req.file) {
-    return res.status(400).send('No file uploaded!');
-  }
-  res.send({
-    filename: req.file.filename,
-  });
-});
 
 // Middlewares de base
 app.use(express.json())
@@ -55,10 +30,34 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use(express.static('public'));
 
 
+// Configure Multer Storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'upload/'); // Files will be stored in the 'uploads' folder
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Route for file upload
+app.post('/upload', upload.single('file'), (req, res) => {
+  
+  if (!req.file) {
+    return res.status(400).send('No file uploaded!');
+  }
+  res.send({
+    filename: req.file.filename,
+  });
+});
+
+app.use('/images',express.static('upload'))
 
 // Toutes les autres routes applicatives
 app.use('/', userRouter)     
-app.use('/', ingredientRouter)
+app.use('/', stockIngredientRouter)
 app.use('/', recipeRouter)    
 
 // 404 si aucune route ne matche (hors Swagger)

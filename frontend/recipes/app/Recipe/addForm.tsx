@@ -2,7 +2,7 @@
 'use client'
 
 import GridComponent from "./datagrid";
-import { Difficulties, Mood } from "../lib/type"
+import { Difficulties, Mood, typeLabelToEnum,unitLabelToEnum} from "../lib/type"
 import { listIngredients } from '../lib/Formstore';
 
 type Props = {
@@ -21,11 +21,14 @@ export default function formRecipe({ onSubmit }: Props) {
     const difficulties: Difficulties[] = Object.keys(Difficulties) as Difficulties[];
 
 
+    
+
     const submit = async (formData: FormData) => {
         // tu peux enrichir les données
+        list.forEach((ingredient) => ingredient.Type = typeLabelToEnum(ingredient.Type))
+        list.forEach((ingredient) => ingredient.Unit = unitLabelToEnum(ingredient.Unit))
         formData.append('ingredients', JSON.stringify(list))
         await onSubmit(formData)
-
         reset() // reset Zustand après succès
     }
 
@@ -62,7 +65,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     <select name="mood"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                         {moods.map(mood => (
-                                            <option key={mood} value={Mood[mood]}>{Mood[mood]}</option>
+                                            <option key={mood} value={mood}>{Mood[mood]}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -147,7 +150,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     <select name="difficulty"
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                         {difficulties.map(difficultie => (
-                                            <option key={difficultie} value={Difficulties[difficultie]}>{Difficulties[difficultie]}</option>
+                                            <option key={difficultie} value={difficultie}>{Difficulties[difficultie]}</option>
                                         ))}
                                     </select>
                                 </div>

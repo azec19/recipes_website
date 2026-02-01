@@ -1,4 +1,5 @@
 import recipeDAO from '../../Data/Repositories/recipe.repositorie.js'
+import fs from 'fs';
 
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
@@ -7,6 +8,11 @@ export async function getAllRecipe() {
     }
     return recipes;
 };
+
+// export async function getImageByName(name)
+// {
+
+// }
 
 export async function createRecipe(Name,
     date,

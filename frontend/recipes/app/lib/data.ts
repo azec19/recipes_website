@@ -50,7 +50,7 @@ export async function onSubmitRecipe(formData: FormData) {
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     const data = {
         Name: formData.get('name') as string,
-        Date: new Date(formData.get('date') as string),
+        Date: formData.get('date') as string,
         Autor: formData.get('autor') as string,
         Description: formData.get('description') as string,
         Instructions: formData.get('instructions') as string,
@@ -64,7 +64,6 @@ export async function onSubmitRecipe(formData: FormData) {
         Tools: toolsList,
         Calorie: formData.get('calorie') as string
     };
-    console.log(data);
 
     const response = await fetch('http://localhost:3001/api/recipe', {
         method: 'POST',
@@ -74,6 +73,10 @@ export async function onSubmitRecipe(formData: FormData) {
         },
         body: JSON.stringify(data),
     })
+    if (!response.ok) {
+        const text = await response.text()
+        throw new Error(text)
+    }
     const result = await response.json()
     const picture = formData.get('picture') as File
     const formData_picture = new FormData()
@@ -87,12 +90,14 @@ export async function onSubmitRecipe(formData: FormData) {
         throw new Error(text)
     }
 
-    const { result_picture } = await response_picture.json()
+    const  result_picture  = await response_picture.json()
+    
     const update = {
-        id: result.redirected,
-        Photo: result_picture
+        id: result.id,
+        Photo: result_picture.filename
     }
-    await fetch('http://localhost:3001/recipe', {
+    
+    const update_response = await fetch('http://localhost:3001/api/recipe', {
         method: 'PUT',
         headers: {
             'accept': 'application/json',
@@ -100,6 +105,10 @@ export async function onSubmitRecipe(formData: FormData) {
         },
         body: JSON.stringify(update),
     })
+    if (!update_response.ok) {
+        const text = await update_response.text()
+        throw new Error(text)
+    }
 
 }
 
