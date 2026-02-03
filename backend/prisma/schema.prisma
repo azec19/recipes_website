@@ -62,7 +62,7 @@ model Ingredient {
   id       Int     @id @default(autoincrement())
   name     String  @unique
   type     Types
-  unit     Units
+  
   stock StockIngredient?
   recipe   Recipe[]
 }

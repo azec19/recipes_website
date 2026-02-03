@@ -1,35 +1,36 @@
-import { diff } from 'node:util';
 import { prisma } from './prisma.js'
 
 export async function GetAllRecipe() {
     // Fetch all recipes
     return await prisma.recipe.findMany({
         include: {
-            Ingredients: true
+            ingredients: {
+                include: { ingredient: true } // Grâce à la relation, Prisma fait la jointure tout seul
+            }
         }
     }
     );
 }
 
-export async function CreateRecipe(name, date, autor, description, instructions, ingredients, mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
+export async function CreateRecipe(name, date, autor, description, instructions, recipeingredients, mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
-    
+
     const recipe = await prisma.recipe.create({
         data: {
-            Name: name,
-            Date: date,
-            Autor: autor,
-            Description: description,
-            Instructions: instructions,
-            Ingredients: { connectOrCreate: ingredients },
+            name: name,
+            date: date,
+            autor: autor,
+            description: description,
+            instructions: instructions,
+            ingredients: { connectOrCreate: recipeingredients },
             mood: mood,
-            Preparation_time: preparationTime,
-            Cooking_time: cookingTime,
-            Quantity: quantity,
-            Difficultie: difficultie,
-            Photo: photo,
-            Tools: tools,
-            Calorie: calorie
+            preparation_time: preparationTime,
+            cooking_time: cookingTime,
+            quantity: quantity,
+            difficultie: difficultie,
+            photo: photo,
+            tools: tools,
+            calorie: calorie
         },
     })
     return recipe
@@ -37,24 +38,26 @@ export async function CreateRecipe(name, date, autor, description, instructions,
 
 export async function findByName(name) {
     // Fetch recipes with right name
-    
+
     const temp = await prisma.recipe.findFirst({
         where: {
-            Name: {
+            name: {
                 contains: name,
                 mode: 'insensitive'
             },
         },
         include: {
-            Ingredients: true
+            ingredients: {
+                include: { ingredient: true } // Grâce à la relation, Prisma fait la jointure tout seul
+            }
         }
     })
     return temp;
-    
+
 }
 
 
-export async function UpdateRecipe(id_, name, date, autor, description, instructions, ingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
+export async function UpdateRecipe(id_, name, date, autor, description, instructions, recipeingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
 
     const recipe = await prisma.recipe.update({
@@ -62,20 +65,20 @@ export async function UpdateRecipe(id_, name, date, autor, description, instruct
             id: id_,
         },
         data: {
-            Name: name,
-            Date: date,
-            Autor: autor,
-            Description: description,
-            Instructions: instructions,
-            Ingredients: { connectOrCreate: ingredients },
+            name: name,
+            date: date,
+            autor: autor,
+            description: description,
+            instructions: instructions,
+            ingredients: { connectOrCreate: recipeingredients },
             mood: Mood,
-            Preparation_time: preparationTime,
-            Cooking_time: cookingTime,
-            Quantity: quantity,
-            Difficultie: difficultie,
-            Photo: photo,
-            Tools: tools,
-            Calorie: calorie
+            preparation_time: preparationTime,
+            cooking_time: cookingTime,
+            quantity: quantity,
+            difficultie: difficultie,
+            photo: photo,
+            tools: tools,
+            calorie: calorie
         }
     })
     return recipe
@@ -85,7 +88,7 @@ export async function DeleteRecipe(name) {
     // Create a new recipe
     const recipe = await prisma.recipe.delete({
         where: {
-            Name: name
+            name: name
         },
     })
     return recipe
@@ -98,7 +101,9 @@ export async function findById(id_) {
             id: id_
         },
         include: {
-            Ingredients: true
+            ingredients: {
+                include: { ingredient: true } // Grâce à la relation, Prisma fait la jointure tout seul
+            }
         }
     })
 }
@@ -107,13 +112,15 @@ export async function findByAutor(autor) {
     // Fetch recipes with right ID
     return await prisma.recipe.findMany({
         where: {
-            Autor: {
+            autor: {
                 contains: autor,
                 mode: 'insensitive'
             },
         },
         include: {
-            Ingredients: true
+            ingredients: {
+                include: { ingredient: true } // Grâce à la relation, Prisma fait la jointure tout seul
+            }
         }
     })
 }

@@ -1,5 +1,6 @@
 import recipeDAO from '../../Data/Repositories/recipe.repositorie.js'
-import fs from 'fs';
+import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
+import RecipeingredientDAO from '../../Data/Repositories/recipeIngredient.repositorie.js'
 
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
@@ -9,10 +10,6 @@ export async function getAllRecipe() {
     return recipes;
 };
 
-// export async function getImageByName(name)
-// {
-
-// }
 
 export async function createRecipe(Name,
     date,
@@ -39,24 +36,12 @@ export async function createRecipe(Name,
     if (date_ == "Invalid Date")
         throw new Error("Date is invalid");
 
-
-    const ingredientsConnectOrCreate = Ingredients.map(i => ({
-        where: { Name: i.Name },
-        create: {
-            Name: i.Name,
-            Type: i.Type,
-            Quantity: i.Quantity,
-            Unit: i.Unit
-        }
-    }));
-
-
-    return recipeDAO.CreateRecipe(Name,
+    const recipe = await recipeDAO.CreateRecipe(Name,
         date_,
         Autor,
         Description,
         Instructions,
-        ingredientsConnectOrCreate,
+        [],
         mood,
         parseInt(Preparation_time),
         parseInt(Cooking_time),
@@ -65,6 +50,19 @@ export async function createRecipe(Name,
         Photo,
         Tools,
         Calorie,);
+
+    const ingredientsConnectOrCreate = Ingredients.map(i => ({
+        create: {
+            recipeID = recipe.id,
+            Name: i.Name,
+            Type: i.Type,
+            Quantity: i.Quantity,
+            Unit: i.Unit
+        }
+    }));
+
+
+    return
 };
 
 export async function getRecipeByName(name) {

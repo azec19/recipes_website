@@ -1,10 +1,10 @@
-import ingredientService from '../../Business/Services/stockIngredient.service.js'
+import StockingredientService from '../../Business/Services/stockIngredient.service.js'
 
-export async function getIngredientByType(req, res) {
+export async function getStockIngredientByType(req, res) {
     try {
         const type = req.params.type;
         if (type) {
-            const ingredient = await ingredientService.getIngredientByType(type);
+            const ingredient = await StockingredientService.getStockIngredientByType(type);
             res.status(200).json(ingredient);
         }
         else {
@@ -15,11 +15,11 @@ export async function getIngredientByType(req, res) {
     }
 };
 
-export async function getIngredientByName(req, res) {
+export async function getStockIngredientByName(req, res) {
     try {
         const name = req.params.name;
         if (name) {
-            const ingredient = await ingredientService.getIngredientByName(name);
+            const ingredient = await StockingredientService.getStockIngredientByName(name);
             res.status(200).json(ingredient);
         }
         else {
@@ -33,41 +33,41 @@ export async function getIngredientByName(req, res) {
 
 
 
-export async function getAllIngredient(req, res) {
+export async function getAllStockIngredient(req, res) {
     try {
-        const ingredients = await ingredientService.getAllIngredient();
+        const ingredients = await StockingredientService.getAllStockIngredient();
         res.status(200).json(ingredients);
     } catch (error) {
         res.status(404).json({ message: error.message});
     }
 };
 
-export async function createIngredient(req, res) {
+export async function createStockIngredient(req, res) {
     try {
-        const newingredient = await ingredientService.createIngredient(req.body.Name, req.body.Type, req.body.Quantity, req.body.Unit);
+        const newingredient = await StockingredientService.createStockIngredient(req.body.IngredientID, req.body.Quantity, req.body.Unit);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-export async function deleteIngredient(req, res) {
+export async function deleteStockIngredient(req, res) {
     try {
-        const newingredient = await ingredientService.deleteIngredient(req.params.name);
+        const newingredient = await StockingredientService.deleteStockIngredient(req.params.IngredientID);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-export async function updateIngredient(req, res) {
+export async function updateStockIngredient(req, res) {
     try {
-            const newingredient = await ingredientService.updateIngredient(req.body.id, req.body.Name, req.body.Type, req.body.Quantity, req.body.Unit);
+            const newingredient = await StockingredientService.updateStockIngredient(req.body.id, req.body.IngredientID, req.body.Quantity, req.body.Unit);
             res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
 
-const ingredientController = { getIngredientByName, getIngredientByType, createIngredient, getAllIngredient, deleteIngredient, updateIngredient };
+const ingredientController = { getStockIngredientByName, getStockIngredientByType, createStockIngredient, getAllStockIngredient, deleteStockIngredient, updateStockIngredient };
 export default ingredientController;

@@ -1,15 +1,12 @@
 import { equal } from 'node:assert'
 import { prisma } from './prisma.js'
 
-export async function createIngredient(name, type, quantity, unit) {
+export async function createIngredient(name, type) {
     // Create a new ingredient
     const ingredient = await prisma.ingredient.create({
         data: {
             Name: name,
             Type: type,
-            Quantity: quantity,
-            Unit: unit,
-
         },
     })
     return ingredient
@@ -25,7 +22,7 @@ export async function deleteIngredient(name) {
     return ingredient
 }
 
-export async function updateIngredient(id_, name, type, quantity, unit) {
+export async function updateIngredient(id_, name, type) {
     // Create a new ingredient
     
     const ingredient = await prisma.ingredient.update({
@@ -35,8 +32,6 @@ export async function updateIngredient(id_, name, type, quantity, unit) {
         data: {
             Name: name,
             Type: type,
-            Quantity: quantity,
-            Unit: unit
         }
     })
     return ingredient

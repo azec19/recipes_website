@@ -44,7 +44,7 @@ export async function getAllIngredient(req, res) {
 
 export async function createIngredient(req, res) {
     try {
-        const newingredient = await ingredientService.createIngredient(req.body.Name, req.body.Type, req.body.Quantity, req.body.Unit);
+        const newingredient = await ingredientService.createIngredient(req.body.Name, req.body.Type);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });
@@ -62,7 +62,7 @@ export async function deleteIngredient(req, res) {
 
 export async function updateIngredient(req, res) {
     try {
-            const newingredient = await ingredientService.updateIngredient(req.body.id, req.body.Name, req.body.Type, req.body.Quantity, req.body.Unit);
+            const newingredient = await ingredientService.updateIngredient(req.body.id, req.body.Name, req.body.Type);
             res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });

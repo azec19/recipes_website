@@ -1,16 +1,16 @@
 // Presentation/Routes/user.routes.js
 import { Router } from 'express'
-import ingredientController from '../Controllers/stockIngredient.controller.js'
+import StockingredientController from '../Controllers/stockIngredient.controller.js'
 // import { prisma } from '../../Data/Repositories/prisma.js' // si besoin
 
 const router = Router()
 // Define routes
-router.get('/ingredient/name/:name', ingredientController.getIngredientByName);
-router.get('/ingredient/type/:type', ingredientController.getIngredientByType);
-router.put('/ingredient', ingredientController.updateIngredient);
-router.post('/ingredient', ingredientController.createIngredient);
-router.get('/ingredient', ingredientController.getAllIngredient);
-router.delete('/ingredient/name/:name', ingredientController.deleteIngredient);
+router.get('/ingredient/name/:name', StockingredientController.getStockIngredientByName);
+router.get('/ingredient/type/:type', StockingredientController.getStockIngredientByType);
+router.put('/ingredient', StockingredientController.updateStockIngredient);
+router.post('/ingredient', StockingredientController.createStockIngredient);
+router.get('/ingredient', StockingredientController.getAllStockIngredient);
+router.delete('/ingredient/IngredientID/:IngredientID',StockingredientController.deleteStockIngredient);
 
 
 export default router
