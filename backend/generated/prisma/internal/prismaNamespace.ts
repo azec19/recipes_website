@@ -386,6 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Ingredient: 'Ingredient',
+  StockIngredient: 'StockIngredient',
+  RecipeIngredient: 'RecipeIngredient',
   Recipe: 'Recipe'
 } as const
 
@@ -402,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "ingredient" | "recipe"
+    modelProps: "user" | "ingredient" | "stockIngredient" | "recipeIngredient" | "recipe"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -554,6 +556,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    StockIngredient: {
+      payload: Prisma.$StockIngredientPayload<ExtArgs>
+      fields: Prisma.StockIngredientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.StockIngredientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.StockIngredientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        findFirst: {
+          args: Prisma.StockIngredientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.StockIngredientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        findMany: {
+          args: Prisma.StockIngredientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>[]
+        }
+        create: {
+          args: Prisma.StockIngredientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        createMany: {
+          args: Prisma.StockIngredientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.StockIngredientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>[]
+        }
+        delete: {
+          args: Prisma.StockIngredientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        update: {
+          args: Prisma.StockIngredientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        deleteMany: {
+          args: Prisma.StockIngredientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.StockIngredientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.StockIngredientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>[]
+        }
+        upsert: {
+          args: Prisma.StockIngredientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$StockIngredientPayload>
+        }
+        aggregate: {
+          args: Prisma.StockIngredientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateStockIngredient>
+        }
+        groupBy: {
+          args: Prisma.StockIngredientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockIngredientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.StockIngredientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.StockIngredientCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecipeIngredient: {
+      payload: Prisma.$RecipeIngredientPayload<ExtArgs>
+      fields: Prisma.RecipeIngredientFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecipeIngredientFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecipeIngredientFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        findFirst: {
+          args: Prisma.RecipeIngredientFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecipeIngredientFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        findMany: {
+          args: Prisma.RecipeIngredientFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>[]
+        }
+        create: {
+          args: Prisma.RecipeIngredientCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        createMany: {
+          args: Prisma.RecipeIngredientCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecipeIngredientCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>[]
+        }
+        delete: {
+          args: Prisma.RecipeIngredientDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        update: {
+          args: Prisma.RecipeIngredientUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecipeIngredientDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecipeIngredientUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecipeIngredientUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecipeIngredientUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecipeIngredientPayload>
+        }
+        aggregate: {
+          args: Prisma.RecipeIngredientAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecipeIngredient>
+        }
+        groupBy: {
+          args: Prisma.RecipeIngredientGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeIngredientGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecipeIngredientCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecipeIngredientCountAggregateOutputType> | number
+        }
+      }
+    }
     Recipe: {
       payload: Prisma.$RecipePayload<ExtArgs>
       fields: Prisma.RecipeFieldRefs
@@ -678,30 +828,49 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const IngredientScalarFieldEnum = {
   id: 'id',
-  Name: 'Name',
-  Type: 'Type',
-  Quantity: 'Quantity',
-  Unit: 'Unit'
+  name: 'name',
+  type: 'type'
 } as const
 
 export type IngredientScalarFieldEnum = (typeof IngredientScalarFieldEnum)[keyof typeof IngredientScalarFieldEnum]
 
 
+export const StockIngredientScalarFieldEnum = {
+  id: 'id',
+  ingredientId: 'ingredientId',
+  quantity: 'quantity',
+  unit: 'unit'
+} as const
+
+export type StockIngredientScalarFieldEnum = (typeof StockIngredientScalarFieldEnum)[keyof typeof StockIngredientScalarFieldEnum]
+
+
+export const RecipeIngredientScalarFieldEnum = {
+  recipeId: 'recipeId',
+  ingredientId: 'ingredientId',
+  quantity: 'quantity',
+  unit: 'unit'
+} as const
+
+export type RecipeIngredientScalarFieldEnum = (typeof RecipeIngredientScalarFieldEnum)[keyof typeof RecipeIngredientScalarFieldEnum]
+
+
 export const RecipeScalarFieldEnum = {
   id: 'id',
-  Name: 'Name',
-  Date: 'Date',
-  Autor: 'Autor',
-  Description: 'Description',
-  Instructions: 'Instructions',
+  name: 'name',
+  date: 'date',
+  autor: 'autor',
+  description: 'description',
+  instructions: 'instructions',
   mood: 'mood',
-  Preparation_time: 'Preparation_time',
-  Cooking_time: 'Cooking_time',
-  Quantity: 'Quantity',
-  Difficultie: 'Difficultie',
-  Photo: 'Photo',
-  Tools: 'Tools',
-  Calorie: 'Calorie'
+  preparation_time: 'preparation_time',
+  cooking_time: 'cooking_time',
+  quantity: 'quantity',
+  difficultie: 'difficultie',
+  photo: 'photo',
+  tools: 'tools',
+  calorie: 'calorie',
+  ingredientId: 'ingredientId'
 } as const
 
 export type RecipeScalarFieldEnum = (typeof RecipeScalarFieldEnum)[keyof typeof RecipeScalarFieldEnum]
@@ -721,6 +890,14 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
 
@@ -937,6 +1114,8 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   ingredient?: Prisma.IngredientOmit
+  stockIngredient?: Prisma.StockIngredientOmit
+  recipeIngredient?: Prisma.RecipeIngredientOmit
   recipe?: Prisma.RecipeOmit
 }
 

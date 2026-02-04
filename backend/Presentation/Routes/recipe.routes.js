@@ -17,7 +17,7 @@ router.get('/recipe/autor/:autor', recipeController.getRecipeByAutor);
 router.get('/recipe/mood/:mood', recipeController.getRecipeByMood);
 router.get('/recipe/preparation_time/:time', recipeController.getRecipesByPreparationTime);
 router.get('/recipe/cooking_time/:time', recipeController.getRecipesByCookingTime);
-router.post('/recipe/Ingredient', recipeController.getRecipesByIngredients);
+// router.post('/recipe/Ingredient', recipeController.getRecipesByIngredients);
 
 
 export default router

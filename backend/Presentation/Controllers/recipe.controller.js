@@ -162,17 +162,17 @@ export async function getRecipesByCookingTime(req, res) {
 
 }
 
-export async function getRecipesByIngredients(req, res) {
-    try {
-        const ingredients = req.body;
-        const recipe = await recipeService.getRecipesByIngredients(ingredients);
-        res.status(200).json(recipe);
+// export async function getRecipesByIngredients(req, res) {
+//     try {
+//         const ingredients = req.body;
+//         const recipe = await recipeService.getRecipesByIngredients(ingredients);
+//         res.status(200).json(recipe);
 
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
+//     } catch (error) {
+//         res.status(404).json({ message: error.message });
+//     }
 
-}
+// }
 
 
 
@@ -186,6 +186,6 @@ const recipeController = {
     getRecipeByMood,
     getRecipesByPreparationTime,
     getRecipesByCookingTime,
-    getRecipesByIngredients
+    // getRecipesByIngredients
 };
 export default recipeController;

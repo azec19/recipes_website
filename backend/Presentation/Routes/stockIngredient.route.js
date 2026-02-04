@@ -5,12 +5,12 @@ import StockingredientController from '../Controllers/stockIngredient.controller
 
 const router = Router()
 // Define routes
-router.get('/ingredient/name/:name', StockingredientController.getStockIngredientByName);
-router.get('/ingredient/type/:type', StockingredientController.getStockIngredientByType);
-router.put('/ingredient', StockingredientController.updateStockIngredient);
-router.post('/ingredient', StockingredientController.createStockIngredient);
-router.get('/ingredient', StockingredientController.getAllStockIngredient);
-router.delete('/ingredient/IngredientID/:IngredientID',StockingredientController.deleteStockIngredient);
+router.get('/stockIngredient/name/:name', StockingredientController.getStockIngredientByName);
+router.get('/stockIngredient/type/:type', StockingredientController.getStockIngredientByType);
+router.put('/stockIngredient', StockingredientController.updateStockIngredient);
+router.post('/stockIngredient', StockingredientController.createStockIngredient);
+router.get('/stockIngredient', StockingredientController.getAllStockIngredient);
+router.delete('/stockIngredient/IngredientID/:IngredientID',StockingredientController.deleteStockIngredient);
 
 
 export default router

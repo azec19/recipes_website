@@ -1,4 +1,5 @@
 import RecipeIngredientDAO from '../../Data/Repositories/recipe.repositorie.js'
+import IngredientService from './ingredient.service.js'
 
 export async function getRecipeIngredientById(id_) {
     const recipeingredient = await RecipeIngredientDAO.findById(id_);
@@ -6,6 +7,18 @@ export async function getRecipeIngredientById(id_) {
         throw new Error("RecipeIngredient not found");
     }
     return recipeingredient;
+};
+
+export async function getRecipeIngredientByName(name) {
+    const recipeingredient = await IngredientService.findByName(name);
+    if (!recipeingredient) {
+        throw new Error("RecipeIngredient not found");
+    }
+    const result = await getRecipeIngredientById(recipeingredient.id)
+    if (!result) {
+        throw new Error("RecipeIngredient not found");
+    }
+    return result;
 };
 
 export async function getAllRecipeIngredient() {
@@ -16,7 +29,20 @@ export async function getAllRecipeIngredient() {
     return recipeingredients;
 };
 
-export async function createRecipeIngredient(recipeID, ingredientID, quantity, unit){
+// export async function createRecipeIngredient(recipeID, ingredientID, quantity, unit){
+//     const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientID);
+//     if (existing) {
+//         return existing
+//     }
+//     return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientID, quantity, unit);
+// };
+
+export async function createRecipeIngredient(recipeID, name, type, quantity, unit){
+    var ingredientID = await IngredientService.findbyName(name)
+    if (!ingredientID)
+    {
+        ingredientID = (await IngredientService.createIngredient(name, type)).id
+    }
     const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientID);
     if (existing) {
         return existing
@@ -44,5 +70,5 @@ export async function updateRecipeIngredient(id_, recipeID, ingredientID, quanti
     return RecipeIngredientDAO.updateRecipeIngredient(id_, recipeID, ingredientID, quantity, unit);
 };
 
-const recipeingredientService = {getRecipeIngredientById, createRecipeIngredient, getAllRecipeIngredient, deleteRecipeIngredient, updateRecipeIngredient };
+const recipeingredientService = {getRecipeIngredientById, getRecipeIngredientByName, createRecipeIngredient, getAllRecipeIngredient, deleteRecipeIngredient, updateRecipeIngredient };
 export default recipeingredientService;

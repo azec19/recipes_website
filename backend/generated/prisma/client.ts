@@ -50,6 +50,16 @@ export type User = Prisma.UserModel
  */
 export type Ingredient = Prisma.IngredientModel
 /**
+ * Model StockIngredient
+ * 
+ */
+export type StockIngredient = Prisma.StockIngredientModel
+/**
+ * Model RecipeIngredient
+ * 
+ */
+export type RecipeIngredient = Prisma.RecipeIngredientModel
+/**
  * Model Recipe
  * 
  */

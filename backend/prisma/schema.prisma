@@ -4,7 +4,6 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -23,33 +22,33 @@ enum Mood {
 }
 
 enum Types {
-    FECULENT
-    LEGUME
-    FRUIT
-    LAITIER
-    VIANDE
-    POISSON
-    MATIERE_GRASSE
-    EPICE
-    LIQUIDE
-    AUTRE
+  FECULENT
+  LEGUME
+  FRUIT
+  LAITIER
+  VIANDE
+  POISSON
+  MATIERE_GRASSE
+  EPICE
+  LIQUIDE
+  AUTRE
 }
 
 enum Units {
-    KG
-    GR
-    L
-    CL
-    DL
-    UNITE
+  KG
+  GR
+  L
+  CL
+  DL
+  UNITE
 }
 
 enum Difficulties {
-    EASY
-    MEDIUM
-    TECHNICAL
-    HARD
-    IMPOSSIBLE
+  EASY
+  MEDIUM
+  TECHNICAL
+  HARD
+  IMPOSSIBLE
 }
 
 model User {
@@ -59,41 +58,42 @@ model User {
 }
 
 model Ingredient {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  type     Types
-  
-  stock StockIngredient?
-  recipe   Recipe[]
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  type Types
+
+  stock            StockIngredient?
+  recipe           Recipe[]
+  recipeIngredient RecipeIngredient?
 }
 
 model StockIngredient {
   id           Int @id @default(autoincrement())
   ingredientId Int @unique
 
-  quantity     Float
-  unit         Unit
+  quantity Float
+  unit     Units
 
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
 }
 
 model RecipeIngredient {
   recipeId     Int @unique
   ingredientId Int @unique
 
-  quantity     Float
-  unit         Unit
+  quantity Float
+  unit     Units
 
-  recipe       Recipe     @relation(fields: [recipeId], references: [id])
-  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  recipe     Recipe     @relation(fields: [recipeId], references: [id])
+  ingredient Ingredient @relation(fields: [ingredientId], references: [id])
 
   @@id([recipeId, ingredientId])
 }
 
 model Recipe {
-  id               Int          @id @default(autoincrement())
-  name             String       @unique
-  date             DateTime     @default(now())
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  date             DateTime           @default(now())
   autor            String
   description      String
   instructions     String
@@ -106,4 +106,6 @@ model Recipe {
   photo            String
   tools            String[]
   calorie          String
+  ingredient       Ingredient?        @relation(fields: [ingredientId], references: [id])
+  ingredientId     Int?
 }

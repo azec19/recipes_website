@@ -1,6 +1,6 @@
 import recipeDAO from '../../Data/Repositories/recipe.repositorie.js'
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
-import RecipeingredientDAO from '../../Data/Repositories/recipeIngredient.repositorie.js'
+import recipeingredientService from './recipeIngredient.service.js'
 
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
@@ -51,18 +51,12 @@ export async function createRecipe(Name,
         Tools,
         Calorie,);
 
-    const ingredientsConnectOrCreate = Ingredients.map(i => ({
-        create: {
-            recipeID = recipe.id,
-            Name: i.Name,
-            Type: i.Type,
-            Quantity: i.Quantity,
-            Unit: i.Unit
-        }
-    }));
+    const Recipeingredients = Ingredients.map(async i => (
+        await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
+    ));
 
+    return await recipeDAO.UpdateRecipe(recipe.id, null, null, null, null, null, Recipeingredients, null, null, null, null, null,null, null,null)
 
-    return
 };
 
 export async function getRecipeByName(name) {
@@ -101,17 +95,11 @@ export async function updateRecipe(id,
         throw new Error("Recipe doesn't exist");
     }
 
-    let ingredientsConnectOrCreate = []
+    let Recipeingredients = []
     if (Ingredients) {
-        ingredientsConnectOrCreate = Ingredients.map(i => ({
-            where: { Name: i.Name },
-            create: {
-                Name: i.Name,
-                Type: i.Type,
-                Quantity: i.Quantity,
-                Unit: i.Unit
-            }
-        }));
+        Recipeingredients = Ingredients.map(async i => (
+        await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
+    ));
     }
     Name = Name ? Name : recipe.Name
     Date = Date ? Date : recipe.Date
@@ -191,31 +179,31 @@ export async function getRecipesByCookingTime(time) {
 }
 
 // check in a list of ingredient object if an ingredient string is included
-function SearchIngredientByName(IngredientsList, IngredientName) {
-    for (const ingredient of IngredientsList) {
-        if (ingredient.Name === IngredientName) {
-            return true;
-        }
-    }
-    return false
+// function SearchIngredientByName(IngredientsList, Ingredient) {
+//     for (const ingredient of IngredientsList) {
+//         if (recipeingredientService.getRecipeIngredientById ingredient.Name === Ingredient.Name) {
+//             return true;
+//         }
+//     }
+//     return false
 
-}
+// }
 
+// la liste d'ingredients, tu sais pas trop ce qu'il y a dedans. Faudra donc faire la fonction quand tu sauras.
+// export async function getRecipesByIngredients(ingredients) {
 
-export async function getRecipesByIngredients(ingredients) {
-
-    const recipes = await recipeDAO.GetAllRecipe();
-    var result = []
-    recipes.forEach(recipe => {
-        var flag = true
-        ingredients.forEach(ingredient => {
-            flag = flag && SearchIngredientByName(recipe.Ingredients, ingredient)
-        });
-        if (flag)
-            result.push(recipe)
-    });
-    return result
-}
+//     const recipes = await recipeDAO.GetAllRecipe();
+//     var result = []
+//     recipes.forEach(recipe => {
+//         var flag = true
+//         ingredients.forEach(ingredient => {
+//             flag = flag && SearchIngredientByName(recipe.Ingredients, ingredient)
+//         });
+//         if (flag)
+//             result.push(recipe)
+//     });
+//     return result
+// }
 
 
 
@@ -232,7 +220,7 @@ const recipeService = {
     getRecipeByMood,
     getRecipesByPreparationTime,
     getRecipesByCookingTime,
-    getRecipesByIngredients
+    // getRecipesByIngredients
 }
 
 export default recipeService;

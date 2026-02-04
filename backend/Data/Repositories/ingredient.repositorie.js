@@ -40,6 +40,7 @@ export async function updateIngredient(id_, name, type) {
 
 export async function GetAllIngredient() {
     // Fetch all ingredients
+    
     return await prisma.ingredient.findMany();
 }
 

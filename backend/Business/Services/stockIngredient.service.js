@@ -27,10 +27,23 @@ export async function getAllStockIngredient() {
     return ingredients;
 };
 
-export async function createStockIngredient(IngredientID, quantity, unit){
-    const existing = await StockingredientDAO.findByIngredientID(IngredientID);
+// export async function createStockIngredient(IngredientID, quantity, unit){
+//     const existing = await StockingredientDAO.findByIngredientID(IngredientID);
+//     if (existing) {
+//         return updateStockIngredient(existing.id, name, type, existing.Quantity + quantity, unit)
+//     }
+//     return StockingredientDAO.createStockIngredient(ingredientID, quantity, unit);
+// };
+
+export async function createStockIngredient(name, type, quantity, unit){
+    var ingredientID = await IngredientService.findbyName(name)
+    if (!ingredientID)
+    {
+        ingredientID = (await IngredientService.createIngredient(name, type)).id
+    }
+    const existing = await StockingredientDAO.findByIngredientID(ingredientID);
     if (existing) {
-        return updateStockIngredient(existing.id, name, type, existing.Quantity + quantity, unit)
+        return await updateStockIngredient(existing.id, ingredientID, existing.Quantity + quantity, unit)
     }
     return StockingredientDAO.createStockIngredient(ingredientID, quantity, unit);
 };

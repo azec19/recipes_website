@@ -53,6 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Ingredient: 'Ingredient',
+  StockIngredient: 'StockIngredient',
+  RecipeIngredient: 'RecipeIngredient',
   Recipe: 'Recipe'
 } as const
 
@@ -83,30 +85,49 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const IngredientScalarFieldEnum = {
   id: 'id',
-  Name: 'Name',
-  Type: 'Type',
-  Quantity: 'Quantity',
-  Unit: 'Unit'
+  name: 'name',
+  type: 'type'
 } as const
 
 export type IngredientScalarFieldEnum = (typeof IngredientScalarFieldEnum)[keyof typeof IngredientScalarFieldEnum]
 
 
+export const StockIngredientScalarFieldEnum = {
+  id: 'id',
+  ingredientId: 'ingredientId',
+  quantity: 'quantity',
+  unit: 'unit'
+} as const
+
+export type StockIngredientScalarFieldEnum = (typeof StockIngredientScalarFieldEnum)[keyof typeof StockIngredientScalarFieldEnum]
+
+
+export const RecipeIngredientScalarFieldEnum = {
+  recipeId: 'recipeId',
+  ingredientId: 'ingredientId',
+  quantity: 'quantity',
+  unit: 'unit'
+} as const
+
+export type RecipeIngredientScalarFieldEnum = (typeof RecipeIngredientScalarFieldEnum)[keyof typeof RecipeIngredientScalarFieldEnum]
+
+
 export const RecipeScalarFieldEnum = {
   id: 'id',
-  Name: 'Name',
-  Date: 'Date',
-  Autor: 'Autor',
-  Description: 'Description',
-  Instructions: 'Instructions',
+  name: 'name',
+  date: 'date',
+  autor: 'autor',
+  description: 'description',
+  instructions: 'instructions',
   mood: 'mood',
-  Preparation_time: 'Preparation_time',
-  Cooking_time: 'Cooking_time',
-  Quantity: 'Quantity',
-  Difficultie: 'Difficultie',
-  Photo: 'Photo',
-  Tools: 'Tools',
-  Calorie: 'Calorie'
+  preparation_time: 'preparation_time',
+  cooking_time: 'cooking_time',
+  quantity: 'quantity',
+  difficultie: 'difficultie',
+  photo: 'photo',
+  tools: 'tools',
+  calorie: 'calorie',
+  ingredientId: 'ingredientId'
 } as const
 
 export type RecipeScalarFieldEnum = (typeof RecipeScalarFieldEnum)[keyof typeof RecipeScalarFieldEnum]
@@ -126,4 +147,12 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
