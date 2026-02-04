@@ -1,18 +1,18 @@
 import { create } from 'zustand'
-import { Recipe, Ingredient } from "./type"
+import { Recipe, RecipeIngredient } from "./type"
 
 type IngredientStore = {
-  list: Ingredient[];
-  add: (ingredient: Ingredient) => void;
+  list: RecipeIngredient[];
+  add: (ingredient: RecipeIngredient) => void;
   remove: (id: string) => void;
   reset: () => void;
 };
 
 export const listIngredients = create<IngredientStore>((set) => ({
   list: [],
-  add: (ingredient: Ingredient) => set((self) => {
+  add: (ingredient: RecipeIngredient) => set((self) => {
     const exists = self.list.some(
-      (i) => i.Name === ingredient.Name
+      (i) => i.ingredient.name === ingredient.ingredient.name
     )
 
     if (exists) {
@@ -23,6 +23,6 @@ export const listIngredients = create<IngredientStore>((set) => ({
       list: [...self.list, ingredient],
     }
   }),
-  remove: (name: string) => set((self) => ({ list: self.list.filter((i) => i.Name !== name) })),
+  remove: (name: string) => set((self) => ({ list: self.list.filter((i) => i.ingredient.name !== name) })),
   reset: () => set((self) => ({ list: [] }))
 }))

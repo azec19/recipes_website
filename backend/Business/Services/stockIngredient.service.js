@@ -1,5 +1,6 @@
 import StockingredientDAO from '../../Data/Repositories/stockIngredient.respositorie.js'
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
+import IngredientService from './ingredient.service.js'
 
 export async function getStockIngredientByName(name) {
     const ingredient = await ingredientDAO.findByName(name);
@@ -27,45 +28,39 @@ export async function getAllStockIngredient() {
     return ingredients;
 };
 
-// export async function createStockIngredient(IngredientID, quantity, unit){
-//     const existing = await StockingredientDAO.findByIngredientID(IngredientID);
-//     if (existing) {
-//         return updateStockIngredient(existing.id, name, type, existing.Quantity + quantity, unit)
-//     }
-//     return StockingredientDAO.createStockIngredient(ingredientID, quantity, unit);
-// };
-
 export async function createStockIngredient(name, type, quantity, unit){
-    var ingredientID = await IngredientService.findbyName(name)
-    if (!ingredientID)
+    var ingredientId = await IngredientService.findByName(name)
+    if (!ingredientId)
     {
-        ingredientID = (await IngredientService.createIngredient(name, type)).id
+        ingredientId = (await IngredientService.createIngredient(name, type)).id
     }
-    const existing = await StockingredientDAO.findByIngredientID(ingredientID);
-    if (existing) {
-        return await updateStockIngredient(existing.id, ingredientID, existing.Quantity + quantity, unit)
+    else
+        ingredientId = ingredientId.id
+    const existing = await StockingredientDAO.findByIngredientID(ingredientId);
+    if (existing) {        
+        return await updateStockIngredient(existing.id, ingredientId, existing.quantity + quantity, unit)
     }
-    return StockingredientDAO.createStockIngredient(ingredientID, quantity, unit);
+    return StockingredientDAO.createStockIngredient(ingredientId, quantity, unit);
 };
 
-export async function deleteStockIngredient(ingredientID){
-    const existing = await StockingredientDAO.findByIngredientID(ingredientID);
+export async function deleteStockIngredient(ingredientId){
+    const existing = await StockingredientDAO.findByIngredientID(ingredientId);
     if (!existing) {
         throw new Error("Ingredient doesn't exist");
     }
-    return StockingredientDAO.deleteStockIngredient(ingredientID);
+    return StockingredientDAO.deleteStockIngredient(ingredientId);
 };
 
-export async function updateStockIngredient(id, ingredientID, quantity, unit){
+export async function updateStockIngredient(id, ingredientId, quantity, unit){
     const ingredient = await StockingredientDAO.findById(id);
     if (!ingredient) {
         throw new Error("Ingredient doesn't exist");
     }
-    ingredientID = ingredientID ? ingredientID : ingredient.type
+    ingredientId = ingredientId ? ingredientId : ingredient.type
     quantity = quantity ? quantity : ingredient.quantity
     unit = unit ? unit : ingredient.unit
-    return StockingredientDAO.updateStockIngredient(id, ingredientID, quantity, unit);
+    return StockingredientDAO.updateStockIngredient(id, ingredientId, quantity, unit);
 };
 
-const ingredientService = { getStockIngredientByName, getStockIngredientByType, createStockIngredient, getAllStockIngredient, deleteStockIngredient, updateStockIngredient };
-export default ingredientService;
+const stockIngredientService = { getStockIngredientByName, getStockIngredientByType, createStockIngredient, getAllStockIngredient, deleteStockIngredient, updateStockIngredient };
+export default stockIngredientService;

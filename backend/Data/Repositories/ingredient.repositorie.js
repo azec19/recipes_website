@@ -5,8 +5,8 @@ export async function createIngredient(name, type) {
     // Create a new ingredient
     const ingredient = await prisma.ingredient.create({
         data: {
-            Name: name,
-            Type: type,
+            name: name,
+            type: type,
         },
     })
     return ingredient
@@ -16,7 +16,7 @@ export async function deleteIngredient(name) {
     // Create a new ingredient
     const ingredient = await prisma.ingredient.delete({
         where: {
-            Name: name
+            name: name
         },
     })
     return ingredient
@@ -30,8 +30,8 @@ export async function updateIngredient(id_, name, type) {
             id: id_,
         },
         data: {
-            Name: name,
-            Type: type,
+            name: name,
+            type: type,
         }
     })
     return ingredient
@@ -40,7 +40,6 @@ export async function updateIngredient(id_, name, type) {
 
 export async function GetAllIngredient() {
     // Fetch all ingredients
-    
     return await prisma.ingredient.findMany();
 }
 
@@ -59,7 +58,7 @@ export async function findByName(name) {
     
     return await prisma.ingredient.findFirst({
         where: {
-           Name: {
+           name: {
                 equals: name,
                 mode: 'insensitive',
             },
@@ -71,7 +70,7 @@ export async function findByType(type) {
     // Fetch ingredients with right type
     return await prisma.ingredient.findMany({
         where: {
-            Type: type
+            type: type
         },
     })
 }

@@ -86,12 +86,11 @@ export async function UpdateRecipe(id_, name, date, autor, description, instruct
 
 export async function DeleteRecipe(name) {
     // Create a new recipe
-    const recipe = await prisma.recipe.delete({
+    return await prisma.recipe.delete({
         where: {
             name: name
         },
     })
-    return recipe
 }
 
 export async function findById(id_) {

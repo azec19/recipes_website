@@ -1,7 +1,5 @@
-import { Ingredient, Recipe } from "./type"
+import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
-import { listIngredients } from "./Formstore"
-import { cpSync } from "fs";
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const res = await fetch('http://localhost:3001/api/recipe');
@@ -15,22 +13,22 @@ export async function fetchRecipesByName(name: string): Promise<Recipe> {
     return json
 }
 
-export async function fetchAllIngredients(): Promise<Ingredient[]> {
-    const res = await fetch('http://localhost:3001/api/ingredient');
+export async function fetchAllStockIngredients(): Promise<StockIngredient[]> {
+    const res = await fetch('http://localhost:3001/api/stockIngredient');
     let json = await res.json();
     return json
 }
 
-export async function onSubmitIngredient(formData: FormData) {
+export async function onSubmitStockIngredient(formData: FormData) {
     'use server'
     const data = {
-        Name: formData.get('name_') as string,
-        Type: formData.get('type') as string,
-        Quantity: Number(formData.get('quantity')),
-        Unit: formData.get('unit') as string,
+        name: formData.get('name_') as string,
+        type: formData.get('type') as string,
+        quantity: Number(formData.get('quantity')),
+        unit: formData.get('unit') as string,
     };
 
-    const response = await fetch('http://localhost:3001/api/ingredient', {
+    const response = await fetch('http://localhost:3001/api/stockIngredient', {
         method: 'POST',
         headers: {
             'accept': 'application/json',
@@ -49,20 +47,20 @@ export async function onSubmitRecipe(formData: FormData) {
 
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     const data = {
-        Name: formData.get('name') as string,
-        Date: formData.get('date') as string,
-        Autor: formData.get('autor') as string,
-        Description: formData.get('description') as string,
-        Instructions: formData.get('instructions') as string,
-        Ingredients: JSON.parse(formData.get('ingredients') as string),
+        name: formData.get('name') as string,
+        date: formData.get('date') as string,
+        autor: formData.get('autor') as string,
+        description: formData.get('description') as string,
+        instructions: formData.get('instructions') as string,
+        ingredients: JSON.parse(formData.get('ingredients') as string),
         mood: JSON.parse(JSON.stringify([formData.get('mood') as string])),
-        Preparation_time: Number(formData.get('preparation_time')),
-        Cooking_time: Number(formData.get('cooking_time')),
-        Quantity: formData.get('quantity') as string,
-        Difficultie: formData.get('difficulty') as string,
-        Photo: "tkt",
-        Tools: toolsList,
-        Calorie: formData.get('calorie') as string
+        preparation_time: Number(formData.get('preparation_time')),
+        cooking_time: Number(formData.get('cooking_time')),
+        quantity: formData.get('quantity') as string,
+        difficultie: formData.get('difficulty') as string,
+        photo: "tkt",
+        tools: toolsList,
+        calorie: formData.get('calorie') as string
     };
 
     const response = await fetch('http://localhost:3001/api/recipe', {
@@ -94,7 +92,7 @@ export async function onSubmitRecipe(formData: FormData) {
     
     const update = {
         id: result.id,
-        Photo: result_picture.filename
+        photo: result_picture.filename
     }
     
     const update_response = await fetch('http://localhost:3001/api/recipe', {

@@ -91,3 +91,8 @@ npm install @prisma/client @prisma/adapter-pg dotenv pg"
 - run "npm isntall"
 - run "npm run dev"
 
+## reset base de donnée backend
+run these commandes :
+- npx prisma migrate dev
+- npx prisma migrate reset
+- npx prisma generate

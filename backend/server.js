@@ -10,6 +10,8 @@ import path from 'path'
 // Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
 import stockIngredientRouter from './Presentation/Routes/stockIngredient.route.js'
+import ingredientRouter from './Presentation/Routes/ingredient.routes.js'
+import recipeIngredientRouter from './Presentation/Routes/recipeIngredient.route.js'
 import recipeRouter from './Presentation/Routes/recipe.routes.js'
 
 const app = express()
@@ -57,7 +59,9 @@ app.use('/images',express.static('upload'))
 
 // Toutes les autres routes applicatives
 app.use('/', userRouter)     
+app.use('/', ingredientRouter)
 app.use('/', stockIngredientRouter)
+app.use('/', recipeIngredientRouter)
 app.use('/', recipeRouter)    
 
 // 404 si aucune route ne matche (hors Swagger)

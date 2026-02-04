@@ -9,40 +9,24 @@ export async function getAllRecipe(req, res) {
     }
 };
 
-// export async function getImageByName()
-// {
-//     try {
-//         const name = req.params.name;
-//         if (name) {
-//             const image = await recipeService.getImageByName(name);
-//             res.sendFile(image)
-//         }
-//         else {
-//             res.status(404).json({ message: "invalid name in the request" });
-//         }
-//     } catch (error) {
-//         res.status(404).json({ message: error.message });
-//     }
-// }
-
 export async function createRecipe(req, res) {
     
     try {
         const newrecipe = await recipeService.createRecipe(
-            req.body.Name,
-            req.body.Date,
-            req.body.Autor,
-            req.body.Description,
-            req.body.Instructions,
-            req.body.Ingredients,
-            req.body.Mood,
-            req.body.Preparation_time,
-            req.body.Cooking_time,
-            req.body.Quantity,
-            req.body.Difficultie,
-            req.body.Photo,
-            req.body.Tools,
-            req.body.Calorie,);
+            req.body.name,
+            req.body.date,
+            req.body.autor,
+            req.body.description,
+            req.body.instructions,
+            req.body.ingredients,
+            req.body.mood,
+            req.body.preparation_time,
+            req.body.cooking_time,
+            req.body.quantity,
+            req.body.difficultie,
+            req.body.photo,
+            req.body.tools,
+            req.body.calorie,);
         res.status(201).json(newrecipe);
     } catch (error) {
         res.status(400).json({ message: error.message + " : " + req.body.Name});
@@ -68,20 +52,20 @@ export async function updateRecipe(req, res) {
     try {
         const newrecipe = await recipeService.updateRecipe(
             req.body.id,
-            req.body.Name,
-            req.body.Date,
-            req.body.Autor,
-            req.body.Description,
-            req.body.Instructions,
-            req.body.Ingredients,
-            req.body.Mood,
-            req.body.Preparation_time,
-            req.body.Cooking_time,
-            req.body.Quantity,
-            req.body.Difficultie,
-            req.body.Photo,
-            req.body.Tools,
-            req.body.Calorie,);
+            req.body.name,
+            req.body.date,
+            req.body.autor,
+            req.body.description,
+            req.body.instructions,
+            req.body.ingredients,
+            req.body.mood,
+            req.body.preparation_time,
+            req.body.cooking_time,
+            req.body.quantity,
+            req.body.difficultie,
+            req.body.photo,
+            req.body.tools,
+            req.body.calorie,);
         res.status(201).json(newrecipe);
     } catch (error) {
         res.status(400).json({ message: error.message });

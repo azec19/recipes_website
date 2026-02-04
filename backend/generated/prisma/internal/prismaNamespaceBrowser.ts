@@ -126,8 +126,7 @@ export const RecipeScalarFieldEnum = {
   difficultie: 'difficultie',
   photo: 'photo',
   tools: 'tools',
-  calorie: 'calorie',
-  ingredientId: 'ingredientId'
+  calorie: 'calorie'
 } as const
 
 export type RecipeScalarFieldEnum = (typeof RecipeScalarFieldEnum)[keyof typeof RecipeScalarFieldEnum]
@@ -147,12 +146,4 @@ export const QueryMode = {
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

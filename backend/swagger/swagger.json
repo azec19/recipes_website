@@ -16,7 +16,11 @@
       "description": "Opérations liées aux utilisateurs"
     },
     {
-      "name": "Ingredients",
+      "name": "RecipeIngredients",
+      "description": "Gestion des ingrédients"
+    },
+    {
+      "name": "StockIngredients",
       "description": "Gestion des ingrédients"
     },
     {
@@ -204,15 +208,15 @@
         }
       }
     },
-    "/ingredient": {
+    "/stockIngredient": {
       "get": {
-        "summary": "Get all ingredients",
+        "summary": "Get all stockIngredients",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "responses": {
           "200": {
-            "description": "A list ingredients",
+            "description": "A list stockIngredients",
             "content": {
               "application/json": {
                 "schema": {
@@ -229,7 +233,7 @@
       "post": {
         "summary": "Create a new Ingredient",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "requestBody": {
           "required": true,
@@ -243,7 +247,7 @@
         },
         "responses": {
           "200": {
-            "description": "The newly created ingredient",
+            "description": "The newly created stockIngredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -255,9 +259,9 @@
         }
       },
       "put": {
-        "summary": "Update ingredient by id",
+        "summary": "Update stockIngredient by id",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "requestBody": {
           "required": true,
@@ -271,7 +275,7 @@
         },
         "responses": {
           "200": {
-            "description": "The updated ingredient",
+            "description": "The updated stockIngredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -283,11 +287,11 @@
         }
       }
     },
-    "/ingredient/text/{text}": {
+    "/stockIngredient/text/{text}": {
       "get": {
-        "summary": "Get ingredient by full text search",
+        "summary": "Get stockIngredient by full text search",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "parameters": [
           {
@@ -301,7 +305,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The ingredient",
+            "description": "The stockIngredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -313,11 +317,11 @@
         }
       }
     },
-    "/ingredient/name/{name}": {
+    "/stockIngredient/name/{name}": {
       "get": {
-        "summary": "Get ingredient by name",
+        "summary": "Get stockIngredient by name",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "parameters": [
           {
@@ -331,7 +335,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The ingredient",
+            "description": "The stockIngredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -343,9 +347,9 @@
         }
       },
       "delete": {
-        "summary": "Delete ingredient by name",
+        "summary": "Delete stockIngredient by name",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "parameters": [
           {
@@ -364,11 +368,11 @@
         }
       }
     },
-    "/ingredient/type/{type}": {
+    "/stockIngredient/type/{type}": {
       "get": {
-        "summary": "Get ingredient by type",
+        "summary": "Get stockIngredient by type",
         "tags": [
-          "Ingredients"
+          "StockIngredients"
         ],
         "parameters": [
           {
@@ -382,7 +386,200 @@
         ],
         "responses": {
           "200": {
-            "description": "The ingredient",
+            "description": "The stockIngredient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ingredient"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipeIngredient": {
+      "get": {
+        "summary": "Get all recipeIngredients",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "responses": {
+          "200": {
+            "description": "A list recipeIngredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Ingredient"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new Ingredient",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The newly created recipeIngredient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingredient"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update recipeIngredient by id",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Ingredient"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated recipeIngredient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingredient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipeIngredient/text/{text}": {
+      "get": {
+        "summary": "Get recipeIngredient by full text search",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The recipeIngredient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingredient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipeIngredient/name/{name}": {
+      "get": {
+        "summary": "Get recipeIngredient by name",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The recipeIngredient",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ingredient"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete recipeIngredient by name",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ingredient deleted successfully"
+          }
+        }
+      }
+    },
+    "/recipeIngredient/type/{type}": {
+      "get": {
+        "summary": "Get recipeIngredient by type",
+        "tags": [
+          "RecipeIngredients"
+        ],
+        "parameters": [
+          {
+            "type": "type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The recipeIngredient",
             "content": {
               "application/json": {
                 "schema": {
@@ -716,7 +913,7 @@
       "UserwithouID": {
         "type": "object",
         "properties": {
-          "Name": {
+          "name": {
             "type": "string"
           },
           "email": {
@@ -731,17 +928,46 @@
           "id": {
             "type": "integer"
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "Type": {
+          "type": {
             "type": "string"
+          }
+        }
+      },
+      "StockIngredient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
           },
-          "Quantity": {
+          "ingredientID": {
+            "type": "integer"
+          },
+          "quantity": {
             "type": "number",
             "format": "float"
           },
-          "Unit": {
+          "unit": {
+            "type": "string"
+          }
+        }
+      },
+      "RecipeIngredient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "ingredientID": {
+            "type": "integer"
+          },
+          "quantity": {
+            "type": "number",
+            "format": "float"
+          },
+          "unit": {
             "type": "string"
           }
         }
@@ -772,55 +998,55 @@
           "id": {
             "type": "integer"
           },
-          "Name": {
+          "name": {
             "type": "string"
           },
-          "Date": {
+          "date": {
             "type": "string"
           },
-          "Autor": {
+          "autor": {
             "type": "string"
           },
-          "Description": {
+          "description": {
             "type": "string"
           },
-          "Instructions": {
+          "instructions": {
             "type": "string"
           },
-          "Ingredients": {
+          "ingredients": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Ingredient"
             }
           },
-          "Mood": {
+          "mood": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Mood"
             }
           },
-          "Preparation_time": {
+          "preparation_time": {
             "type": "integer"
           },
-          "Cooking_time": {
+          "cooking_time": {
             "type": "integer"
           },
-          "Quantity": {
+          "quantity": {
             "type": "string"
           },
-          "Difficultie": {
+          "difficultie": {
             "$ref": "#/components/schemas/Difficulties"
           },
-          "Photo": {
+          "photo": {
             "type": "string"
           },
-          "Tools": {
+          "tools": {
             "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "Calorie": {
+          "calorie": {
             "type": "string"
           }
         }

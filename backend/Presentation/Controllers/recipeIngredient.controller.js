@@ -20,7 +20,7 @@ export async function getAllRecipeIngredient(req, res) {
 
 export async function createRecipeIngredient(req, res) {
     try {
-        const newingredient = await RecipeingredientService.createRecipeIngredient(req.body.recipeID, req.body.ingredientID, req.body.quantity, req.body.unit);
+        const newingredient = await RecipeingredientService.createRecipeIngredient(req.body.recipeID, req.body.name, req.body.type , req.body.quantity, req.body.unit);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });

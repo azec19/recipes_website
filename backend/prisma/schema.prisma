@@ -63,7 +63,6 @@ model Ingredient {
   type Types
 
   stock            StockIngredient?
-  recipe           Recipe[]
   recipeIngredient RecipeIngredient?
 }
 
@@ -106,6 +105,4 @@ model Recipe {
   photo            String
   tools            String[]
   calorie          String
-  ingredient       Ingredient?        @relation(fields: [ingredientId], references: [id])
-  ingredientId     Int?
 }

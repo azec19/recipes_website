@@ -1,38 +1,43 @@
 import { prisma } from './prisma.js'
 
-export async function createStockIngredient(ingerdientID, quantity, unit) {
+export async function createStockIngredient(ingredientId, quantity, unit) {
     // Create a new ingredient
     const ingredient = await prisma.StockIngredient.create({
         data: {
-            ingredientID: ingerdientID,
-            Quantity: quantity,
-            Unit: unit,
+            ingredientId: ingredientId,
+            quantity: quantity,
+            unit: unit,
+        }, include: {
+            ingredient: true,
         },
     })
     return ingredient
 }
 
-export async function deleteStockIngredient(ingredientID) {
+export async function deleteStockIngredient(ingredientId) {
     // Create a new ingredient
     const ingredient = await prisma.StockIngredient.delete({
         where: {
-            ingredientID: ingredientID
+            ingredientId: ingredientId
+        }, include: {
+            ingredient: true,
         },
     })
     return ingredient
 }
 
-export async function updateStockIngredient(ingerdientID, quantity, unit) {
-    // Create a new ingredient
-    
+export async function updateStockIngredient(id_, ingredientId, quantity, unit) {
     const ingredient = await prisma.StockIngredient.update({
         where: {
-            id: ingerdientID,
+            id: id_,
         },
         data: {
-            Quantity: quantity,
-            Unit: unit
-        }
+            ingredientId: ingredientId,
+            quantity: quantity,
+            unit: unit
+        }, include: {
+            ingredient: true,
+        },
     })
     return ingredient
 }
@@ -40,7 +45,11 @@ export async function updateStockIngredient(ingerdientID, quantity, unit) {
 
 export async function GetAllStockIngredient() {
     // Fetch all ingredients
-    return await prisma.StockIngredient.findMany();
+    return await prisma.StockIngredient.findMany({
+        include: {
+            ingredient: true,
+        },
+    });
 }
 
 export async function findById(id_) {
@@ -49,6 +58,9 @@ export async function findById(id_) {
         where: {
             id: id_
         },
+        include: {
+            ingredient: true,
+        },
     })
 }
 
@@ -56,11 +68,14 @@ export async function findByIngredientID(IngredientID) {
     // Fetch ingredients with right name
     return await prisma.StockIngredient.findUnique({
         where: {
-            ingredientID: IngredientID
+            ingredientId: IngredientID
+        },
+        include: {
+            ingredient: true,
         },
     })
 }
 
 
-    const ingredientRepository = {findById, findByIngredientID, createStockIngredient, GetAllStockIngredient, deleteStockIngredient, updateStockIngredient };
-    export default ingredientRepository;
+const ingredientRepository = { findById, findByIngredientID, createStockIngredient, GetAllStockIngredient, deleteStockIngredient, updateStockIngredient };
+export default ingredientRepository;

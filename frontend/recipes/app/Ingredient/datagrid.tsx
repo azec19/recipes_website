@@ -11,13 +11,13 @@ import {
   GetRowIdParams,
   GridOptions
 } from 'ag-grid-community';
-import { Ingredient, Types_, Units_ } from "../lib/type"
+import { StockIngredient, Types_, Units_ } from "../lib/type"
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 type Props = {
-  ingredients: Ingredient[];
+  ingredients: StockIngredient[];
 };
 
 const types = Object.values(Object.values(Types_))
@@ -26,7 +26,7 @@ const units = Object.values(Object.values(Units_))
 
 
 
-async function onCellValueChanged(event: CellValueChangedEvent<Ingredient>) {
+async function onCellValueChanged(event: CellValueChangedEvent<StockIngredient>) {
   const updatedIngredient = event.data;
   await fetch(`/api/ingredient`, {
     method: 'PUT',
@@ -35,9 +35,9 @@ async function onCellValueChanged(event: CellValueChangedEvent<Ingredient>) {
   });
 }
 
-async function DeleteIngredient(event: CellClickedEvent<Ingredient>) {
-  const ingredient = event.data;
-  await fetch(`/api/ingredient/name/${ingredient?.Name}`, {
+async function DeleteIngredient(event: CellClickedEvent<StockIngredient>) {
+  const stockingredient = event.data;
+  await fetch(`/api/ingredient/name/${stockingredient?.ingredient.name}`, {
     method: 'DELETE',
   });
 }
@@ -49,20 +49,20 @@ const gridOptions: GridOptions = {
 }
 
 export default function GridComponent(ingredient: Props) {
-  const [rowData, setRowData] = useState<Ingredient[]>(ingredient.ingredients);
+  const [rowData, setRowData] = useState<StockIngredient[]>(ingredient.ingredients);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-    { field: "Name", flex: 2, filter: true, editable: true },
+    { field: "ingredient.name", flex: 2, filter: true, editable: true },
     {
-      field: "Type", flex: 1, editable: true,
+      field: "ingredient.type", flex: 1, editable: true,
       filter: true,
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
         values: types
       },
     },
-    { field: "Quantity", flex: 1, editable: true },
+    { field: "quantity", flex: 1, editable: true },
     {
-      field: "Unit", flex: 1, editable: true,
+      field: "unit", flex: 1, editable: true,
       filter: true,
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
@@ -76,7 +76,7 @@ export default function GridComponent(ingredient: Props) {
         event.api?.applyTransaction({ remove: [event.data] });
       },
       valueGetter: () => "Delete",
-      cellStyle : {cursor: 'pointer', 'text-align':'center'}
+      cellStyle : {cursor: 'pointer', 'textAlign':'center'}
     }
   ]);
 

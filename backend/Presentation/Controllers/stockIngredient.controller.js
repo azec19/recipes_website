@@ -44,7 +44,7 @@ export async function getAllStockIngredient(req, res) {
 
 export async function createStockIngredient(req, res) {
     try {
-        const newingredient = await StockingredientService.createStockIngredient(req.body.IngredientID, req.body.Quantity, req.body.Unit);
+        const newingredient = await StockingredientService.createStockIngredient(req.body.name, req.body.type, req.body.quantity, req.body.unit);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });

@@ -11,8 +11,8 @@ export enum Types_ {
     AUTRE = 'Autre'
 }
 export function typeLabelToEnum(value: string): Types_ {
-  return (Object.entries(Types_) as [keyof typeof Types_, string][])
-    .find(([, v]) => v === value)?.[0] as Types_;
+    return (Object.entries(Types_) as [keyof typeof Types_, string][])
+        .find(([, v]) => v === value)?.[0] as Types_;
 }
 
 export enum Units_ {
@@ -24,16 +24,30 @@ export enum Units_ {
     UNITE = 'Unité',
 }
 
-export function unitLabelToEnum(value: string): Units_{
-  return (Object.entries(Units_) as [keyof typeof Units_, string][])
-    .find(([, v]) => v === value)?.[0] as Units_ ;
+export function unitLabelToEnum(value: string): Units_ {
+    return (Object.entries(Units_) as [keyof typeof Units_, string][])
+        .find(([, v]) => v === value)?.[0] as Units_;
 }
-export type Ingredient = {
+export type StockIngredient = {
     id: number;
-    Name: string;
-    Type: Types_;
     Quantity: number;
-    Unit: Units_
+    Unit: Units_;
+    ingredient: {
+        id: number
+        name: string
+        type: Types_
+    }
+}
+
+export type RecipeIngredient = {
+    id: number;
+    Quantity: number;
+    Unit: Units_;
+    ingredient: {
+        id: number
+        name: string
+        type: Types_
+    }
 }
 
 export enum Mood {
@@ -53,19 +67,19 @@ export enum Difficulties {
 }
 
 export type Recipe = {
-  id : number;
-  Name : string;
-  Date : Date;
-  Autor : string;
-  Description : string;
-  Instructions : string;
-  Ingredients : Ingredient[];
-  mood : Mood[];
-  Preparation_time : number;
-  Cooking_time : number;
-  Quantity : string;
-  Difficultie : Difficulties;
-  Photo : string;
-  Tools : string[];
-  Calorie : string;
+    id: number;
+    Name: string;
+    Date: Date;
+    Autor: string;
+    Description: string;
+    Instructions: string;
+    Ingredients: RecipeIngredient[];
+    mood: Mood[];
+    Preparation_time: number;
+    Cooking_time: number;
+    Quantity: string;
+    Difficultie: Difficulties;
+    Photo: string;
+    Tools: string[];
+    Calorie: string;
 }

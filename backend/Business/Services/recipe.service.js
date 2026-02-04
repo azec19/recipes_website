@@ -1,6 +1,7 @@
 import recipeDAO from '../../Data/Repositories/recipe.repositorie.js'
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
 import recipeingredientService from './recipeIngredient.service.js'
+import { log } from 'node:console';
 
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
@@ -11,47 +12,49 @@ export async function getAllRecipe() {
 };
 
 
-export async function createRecipe(Name,
+export async function createRecipe(name,
     date,
-    Autor,
-    Description,
-    Instructions,
-    Ingredients,
+    autor,
+    description,
+    instructions,
+    ingredients,
     mood,
-    Preparation_time,
-    Cooking_time,
-    Quantity,
-    Difficultie,
-    Photo,
-    Tools,
-    Calorie,) {
+    preparation_time,
+    cooking_time,
+    quantity,
+    difficultie,
+    photo,
+    tools,
+    calorie,) {
 
-    const existing = await recipeDAO.findByName(Name);
+    const existing = await recipeDAO.findByName(name);
     if (existing) {
         throw new Error("Recipe already exists");
     }
 
-
+    console.log(date);
+    
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
         throw new Error("Date is invalid");
 
-    const recipe = await recipeDAO.CreateRecipe(Name,
+    console.log(date_);
+    const recipe = await recipeDAO.CreateRecipe(name,
         date_,
-        Autor,
-        Description,
-        Instructions,
+        autor,
+        description,
+        instructions,
         [],
         mood,
-        parseInt(Preparation_time),
-        parseInt(Cooking_time),
-        Quantity,
-        Difficultie,
-        Photo,
-        Tools,
-        Calorie,);
+        parseInt(preparation_time),
+        parseInt(cooking_time),
+        quantity,
+        difficultie,
+        photo,
+        tools,
+        calorie,);
 
-    const Recipeingredients = Ingredients.map(async i => (
+    const Recipeingredients = ingredients.map(async i => (
         await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
     ));
 
@@ -76,20 +79,20 @@ export async function getRecipeByFullTextSearch(text) {
 };
 
 export async function updateRecipe(id,
-    Name,
-    Date,
-    Autor,
-    Description,
-    Instructions,
-    Ingredients,
+    name,
+    date,
+    autor,
+    description,
+    instructions,
+    ingredients,
     mood,
-    Preparation_time,
-    Cooking_time,
-    Quantity,
-    Difficultie,
-    Photo,
-    Tools,
-    Calorie,) {
+    preparation_time,
+    cooking_time,
+    quantity,
+    difficultie,
+    photo,
+    tools,
+    calorie,) {
     const recipe = await recipeDAO.findById(id);
     if (!recipe) {
         throw new Error("Recipe doesn't exist");
@@ -97,46 +100,54 @@ export async function updateRecipe(id,
 
     let Recipeingredients = []
     if (Ingredients) {
+        recipe.ingredients.forEach(async (ingredient) => 
+        await recipeingredientService.deleteRecipeIngredient(ingredient.id))
+
         Recipeingredients = Ingredients.map(async i => (
         await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
     ));
+    const date_ = new Date(date)
+    if (date_ == "Invalid Date")
+        throw new Error("Date is invalid");
     }
-    Name = Name ? Name : recipe.Name
-    Date = Date ? Date : recipe.Date
-    Autor = Autor ? Autor : recipe.Autor
-    Description = Description ? Description : recipe.Description
-    Instructions = Instructions ? Instructions : recipe.Instructions
-    ingredientsConnectOrCreate = ingredientsConnectOrCreate.lenght === 0 ? recipe.Ingredients : ingredientsConnectOrCreate
+    name = name ? name : recipe.name
+    date = date ? date : recipe.date
+    autor = autor ? autor : recipe.autor
+    description = description ? description : recipe.description
+    instructions = instructions ? instructions : recipe.instructions
+    Recipeingredients = Recipeingredients.lenght === 0 ? recipe.ingredients : Recipeingredients
     mood = mood ? mood : recipe.mood
-    Preparation_time = Preparation_time ? Preparation_time : recipe.Preparation_time
-    Cooking_time = Cooking_time ? Cooking_time : recipe.Cooking_time
-    Quantity = Quantity ? Quantity : recipe.Quantity
-    Difficultie = Difficultie ? Difficultie : recipe.Difficultie
-    Photo = Photo ? Photo : recipe.Photo
-    Tools = Tools ? Tools : recipe.Tools
-    Calorie = Calorie ? Calorie : recipe.Calorie
+    preparation_time = preparation_time ? preparation_time : recipe.preparation_time
+    cooking_time = cooking_time ? cooking_time : recipe.cooking_time
+    quantity = quantity ? quantity : recipe.quantity
+    difficultie = difficultie ? difficultie : recipe.difficultie
+    photo = photo ? photo : recipe.photo
+    tools = tools ? tools : recipe.tools
+    calorie = calorie ? calorie : recipe.calorie
 
-    return recipeDAO.UpdateRecipe(id, Name,
-        Date,
-        Autor,
-        Description,
-        Instructions,
+    return recipeDAO.UpdateRecipe(id, name,
+        date,
+        autor,
+        description,
+        instructions,
         ingredientsConnectOrCreate,
         mood,
-        Preparation_time,
-        Cooking_time,
-        Quantity,
-        Difficultie,
-        Photo,
-        Tools,
-        Calorie,);
+        preparation_time,
+        cooking_time,
+        quantity,
+        difficultie,
+        photo,
+        tools,
+        calorie,);
 };
 
 export async function deleteRecipe(name) {
-    const existing = await recipeDAO.findByName(name);
-    if (!existing) {
+    const recipe = await recipeDAO.findByName(name);
+    if (!recipe) {
         throw new Error("Recipe doesn't exist");
     }
+    recipe.ingredients.forEach(async (ingredient) => 
+        await recipeingredientService.deleteRecipeIngredient(ingredient.id))
     return recipeDAO.DeleteRecipe(name);
 };
 

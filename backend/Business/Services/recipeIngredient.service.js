@@ -1,4 +1,4 @@
-import RecipeIngredientDAO from '../../Data/Repositories/recipe.repositorie.js'
+import RecipeIngredientDAO from '../../Data/Repositories/recipeIngredient.repositorie.js'
 import IngredientService from './ingredient.service.js'
 
 export async function getRecipeIngredientById(id_) {
@@ -29,25 +29,27 @@ export async function getAllRecipeIngredient() {
     return recipeingredients;
 };
 
-// export async function createRecipeIngredient(recipeID, ingredientID, quantity, unit){
-//     const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientID);
+// export async function createRecipeIngredient(recipeID, ingredientId, quantity, unit){
+//     const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientId);
 //     if (existing) {
 //         return existing
 //     }
-//     return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientID, quantity, unit);
+//     return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientId, quantity, unit);
 // };
 
 export async function createRecipeIngredient(recipeID, name, type, quantity, unit){
-    var ingredientID = await IngredientService.findbyName(name)
-    if (!ingredientID)
+    var ingredientId = await IngredientService.findByName(name)
+    if (!ingredientId)
     {
-        ingredientID = (await IngredientService.createIngredient(name, type)).id
+        ingredientId = (await IngredientService.createIngredient(name, type)).id
     }
-    const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientID);
+    else
+        ingredientId = ingredientId.id
+    const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientId);
     if (existing) {
         return existing
     }
-    return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientID, quantity, unit);
+    return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientId, quantity, unit);
 };
 
 export async function deleteRecipeIngredient(id){
@@ -58,16 +60,16 @@ export async function deleteRecipeIngredient(id){
     return RecipeIngredientDAO.deleteRecipeIngredient(id);
 };
 
-export async function updateRecipeIngredient(id_, recipeID, ingredientID, quantity, unit){
+export async function updateRecipeIngredient(id_, recipeID, ingredientId, quantity, unit){
     const recipeingredient = await RecipeIngredientDAO.findById(id_);
     if (!recipeingredient) {
         throw new Error("RecipeIngredient doesn't exist");
     }
     recipeID = recipeID ? recipeID : recipeingredient.recipeID
-    ingredientID = ingredientID ? ingredientID : recipeingredient.ingredientID
+    ingredientId = ingredientId ? ingredientId : recipeingredient.ingredientId
     quantity = quantity ? quantity : recipeingredient.quantity
     unit = unit ? unit : recipeingredient.unit
-    return RecipeIngredientDAO.updateRecipeIngredient(id_, recipeID, ingredientID, quantity, unit);
+    return RecipeIngredientDAO.updateRecipeIngredient(id_, recipeID, ingredientId, quantity, unit);
 };
 
 const recipeingredientService = {getRecipeIngredientById, getRecipeIngredientByName, createRecipeIngredient, getAllRecipeIngredient, deleteRecipeIngredient, updateRecipeIngredient };

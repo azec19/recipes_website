@@ -10,10 +10,9 @@ import {
   EditableCallbackParams,
   RowEditingStoppedEvent,
   GridOptions,
-  CellClickedEvent,
   RowSelectionOptions
 } from 'ag-grid-community';
-import { Ingredient, Types_, Units_ } from "../lib/type"
+import { RecipeIngredient, Types_, Units_ } from "../lib/type"
 import { listIngredients } from '../lib/Formstore';
 
 // Register all Community features
@@ -43,12 +42,12 @@ export default function GridComponent() {
   const gridRef = useRef<AgGridReact>(null);
   const containerStyle = useMemo(() => ({ width: "100%", height: "100%" }), []);
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
-  const [rowData, setRowData] = useState<Ingredient[]>([]);
+  const [rowData, setRowData] = useState<RecipeIngredient[]>([]);
   const [pinnedBottomRowData, setPinnedBottomRowData] = useState([]);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-    { field: "Name", flex: 2, filter: true, editable: true },
+    { field: "name", flex: 2, filter: true, editable: true },
     {
-      field: "Type", flex: 1, editable: true,
+      field: "type", flex: 1, editable: true,
       filter: true,
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
@@ -56,10 +55,10 @@ export default function GridComponent() {
       },
     },
     {
-      field: "Quantity", flex: 1, editable: true, cellDataType: 'number',
+      field: "quantity", flex: 1, editable: true, cellDataType: 'number',
     },
     {
-      field: "Unit", flex: 1, editable: true,
+      field: "unit", flex: 1, editable: true,
       filter: true,
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
@@ -77,7 +76,7 @@ export default function GridComponent() {
   }, []);
 
   const getRowId = useCallback(function (params: GetRowIdParams) {
-    return params.data.Name ?? "new-row";
+    return params.data.name ?? "new-row";
   }, []);
 
   const addNewRow = useCallback(() => {
@@ -88,13 +87,13 @@ export default function GridComponent() {
     }
 
     api.setGridOption("pinnedBottomRowData", [
-      { Name: null, Type: null, Quantity: null, Unit: null },
+      { name: null, type: null, quantity: null, unit: null },
     ]);
     setTimeout(() => {
       api.startEditingCell({
         rowIndex: 0,
         rowPinned: "bottom",
-        colKey: "Name",
+        colKey: "name",
       });
     });
 
@@ -106,9 +105,9 @@ export default function GridComponent() {
       return rowNode.id;
     });
     const filteredData = rowData.filter(function (dataItem) {
-      if (selectedIds.indexOf(dataItem.Name) >= 0)
-        remove(dataItem.Name)
-      return selectedIds.indexOf(dataItem.Name) < 0
+      if (selectedIds.indexOf(dataItem.ingredient.name) >= 0)
+        remove(dataItem.ingredient.name)
+      return selectedIds.indexOf(dataItem.ingredient.name) < 0
     });
     setRowData(filteredData);
 
@@ -120,11 +119,11 @@ export default function GridComponent() {
 
       setPinnedBottomRowData([]);
 
-      if (data.Name == null) {
+      if (data.name == null) {
         return;
       }
-      if (data.Quantity == null)
-        data.Quantity = 1;
+      if (data.quantity == null)
+        data.quantity = 1;
       setRowData([data, ...rowData]);
       add(data)
 
