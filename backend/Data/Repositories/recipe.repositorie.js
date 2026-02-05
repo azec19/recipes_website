@@ -60,7 +60,7 @@ export async function findByName(name) {
 export async function UpdateRecipe(id_, name, date, autor, description, instructions, recipeingredients, Mood, preparationTime, cookingTime, quantity, difficultie, photo, tools, calorie) {
     // Create a new recipe
 
-    const recipe = await prisma.recipe.update({
+    return await prisma.recipe.update({
         where: {
             id: id_,
         },
@@ -70,7 +70,9 @@ export async function UpdateRecipe(id_, name, date, autor, description, instruct
             autor: autor,
             description: description,
             instructions: instructions,
-            ingredients: { connectOrCreate: recipeingredients },
+            ingredients: {
+                connectOrCreate: recipeingredients
+            },
             mood: Mood,
             preparation_time: preparationTime,
             cooking_time: cookingTime,
@@ -81,7 +83,6 @@ export async function UpdateRecipe(id_, name, date, autor, description, instruct
             calorie: calorie
         }
     })
-    return recipe
 }
 
 export async function DeleteRecipe(name) {

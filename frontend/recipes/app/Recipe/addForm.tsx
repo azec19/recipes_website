@@ -46,7 +46,7 @@ export default function formRecipe({ onSubmit }: Props) {
                             <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                 Nom de la recette
                             </label>
-                            <input type="text" placeholder="Nom" name="name"
+                            <input type="text" placeholder="Nom" name="name" defaultValue="qsd"
                                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div className="-mx-3 flex flex-wrap">
@@ -55,7 +55,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                         Date de création
                                     </label>
-                                    <input type="text" placeholder="Date" name="date"
+                                    <input type="text" placeholder="Date" name="date" defaultValue="01/01/2026" 
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                 </div>
                             </div>
@@ -77,14 +77,14 @@ export default function formRecipe({ onSubmit }: Props) {
                             <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                 Auteur de la recette
                             </label>
-                            <input type="text" placeholder="Auteur" name="autor"
+                            <input type="text" placeholder="Auteur" name="autor" defaultValue="qsd" 
                                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div className="mb-5">
                             <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                 Description de la recette
                             </label>
-                            <textarea placeholder="Description" rows={3} name="description"
+                            <textarea placeholder="Description" rows={3} name="description" defaultValue="qsd" 
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div className="mb-5">
@@ -97,7 +97,7 @@ export default function formRecipe({ onSubmit }: Props) {
                             <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                 Instructions pour la recette
                             </label>
-                            <textarea placeholder="Instructions" rows={6} name="instructions"
+                            <textarea placeholder="Instructions" rows={6} name="instructions" defaultValue="qsd" 
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
 
@@ -107,7 +107,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                         Temps de préparation
                                     </label>
-                                    <input type="number" placeholder="Preparation time" name="preparation_time"
+                                    <input type="number" placeholder="Preparation time" name="preparation_time" defaultValue="5" 
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                 </div>
                             </div>
@@ -116,7 +116,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     <label htmlFor="time" className="mb-3 block text-base font-medium text-[#07074D]">
                                         Temps de cuisson
                                     </label>
-                                    <input type="number" placeholder="Cooking time" name="cooking_time"
+                                    <input type="number" placeholder="Cooking time" name="cooking_time" defaultValue="5" 
                                         className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                 </div>
                             </div>
@@ -125,7 +125,7 @@ export default function formRecipe({ onSubmit }: Props) {
                             <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                 Nombre de personne prévu
                             </label>
-                            <input type="text" placeholder="Quantité/Nombre de personne" name="quantity"
+                            <input type="text" placeholder="Quantité/Nombre de personne" name="quantity" defaultValue="qsd" 
                                 className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         </div>
                         <div className="-mx-3 flex flex-wrap">
@@ -163,14 +163,14 @@ export default function formRecipe({ onSubmit }: Props) {
                             <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                 Outils nécessaires (séparer les ustensiles par des virgules pour établir une liste)
                             </label>
-                            <textarea placeholder="Outils nécessaires" rows={4} name="tools"
+                            <textarea placeholder="Outils nécessaires" rows={4} name="tools" defaultValue="qsd" 
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                 Calorie, type d'apport nutritionel
                             </label>
-                            <textarea placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie"
+                            <textarea placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie" defaultValue="qsd" 
                                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                         </div>
                         <button type="submit" className="hover:bg-[#6b64f29f] cursor-pointer rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">Submit</button>

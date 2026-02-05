@@ -68,18 +68,18 @@ export enum Difficulties {
 
 export type Recipe = {
     id: number;
-    Name: string;
-    Date: Date;
-    Autor: string;
-    Description: string;
-    Instructions: string;
-    Ingredients: RecipeIngredient[];
+    name: string;
+    date: Date;
+    autor: string;
+    description: string;
+    instructions: string;
+    ingredients: RecipeIngredient[];
     mood: Mood[];
-    Preparation_time: number;
-    Cooking_time: number;
-    Quantity: string;
-    Difficultie: Difficulties;
-    Photo: string;
-    Tools: string[];
-    Calorie: string;
+    preparation_time: number;
+    cooking_time: number;
+    quantity: string;
+    difficultie: Difficulties;
+    photo: string;
+    tools: string[];
+    calorie: string;
 }

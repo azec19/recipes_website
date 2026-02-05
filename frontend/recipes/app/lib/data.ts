@@ -62,7 +62,8 @@ export async function onSubmitRecipe(formData: FormData) {
         tools: toolsList,
         calorie: formData.get('calorie') as string
     };
-
+    console.log(data);
+    
     const response = await fetch('http://localhost:3001/api/recipe', {
         method: 'POST',
         headers: {

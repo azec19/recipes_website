@@ -32,7 +32,7 @@ export async function createRecipe(name,
     }
 
 
-    
+
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
         throw new Error("Date is invalid");
@@ -52,11 +52,7 @@ export async function createRecipe(name,
         tools,
         calorie,);
 
-    const Recipeingredients = ingredients.map(async i => (
-        await recipeingredientService.createRecipeIngredient(recipe.id, i.ingredient.name, i.ingredient.type, i.quantity, i.unit)
-    ));
-
-    return await recipeDAO.UpdateRecipe(recipe.id, null, null, null, null, null, Recipeingredients, null, null, null, null, null,null, null,null)
+    return await updateRecipe(recipe.id, null, null, null, null, null, ingredients, null, null, null, null, null, null, null, null)
 
 };
 
@@ -97,16 +93,27 @@ export async function updateRecipe(id,
     }
 
     let Recipeingredients = []
-    if (Ingredients) {
-        recipe.ingredients.forEach(async (ingredient) => 
-        await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId))
+    if (ingredients) {
+        recipe.ingredients.forEach(async (ingredient) =>
+            await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId))
 
-        Recipeingredients = ingredients.map(async i => (
-        await recipeingredientService.createRecipeIngredient(recipe.id, i.ingredient.name, i.ingredient.type, i.quantity, i.unit)
-    ));
-    const date_ = new Date(date)
-    if (date_ == "Invalid Date")
-        throw new Error("Date is invalid");
+        const tempResipeIngredient = await Promise.all(
+            ingredients.map((ingredient) =>
+                recipeingredientService.createRecipeIngredient(recipe.id, ingredient.name, ingredient.type,ingredient.quantity, ingredient.unit))
+        );
+        Recipeingredients = tempResipeIngredient.map(ri => ({
+            where: {
+                recipeId: recipe.id,
+                ingredientId: ri.ingredientId,
+            },
+            create: {
+                ingredient: {
+                    connect: { id: ri.ingredientId },
+                },
+                quantity: ri.quantity,
+                unit: ri.unit,
+            },
+        }));
     }
     name = name ? name : recipe.name
     date = date ? date : recipe.date
