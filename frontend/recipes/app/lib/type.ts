@@ -30,8 +30,8 @@ export function unitLabelToEnum(value: string): Units_ {
 }
 export type StockIngredient = {
     id: number;
-    Quantity: number;
-    Unit: Units_;
+    quantity: number;
+    unit: Units_;
     ingredient: {
         id: number
         name: string
@@ -41,8 +41,8 @@ export type StockIngredient = {
 
 export type RecipeIngredient = {
     id: number;
-    Quantity: number;
-    Unit: Units_;
+    quantity: number;
+    unit: Units_;
     ingredient: {
         id: number
         name: string

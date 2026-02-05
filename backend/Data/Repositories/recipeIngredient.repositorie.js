@@ -16,11 +16,12 @@ export async function createRecipeIngredient(recipeId, ingredientId, quantity, u
     return Recipeingredient
 }
 
-export async function deleteRecipeIngredient(id_) {
+export async function deleteRecipeIngredient(recipeId, ingredientId) {
     // Create a new ingredient
     const ingredient = await prisma.RecipeIngredient.delete({
         where: {
-            id: id_
+            recipeId: recipeId,
+            ingredientId: ingredientId,
         },
         include: {
             ingredient: true,
@@ -29,12 +30,13 @@ export async function deleteRecipeIngredient(id_) {
     return ingredient
 }
 
-export async function updateRecipeIngredient(id_, recipeId, ingredientId, quantity, unit) {
+export async function updateRecipeIngredient(recipeId, ingredientId, quantity, unit) {
     // Create a new ingredient
 
     const ingredient = await prisma.RecipeIngredient.update({
         where: {
-            id: id_,
+            recipeId: recipeId,
+            ingredientId: ingredientId,
         },
         data: {
             recipeId: recipeId,
@@ -72,11 +74,12 @@ export async function findByRecipe(recipeId, ingredientId) {
     })
 }
 
-export async function findById(id_) {
+export async function findById(ingredientId, recipeId) {
     // Fetch ingredients with right name
     return await prisma.RecipeIngredient.findUnique({
         where: {
-            id: id_
+            recipeId: recipeId,
+            ingredientId: ingredientId,
         },
         include: {
             ingredient: true,

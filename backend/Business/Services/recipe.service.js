@@ -1,7 +1,6 @@
 import recipeDAO from '../../Data/Repositories/recipe.repositorie.js'
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
 import recipeingredientService from './recipeIngredient.service.js'
-import { log } from 'node:console';
 
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
@@ -32,13 +31,12 @@ export async function createRecipe(name,
         throw new Error("Recipe already exists");
     }
 
-    console.log(date);
+
     
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
         throw new Error("Date is invalid");
 
-    console.log(date_);
     const recipe = await recipeDAO.CreateRecipe(name,
         date_,
         autor,
@@ -55,7 +53,7 @@ export async function createRecipe(name,
         calorie,);
 
     const Recipeingredients = ingredients.map(async i => (
-        await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
+        await recipeingredientService.createRecipeIngredient(recipe.id, i.ingredient.name, i.ingredient.type, i.quantity, i.unit)
     ));
 
     return await recipeDAO.UpdateRecipe(recipe.id, null, null, null, null, null, Recipeingredients, null, null, null, null, null,null, null,null)
@@ -101,10 +99,10 @@ export async function updateRecipe(id,
     let Recipeingredients = []
     if (Ingredients) {
         recipe.ingredients.forEach(async (ingredient) => 
-        await recipeingredientService.deleteRecipeIngredient(ingredient.id))
+        await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId))
 
-        Recipeingredients = Ingredients.map(async i => (
-        await recipeingredientService.createRecipeIngredient(recipe.id, i.name, i.type, i.quantity, i.unit)
+        Recipeingredients = ingredients.map(async i => (
+        await recipeingredientService.createRecipeIngredient(recipe.id, i.ingredient.name, i.ingredient.type, i.quantity, i.unit)
     ));
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
@@ -130,7 +128,7 @@ export async function updateRecipe(id,
         autor,
         description,
         instructions,
-        ingredientsConnectOrCreate,
+        Recipeingredients,
         mood,
         preparation_time,
         cooking_time,
@@ -146,8 +144,6 @@ export async function deleteRecipe(name) {
     if (!recipe) {
         throw new Error("Recipe doesn't exist");
     }
-    recipe.ingredients.forEach(async (ingredient) => 
-        await recipeingredientService.deleteRecipeIngredient(ingredient.id))
     return recipeDAO.DeleteRecipe(name);
 };
 

@@ -25,8 +25,10 @@ export default function formRecipe({ onSubmit }: Props) {
 
     const submit = async (formData: FormData) => {
         // tu peux enrichir les données
-        list.forEach((ingredient) => ingredient.Type = typeLabelToEnum(ingredient.Type))
-        list.forEach((ingredient) => ingredient.Unit = unitLabelToEnum(ingredient.Unit))
+        console.log(list);
+        
+        list.forEach((ingredient) => ingredient.ingredient.type = typeLabelToEnum(ingredient.ingredient.type))
+        list.forEach((ingredient) => ingredient.unit = unitLabelToEnum(ingredient.unit))
         formData.append('ingredients', JSON.stringify(list))
         await onSubmit(formData)
         reset() // reset Zustand après succès

@@ -24,5 +24,5 @@ export const listIngredients = create<IngredientStore>((set) => ({
     }
   }),
   remove: (name: string) => set((self) => ({ list: self.list.filter((i) => i.ingredient.name !== name) })),
-  reset: () => set((self) => ({ list: [] }))
+  reset: () => set(() => ({ list: [] }))
 }))

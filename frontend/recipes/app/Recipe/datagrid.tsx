@@ -45,9 +45,9 @@ export default function GridComponent() {
   const [rowData, setRowData] = useState<RecipeIngredient[]>([]);
   const [pinnedBottomRowData, setPinnedBottomRowData] = useState([]);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
-    { field: "name", flex: 2, filter: true, editable: true },
+    { field: "ingredient.name", flex: 2, filter: true, editable: true },
     {
-      field: "type", flex: 1, editable: true,
+      field: "ingredient.type", flex: 1, editable: true,
       filter: true,
       cellEditor: "agSelectCellEditor",
       cellEditorParams: {
@@ -76,7 +76,7 @@ export default function GridComponent() {
   }, []);
 
   const getRowId = useCallback(function (params: GetRowIdParams) {
-    return params.data.name ?? "new-row";
+    return params.data.ingredient.name ?? "new-row";
   }, []);
 
   const addNewRow = useCallback(() => {
@@ -87,13 +87,13 @@ export default function GridComponent() {
     }
 
     api.setGridOption("pinnedBottomRowData", [
-      { name: null, type: null, quantity: null, unit: null },
+      { ingredient : {name: null, type: null}, quantity: null, unit: null },
     ]);
     setTimeout(() => {
       api.startEditingCell({
         rowIndex: 0,
         rowPinned: "bottom",
-        colKey: "name",
+        colKey: "ingredient.name",
       });
     });
 
@@ -119,7 +119,7 @@ export default function GridComponent() {
 
       setPinnedBottomRowData([]);
 
-      if (data.name == null) {
+      if (data.ingredient.name == null) {
         return;
       }
       if (data.quantity == null)
