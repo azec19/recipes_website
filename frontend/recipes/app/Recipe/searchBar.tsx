@@ -2,7 +2,7 @@
 
 import styles from './searchBar.module.css'
 
-export default function SearchBar() {
+export default function SearchBar({value_, onChange_}: {value_: string, onChange_: Function}) {
     return (
         <div className={styles.searchbox}>
             <svg aria-hidden="true" viewBox="0 0 24 24">
@@ -11,6 +11,8 @@ export default function SearchBar() {
                 />
             </svg>
             <input
+                value={value_}
+                onChange={(e) => onChange_(e.target.value)}
                 autoComplete="on"
                 inputMode="search"
                 placeholder="Recipes search"

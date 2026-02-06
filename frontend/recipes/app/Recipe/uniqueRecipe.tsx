@@ -1,3 +1,5 @@
+'use client'
+
 import { Recipe } from "../lib/type"
 import style from './uniqueRecipe.module.css'
 import Image from 'next/image'
@@ -8,20 +10,19 @@ type Props = {
 
 export default function recipe({ recipe }: Props) {
     return (
-        <div className="rounded-xl overflow-hidden shadow-lg flex flex-col bg-[#515151]">
-            <div className="relative ">
-                <Image className="w-full "
+        <div className="rounded-xl overflow-hidden h-full shadow-lg flex flex-col bg-[#515151]">
+            <div className="relative aspect-[4/3]">
+                <Image className="object-cover"
                     src={`/images/${recipe.photo}`}
-                    alt="Sunset in the mountains"
-                    width={1000}
-                    height={1000}/>
+                    fill
+                    alt="Sunset in the mountains"/>
                 <div
                     className="cursor-pointer hover:bg-gray-900 transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-transparent opacity-25">
                 </div>
             </div>
 
             <div className="px-6 py-4 mb-auto">
-                <div className="font-medium text-3xl inline-block hover:text-black transition duration-200 ease-in-out mb-2 cursor-pointer">{recipe.Name}</div>
+                <div className="font-medium text-3xl inline-block hover:text-black transition duration-200 ease-in-out mb-2 cursor-pointer">{recipe.name}</div>
                 <div className="text-gray-300 text-sm">{recipe.description}</div>
             </div>
             <div className={`${style.box} ${style.preparation}`}></div>

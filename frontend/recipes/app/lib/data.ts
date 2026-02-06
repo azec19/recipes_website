@@ -1,3 +1,5 @@
+ 'use server'
+
 import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
 
@@ -20,7 +22,6 @@ export async function fetchAllStockIngredients(): Promise<StockIngredient[]> {
 }
 
 export async function onSubmitStockIngredient(formData: FormData) {
-    'use server'
     const data = {
         name: formData.get('name_') as string,
         type: formData.get('type') as string,
@@ -43,7 +44,7 @@ export async function onSubmitStockIngredient(formData: FormData) {
 }
 
 export async function onSubmitRecipe(formData: FormData) {
-    'use server'
+   
 
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     const data = {
@@ -108,6 +109,8 @@ export async function onSubmitRecipe(formData: FormData) {
         const text = await update_response.text()
         throw new Error(text)
     }
+    
+    // revalidatePath('/');
 
 }
 
