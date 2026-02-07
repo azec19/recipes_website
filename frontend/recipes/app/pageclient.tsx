@@ -1,8 +1,8 @@
 'use client'
 import Bandeau from "./Bandeau/Bandeau"
 import { Recipe } from "./lib/type"
-import SearchBar from "./Recipe/searchBar"
-import RecipeContent from "./Recipe/uniqueRecipe"
+import SearchBar from "./AddRecipe/searchBar"
+import RecipeContent from "./AddRecipe/uniqueRecipe"
 import { useState, useMemo } from 'react'
 
 export default function Recipeclient({ recipes } : { recipes: Recipe[]}) {

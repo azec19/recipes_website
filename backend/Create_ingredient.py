@@ -46,7 +46,6 @@ class Ingredient :
 
     def to_dict(self):
         return {
-            "id": self.id,
             "name": self.name,
             "type": self.type,
         }
@@ -59,27 +58,22 @@ class StockIngredient :
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "name": self.name,
-            "type": self.type,
+            "name": self.ingredient.name,
+            "type": self.ingredient.type,
             "quantity": self.quantity,
             "unit": self.unit
         }
     
 class RecipeIngredient :
-    def __init__(self,id, name, type, quantity, unit):
+    def __init__(self, name, type, quantity, unit):
         self.ingredient = Ingredient(name, type)
-        self.id = id
-        self.name = name
-        self.type = type
         self.quantity = quantity
         self.unit = unit
 
     def to_dict(self):
         return {
-            "id": self.id,
-            "name": self.name,
-            "type": self.type,
+            "name": self.ingredient.name,
+            "type": self.ingredient.type,
             "quantity": self.quantity,
             "unit": self.unit
         }
@@ -123,17 +117,17 @@ class Recette :
         }
 
 list_ingredient = []
-list_ingredient.append(Ingredient(0,"Carotte",'LEGUME',6,'KG'))
-list_ingredient.append(Ingredient(0,"Patate",'FECULENT',5,'KG'))
-list_ingredient.append(Ingredient(0,"Lait",'LAITIER',3,'L'))
-list_ingredient.append(Ingredient(0,"Yaourt",'LAITIER',6,'UNITE'))
-list_ingredient.append(Ingredient(0,"Pate",'FECULENT',1,'KG'))
-list_ingredient.append(Ingredient(0,"Sel",'EPICE',500,'GR'))
-list_ingredient.append(Ingredient(0,"Poivre",'EPICE',200,'GR'))
-list_ingredient.append(Ingredient(0,"Pomme",'FRUIT',5,'UNITE'))
-list_ingredient.append(Ingredient(0,"Gateau",'AUTRE',15,'UNITE'))
-list_ingredient.append(Ingredient(0,"Steak",'VIANDE',750,'GR'))
-list_ingredient.append(Ingredient(0,"Saumon",'POISSON',250,'GR'))
+list_ingredient.append(StockIngredient("Carotte",'LEGUME',6,'KG'))
+list_ingredient.append(StockIngredient("Patate",'FECULENT',5,'KG'))
+list_ingredient.append(StockIngredient("Lait",'LAITIER',3,'L'))
+list_ingredient.append(StockIngredient("Yaourt",'LAITIER',6,'UNITE'))
+list_ingredient.append(StockIngredient("Pate",'FECULENT',1,'KG'))
+list_ingredient.append(StockIngredient("Sel",'EPICE',500,'GR'))
+list_ingredient.append(StockIngredient("Poivre",'EPICE',200,'GR'))
+list_ingredient.append(StockIngredient("Pomme",'FRUIT',5,'UNITE'))
+list_ingredient.append(StockIngredient("Gateau",'AUTRE',15,'UNITE'))
+list_ingredient.append(StockIngredient("Steak",'VIANDE',750,'GR'))
+list_ingredient.append(StockIngredient("Saumon",'POISSON',250,'GR'))
 
 # url = 'http://localhost:3000/stockIngredient'
 # for ingredient in list_ingredient:
@@ -142,10 +136,10 @@ list_ingredient.append(Ingredient(0,"Saumon",'POISSON',250,'GR'))
 
 
 list_recette = []
-list_recette.append(Recette(0,"pâte pesto", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + pesto", [Ingredient("Pate",'FECULENT',1,'KG'), Ingredient("Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","EASY","pate_pesto.jpg",["passoire","casserole"], "jsp"))
-list_recette.append(Recette(0,"pate bolo", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + Bolo", [Ingredient("Pate",'FECULENT',1,'KG'), Ingredient("Bolo",'EPICE',250,'GR')],["CHILL"],0,15,"une personne","EASY","pate_bolo.jpg",["passoire","casserole"], "jsp"))
-list_recette.append(Recette(0,"Bouché à la reine", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "croute + sauce", [Ingredient("Croute",'FECULENT',1,'UNITE'), Ingredient("Pate",'FECULENT',500,'GR'), Ingredient("Sauce","VIANDE", 500, 'GR')],["MAIN_DISHES"],0,25,"une personne","MEDIUM","bouchees.jpg",["casserole"], "jsp"))
-list_recette.append(Recette(0,"Risoto", datetime.datetime.now().strftime("%x"),"Tanguy", "de papa", "riz + pesto + chorizo", [Ingredient("riz",'FECULENT',1,'KG'), Ingredient("Pesto",'EPICE',50,'GR'),Ingredient("Chorizo","VIANDE", 50, 'GR')],["CHILL"],15,30,"une personne","EASY","risoto.jpg",["Poel","couteau","planche"], "jsp"))
+list_recette.append(Recette(0,"pâte pesto", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + pesto", [RecipeIngredient("Pate",'FECULENT',1,'KG'), RecipeIngredient("Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","EASY","pate_pesto.jpg",["passoire","casserole"], "jsp"))
+# list_recette.append(Recette(0,"pate bolo", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + Bolo", [RecipeIngredient("Pate",'FECULENT',1,'KG'), RecipeIngredient("Bolo",'EPICE',250,'GR')],["CHILL"],0,15,"une personne","EASY","pate_bolo.jpg",["passoire","casserole"], "jsp"))
+# list_recette.append(Recette(0,"Bouché à la reine", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "croute + sauce", [RecipeIngredient("Croute",'FECULENT',1,'UNITE'), RecipeIngredient("Pate",'FECULENT',500,'GR'), Ingredient("Sauce","VIANDE", 500, 'GR')],["MAIN_DISHES"],0,25,"une personne","MEDIUM","bouchees.jpg",["casserole"], "jsp"))
+# list_recette.append(Recette(0,"Risoto", datetime.datetime.now().strftime("%x"),"Tanguy", "de papa", "riz + pesto + chorizo", [RecipeIngredient("riz",'FECULENT',1,'KG'), RecipeIngredient("Pesto",'EPICE',50,'GR'),RecipeIngredient("Chorizo","VIANDE", 50, 'GR')],["CHILL"],15,30,"une personne","EASY","risoto.jpg",["Poel","couteau","planche"], "jsp"))
 # list_recette.append(Recette(0,"pate pesto", datetime.datetime.now(),"Tanguy", "bon ca mere", "pate + pesto", [Ingredient(0,"Pate",'FECULENT',1,'KG'), Ingredient(0,"Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","tkt",["passoire","casserole"], "jsp"))
 # list_recette.append(Recette(0,"pate pesto", datetime.datetime.now(),"Tanguy", "bon ca mere", "pate + pesto", [Ingredient(0,"Pate",'FECULENT',1,'KG'), Ingredient(0,"Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","tkt",["passoire","casserole"], "jsp"))
 # list_recette.append(Recette(0,"pate pesto", datetime.datetime.now(),"Tanguy", "bon ca mere", "pate + pesto", [Ingredient(0,"Pate",'FECULENT',1,'KG'), Ingredient(0,"Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","tkt",["passoire","casserole"], "jsp"))

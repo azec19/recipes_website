@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import { Recipe } from "../lib/type"
 import style from './uniqueRecipe.module.css'
 import Image from 'next/image'
@@ -11,6 +12,7 @@ type Props = {
 export default function recipe({ recipe }: Props) {
     return (
         <div className="rounded-xl overflow-hidden h-full shadow-lg flex flex-col bg-[#515151]">
+            <Link href={`/Recipe/${recipe.name}`}>
             <div className="relative aspect-[4/3]">
                 <Image className="object-cover"
                     src={`/images/${recipe.photo}`}
@@ -20,15 +22,15 @@ export default function recipe({ recipe }: Props) {
                     className="cursor-pointer hover:bg-gray-900 transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-transparent opacity-25">
                 </div>
             </div>
-
+            </Link>
             <div className="px-6 py-4 mb-auto">
+                <Link href={`/Recipe/${recipe.name}`}>
                 <div className="font-medium text-3xl inline-block hover:text-black transition duration-200 ease-in-out mb-2 cursor-pointer">{recipe.name}</div>
+                </Link>
                 <div className="text-gray-300 text-sm">{recipe.description}</div>
             </div>
             <div className={`${style.box} ${style.preparation}`}></div>
             <div className={`${style.box} ${style.cooking}`}></div>
-            {/* <div className={`${style.box} ${style.difficulties}`}>Difficulté :{recipe.Difficultie}</div>
-            <div className={`${style.box} ${style.mood}`}>Type : {recipe.mood}</div> */}
             <div className="px-6 py-3 flex flex-row items-center justify-between bg-gray-100">
                 <span className="py-1 text-xs text-gray-900 mr-1 flex flex-row items-center">
                     <svg height="13px" width="13px" x="0px" y="0px" viewBox="0 0 512 512" xmlSpace="preserve">

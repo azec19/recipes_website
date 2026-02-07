@@ -97,11 +97,14 @@ export async function updateRecipe(id,
         recipe.ingredients.forEach(async (ingredient) =>
             await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId))
 
-        const tempResipeIngredient = await Promise.all(
-            ingredients.map((ingredient) =>
+        const tempRecipeIngredient = await Promise.all(
+            ingredients.map((ingredient) => (
+                console.log(ingredient),                
                 recipeingredientService.createRecipeIngredient(recipe.id, ingredient.name, ingredient.type,ingredient.quantity, ingredient.unit))
-        );
-        Recipeingredients = tempResipeIngredient.map(ri => ({
+        ));
+        console.log("test");
+        
+        Recipeingredients = tempRecipeIngredient.map(ri => ({
             where: {
                 recipeId: recipe.id,
                 ingredientId: ri.ingredientId,
@@ -115,6 +118,8 @@ export async function updateRecipe(id,
             },
         }));
     }
+    console.log(Recipeingredients);
+    
     name = name ? name : recipe.name
     date = date ? date : recipe.date
     autor = autor ? autor : recipe.autor

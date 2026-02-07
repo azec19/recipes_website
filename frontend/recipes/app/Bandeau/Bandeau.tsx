@@ -5,8 +5,8 @@ import Link from 'next/link';
 export default function Bandeau() {
   return (
     <div className="font-inika">
-      <main className="flex justify-between py-3 px-3 min-w-screen bg-(--color-background) sm:items-start">
-        <div className="flex">
+      <main className="flex justify-between py-3 px-3 min-w-screen bg-(--color-background) items-start">
+        <div className="flex-1 flex justify-start">
           <img
             src="/logo.svg"
             alt="Logo"
@@ -20,11 +20,11 @@ export default function Bandeau() {
             </Link>
           </div>
         </div>
-        <div className="flex justify-between gap-x-15 font-medium">
 
+        <div className="flex-1 flex justify-center gap-x-15 font-medium">
           <Link
             className="cursor-pointer text-2xl/20 relative after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            href="/Recipe"
+            href="/AddRecipe"
           >
             Ajouter une recette
           </Link>
@@ -42,13 +42,13 @@ export default function Bandeau() {
             Calendrier
           </Link>
         </div>
-        <button
-          className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2"
-        >
 
-          Log in
-        </button>
-
+        <div className="flex-1 flex justify-end">
+          <button
+            className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2">
+            Log in
+          </button>
+        </div>
 
       </main>
     </div>

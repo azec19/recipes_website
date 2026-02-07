@@ -2,7 +2,9 @@ import { prisma } from './prisma.js'
 
 export async function createRecipeIngredient(recipeId, ingredientId, quantity, unit) {
     // Create a new ingredient
-    const Recipeingredient = await prisma.RecipeIngredient.create({
+    console.log({recipeId, ingredientId, quantity, unit});
+    
+    const Recipeingredient = await prisma.recipeIngredient.create({
         data: {
             recipeId: recipeId,
             ingredientId: ingredientId,
@@ -18,7 +20,7 @@ export async function createRecipeIngredient(recipeId, ingredientId, quantity, u
 
 export async function deleteRecipeIngredient(recipeId, ingredientId) {
     // Create a new ingredient
-    const ingredient = await prisma.RecipeIngredient.delete({
+    const ingredient = await prisma.recipeIngredient.delete({
         where: {
             recipeId: recipeId,
             ingredientId: ingredientId,
@@ -33,7 +35,7 @@ export async function deleteRecipeIngredient(recipeId, ingredientId) {
 export async function updateRecipeIngredient(recipeId, ingredientId, quantity, unit) {
     // Create a new ingredient
 
-    const ingredient = await prisma.RecipeIngredient.update({
+    const ingredient = await prisma.recipeIngredient.update({
         where: {
             recipeId: recipeId,
             ingredientId: ingredientId,
@@ -54,7 +56,7 @@ export async function updateRecipeIngredient(recipeId, ingredientId, quantity, u
 
 export async function GetAllRecipeIngredient() {
     // Fetch all ingredients
-    return await prisma.RecipeIngredient.findMany({
+    return await prisma.recipeIngredient.findMany({
         include: {
             ingredient: true,
         },
@@ -63,7 +65,7 @@ export async function GetAllRecipeIngredient() {
 
 export async function findByRecipe(recipeId, ingredientId) {
     // Fetch ingredients with right name
-    return await prisma.RecipeIngredient.findUnique({
+    return await prisma.recipeIngredient.findUnique({
         where: {
             recipeId: recipeId,
             ingredientId: ingredientId
@@ -76,7 +78,7 @@ export async function findByRecipe(recipeId, ingredientId) {
 
 export async function findById(ingredientId, recipeId) {
     // Fetch ingredients with right name
-    return await prisma.RecipeIngredient.findUnique({
+    return await prisma.recipeIngredient.findUnique({
         where: {
             recipeId: recipeId,
             ingredientId: ingredientId,
