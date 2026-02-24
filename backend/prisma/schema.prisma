@@ -95,7 +95,7 @@ model Recipe {
   date             DateTime           @default(now())
   autor            String
   description      String
-  instructions     String
+  instructions     String[]
   ingredients      RecipeIngredient[]
   mood             Mood[]
   preparation_time Int

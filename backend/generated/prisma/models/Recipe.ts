@@ -44,7 +44,6 @@ export type RecipeMinAggregateOutputType = {
   date: Date | null
   autor: string | null
   description: string | null
-  instructions: string | null
   preparation_time: number | null
   cooking_time: number | null
   quantity: string | null
@@ -59,7 +58,6 @@ export type RecipeMaxAggregateOutputType = {
   date: Date | null
   autor: string | null
   description: string | null
-  instructions: string | null
   preparation_time: number | null
   cooking_time: number | null
   quantity: string | null
@@ -105,7 +103,6 @@ export type RecipeMinAggregateInputType = {
   date?: true
   autor?: true
   description?: true
-  instructions?: true
   preparation_time?: true
   cooking_time?: true
   quantity?: true
@@ -120,7 +117,6 @@ export type RecipeMaxAggregateInputType = {
   date?: true
   autor?: true
   description?: true
-  instructions?: true
   preparation_time?: true
   cooking_time?: true
   quantity?: true
@@ -239,7 +235,7 @@ export type RecipeGroupByOutputType = {
   date: Date
   autor: string
   description: string
-  instructions: string
+  instructions: string[]
   mood: $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -279,7 +275,7 @@ export type RecipeWhereInput = {
   date?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   autor?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
-  instructions?: Prisma.StringFilter<"Recipe"> | string
+  instructions?: Prisma.StringNullableListFilter<"Recipe">
   mood?: Prisma.EnumMoodNullableListFilter<"Recipe">
   preparation_time?: Prisma.IntFilter<"Recipe"> | number
   cooking_time?: Prisma.IntFilter<"Recipe"> | number
@@ -318,7 +314,7 @@ export type RecipeWhereUniqueInput = Prisma.AtLeast<{
   date?: Prisma.DateTimeFilter<"Recipe"> | Date | string
   autor?: Prisma.StringFilter<"Recipe"> | string
   description?: Prisma.StringFilter<"Recipe"> | string
-  instructions?: Prisma.StringFilter<"Recipe"> | string
+  instructions?: Prisma.StringNullableListFilter<"Recipe">
   mood?: Prisma.EnumMoodNullableListFilter<"Recipe">
   preparation_time?: Prisma.IntFilter<"Recipe"> | number
   cooking_time?: Prisma.IntFilter<"Recipe"> | number
@@ -361,7 +357,7 @@ export type RecipeScalarWhereWithAggregatesInput = {
   date?: Prisma.DateTimeWithAggregatesFilter<"Recipe"> | Date | string
   autor?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
   description?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
-  instructions?: Prisma.StringWithAggregatesFilter<"Recipe"> | string
+  instructions?: Prisma.StringNullableListFilter<"Recipe">
   mood?: Prisma.EnumMoodNullableListFilter<"Recipe">
   preparation_time?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
   cooking_time?: Prisma.IntWithAggregatesFilter<"Recipe"> | number
@@ -377,7 +373,7 @@ export type RecipeCreateInput = {
   date?: Date | string
   autor: string
   description: string
-  instructions: string
+  instructions?: Prisma.RecipeCreateinstructionsInput | string[]
   mood?: Prisma.RecipeCreatemoodInput | $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -395,7 +391,7 @@ export type RecipeUncheckedCreateInput = {
   date?: Date | string
   autor: string
   description: string
-  instructions: string
+  instructions?: Prisma.RecipeCreateinstructionsInput | string[]
   mood?: Prisma.RecipeCreatemoodInput | $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -412,7 +408,7 @@ export type RecipeUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -430,7 +426,7 @@ export type RecipeUncheckedUpdateInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -448,7 +444,7 @@ export type RecipeCreateManyInput = {
   date?: Date | string
   autor: string
   description: string
-  instructions: string
+  instructions?: Prisma.RecipeCreateinstructionsInput | string[]
   mood?: Prisma.RecipeCreatemoodInput | $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -464,7 +460,7 @@ export type RecipeUpdateManyMutationInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -481,7 +477,7 @@ export type RecipeUncheckedUpdateManyInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -497,19 +493,19 @@ export type RecipeScalarRelationFilter = {
   isNot?: Prisma.RecipeWhereInput
 }
 
-export type EnumMoodNullableListFilter<$PrismaModel = never> = {
-  equals?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel> | null
-  has?: $Enums.Mood | Prisma.EnumMoodFieldRefInput<$PrismaModel> | null
-  hasEvery?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel>
-  hasSome?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
 export type StringNullableListFilter<$PrismaModel = never> = {
   equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
   has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
   hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumMoodNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel> | null
+  has?: $Enums.Mood | Prisma.EnumMoodFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.Mood[] | Prisma.ListEnumMoodFieldRefInput<$PrismaModel>
   isEmpty?: boolean
 }
 
@@ -542,7 +538,6 @@ export type RecipeMaxOrderByAggregateInput = {
   date?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  instructions?: Prisma.SortOrder
   preparation_time?: Prisma.SortOrder
   cooking_time?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -557,7 +552,6 @@ export type RecipeMinOrderByAggregateInput = {
   date?: Prisma.SortOrder
   autor?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  instructions?: Prisma.SortOrder
   preparation_time?: Prisma.SortOrder
   cooking_time?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
@@ -586,6 +580,10 @@ export type RecipeUpdateOneRequiredWithoutIngredientsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RecipeUpdateToOneWithWhereWithoutIngredientsInput, Prisma.RecipeUpdateWithoutIngredientsInput>, Prisma.RecipeUncheckedUpdateWithoutIngredientsInput>
 }
 
+export type RecipeCreateinstructionsInput = {
+  set: string[]
+}
+
 export type RecipeCreatemoodInput = {
   set: $Enums.Mood[]
 }
@@ -596,6 +594,11 @@ export type RecipeCreatetoolsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type RecipeUpdateinstructionsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type RecipeUpdatemoodInput = {
@@ -617,7 +620,7 @@ export type RecipeCreateWithoutIngredientsInput = {
   date?: Date | string
   autor: string
   description: string
-  instructions: string
+  instructions?: Prisma.RecipeCreateinstructionsInput | string[]
   mood?: Prisma.RecipeCreatemoodInput | $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -634,7 +637,7 @@ export type RecipeUncheckedCreateWithoutIngredientsInput = {
   date?: Date | string
   autor: string
   description: string
-  instructions: string
+  instructions?: Prisma.RecipeCreateinstructionsInput | string[]
   mood?: Prisma.RecipeCreatemoodInput | $Enums.Mood[]
   preparation_time: number
   cooking_time: number
@@ -666,7 +669,7 @@ export type RecipeUpdateWithoutIngredientsInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -683,7 +686,7 @@ export type RecipeUncheckedUpdateWithoutIngredientsInput = {
   date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   autor?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
-  instructions?: Prisma.StringFieldUpdateOperationsInput | string
+  instructions?: Prisma.RecipeUpdateinstructionsInput | string[]
   mood?: Prisma.RecipeUpdatemoodInput | $Enums.Mood[]
   preparation_time?: Prisma.IntFieldUpdateOperationsInput | number
   cooking_time?: Prisma.IntFieldUpdateOperationsInput | number
@@ -814,7 +817,7 @@ export type $RecipePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     date: Date
     autor: string
     description: string
-    instructions: string
+    instructions: string[]
     mood: $Enums.Mood[]
     preparation_time: number
     cooking_time: number
@@ -1252,7 +1255,7 @@ export interface RecipeFieldRefs {
   readonly date: Prisma.FieldRef<"Recipe", 'DateTime'>
   readonly autor: Prisma.FieldRef<"Recipe", 'String'>
   readonly description: Prisma.FieldRef<"Recipe", 'String'>
-  readonly instructions: Prisma.FieldRef<"Recipe", 'String'>
+  readonly instructions: Prisma.FieldRef<"Recipe", 'String[]'>
   readonly mood: Prisma.FieldRef<"Recipe", 'Mood[]'>
   readonly preparation_time: Prisma.FieldRef<"Recipe", 'Int'>
   readonly cooking_time: Prisma.FieldRef<"Recipe", 'Int'>

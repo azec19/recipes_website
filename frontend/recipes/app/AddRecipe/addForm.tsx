@@ -4,6 +4,7 @@
 import GridComponent from "./datagrid";
 import { Difficulties, Mood, typeLabelToEnum, unitLabelToEnum } from "../lib/type"
 import { listIngredients } from '../lib/Formstore';
+import { log } from "console";
 
 type Props = {
     onSubmit: (formData: FormData) => Promise<void>;
@@ -30,6 +31,10 @@ export default function formRecipe({ onSubmit }: Props) {
         list.forEach((ingredient) => ingredient.ingredient.type = typeLabelToEnum(ingredient.ingredient.type))
         list.forEach((ingredient) => ingredient.unit = unitLabelToEnum(ingredient.unit))
         formData.append('ingredients', JSON.stringify(list))
+        const list_instructions = formData.get('instructions') as string
+        formData.append('instructions', JSON.stringify(list_instructions.split('\n')))
+        console.log(formData.get('instructions'));
+        
         await onSubmit(formData)
         reset() // reset Zustand après succès
     }
@@ -96,7 +101,7 @@ export default function formRecipe({ onSubmit }: Props) {
                             </div>
                             <div className="mb-5">
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
-                                    Instructions pour la recette
+                                    Instructions pour la recette (séparer les instructions par des sauts de lignes pour établir une liste)
                                 </label>
                                 <textarea placeholder="Instructions" rows={6} name="instructions"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />

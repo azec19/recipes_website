@@ -52,7 +52,7 @@ export async function onSubmitRecipe(formData: FormData) {
         date: formData.get('date') as string,
         autor: formData.get('autor') as string,
         description: formData.get('description') as string,
-        instructions: formData.get('instructions') as string,
+        instructions: JSON.parse(JSON.stringify([formData.get('instructions') as string,])),
         ingredients: JSON.parse(formData.get('ingredients') as string),
         mood: JSON.parse(JSON.stringify([formData.get('mood') as string])),
         preparation_time: Number(formData.get('preparation_time')),

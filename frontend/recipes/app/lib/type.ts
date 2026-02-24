@@ -72,7 +72,7 @@ export type Recipe = {
     date: Date;
     autor: string;
     description: string;
-    instructions: string;
+    instructions: string[];
     ingredients: RecipeIngredient[];
     mood: Mood[];
     preparation_time: number;

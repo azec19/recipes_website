@@ -5,17 +5,17 @@ import Image from 'next/image'
 
 export default function Recipeclient({ recipe }: { recipe: Recipe }) {
 
-    const list_instructions : string[] = recipe.instructions.split('\n')
+    const list_instructions : string[] = recipe.instructions
 
     return (
         <div>
             <Bandeau />
 
-            <div className="bg-white dark:bg-gray-900 min-h-screen flex items-center justify-center p-6">
-                <div className="bg-gray-50 dark:bg-gray-800 shadow-lg rounded-2xl overflow-hidden max-w-4xl w-full grid md:grid-cols-2">
+            <div className="min-h-screen flex items-start justify-center">
+                <div className="shadow-lg rounded-2xl overflow-hidden h-[80vh] max-w-[85vw] w-full grid lg:grid-cols-[35vw_1fr] gap-10 grid-cols-1">
 
                     {/* <!-- Recipe Image --> */}
-                    <div className="relative aspect-[4/3] w-full">
+                    <div className="relative aspect-[4/3] w-[35vw]">
                         <Image className="object-cover"
                             src={`/images/${recipe.photo}`}
                             fill
@@ -23,7 +23,7 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                     </div>
 
                     {/* <!-- Recipe Content --> */}
-                    <div className="p-6 flex flex-col justify-between">
+                    <div className="p-6 flex flex-col justify-start">
                         <div>
                             <h2 className="text-3xl font-bold font-serif text-gray-800 dark:text-white mb-2">{recipe.name}</h2>
                             <p className="text-gray-600 dark:text-gray-300 mb-4">{recipe.description}</p>

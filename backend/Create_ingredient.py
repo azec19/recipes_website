@@ -136,7 +136,7 @@ list_ingredient.append(StockIngredient("Saumon",'POISSON',250,'GR'))
 
 
 list_recette = []
-list_recette.append(Recette(0,"pâte pesto", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + pesto", [RecipeIngredient("Pate",'FECULENT',1,'KG'), RecipeIngredient("Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","EASY","pate_pesto.jpg",["passoire","casserole"], "jsp"))
+list_recette.append(Recette(0,"pâte pesto", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", ["pate" ,"pesto" ,"fromage" ,"bone ap"] , [RecipeIngredient("Pate",'FECULENT',1,'KG'), RecipeIngredient("Pesto",'EPICE',50,'GR')],["CHILL"],0,15,"une personne","EASY","pate_pesto.jpg",["passoire","casserole"], "jsp"))
 # list_recette.append(Recette(0,"pate bolo", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "pate + Bolo", [RecipeIngredient("Pate",'FECULENT',1,'KG'), RecipeIngredient("Bolo",'EPICE',250,'GR')],["CHILL"],0,15,"une personne","EASY","pate_bolo.jpg",["passoire","casserole"], "jsp"))
 # list_recette.append(Recette(0,"Bouché à la reine", datetime.datetime.now().strftime("%x"),"Tanguy", "bon ca mere", "croute + sauce", [RecipeIngredient("Croute",'FECULENT',1,'UNITE'), RecipeIngredient("Pate",'FECULENT',500,'GR'), Ingredient("Sauce","VIANDE", 500, 'GR')],["MAIN_DISHES"],0,25,"une personne","MEDIUM","bouchees.jpg",["casserole"], "jsp"))
 # list_recette.append(Recette(0,"Risoto", datetime.datetime.now().strftime("%x"),"Tanguy", "de papa", "riz + pesto + chorizo", [RecipeIngredient("riz",'FECULENT',1,'KG'), RecipeIngredient("Pesto",'EPICE',50,'GR'),RecipeIngredient("Chorizo","VIANDE", 50, 'GR')],["CHILL"],15,30,"une personne","EASY","risoto.jpg",["Poel","couteau","planche"], "jsp"))
