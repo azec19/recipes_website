@@ -6,7 +6,7 @@ import Image from 'next/image'
 export default function Recipeclient({ recipe }: { recipe: Recipe }) {
 
     const list_instructions : string[] = recipe.instructions
-
+    
     return (
         <div>
             <Bandeau />

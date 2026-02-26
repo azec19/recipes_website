@@ -2,7 +2,6 @@ import { prisma } from './prisma.js'
 
 export async function createRecipeIngredient(recipeId, ingredientId, quantity, unit) {
     // Create a new ingredient
-    console.log({recipeId, ingredientId, quantity, unit});
     
     const Recipeingredient = await prisma.recipeIngredient.create({
         data: {
@@ -37,8 +36,10 @@ export async function updateRecipeIngredient(recipeId, ingredientId, quantity, u
 
     const ingredient = await prisma.recipeIngredient.update({
         where: {
-            recipeId: recipeId,
-            ingredientId: ingredientId,
+            recipeId_ingredientId: {
+                recipeId: recipeId,
+                ingredientId: ingredientId
+            }
         },
         data: {
             recipeId: recipeId,
@@ -67,8 +68,10 @@ export async function findByRecipe(recipeId, ingredientId) {
     // Fetch ingredients with right name
     return await prisma.recipeIngredient.findUnique({
         where: {
-            recipeId: recipeId,
-            ingredientId: ingredientId
+            recipeId_ingredientId: {
+                recipeId: recipeId,
+                ingredientId: ingredientId
+            }
         },
         include: {
             ingredient: true,

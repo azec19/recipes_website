@@ -63,7 +63,7 @@ model Ingredient {
   type Types
 
   stock            StockIngredient?
-  recipeIngredient RecipeIngredient?
+  recipeIngredient RecipeIngredient[]
 }
 
 model StockIngredient {
@@ -77,8 +77,8 @@ model StockIngredient {
 }
 
 model RecipeIngredient {
-  recipeId     Int @unique
-  ingredientId Int @unique
+  recipeId     Int
+  ingredientId Int
 
   quantity Float
   unit     Units

@@ -99,15 +99,15 @@ export async function updateRecipe(id,
 
         const tempRecipeIngredient = await Promise.all(
             ingredients.map((ingredient) => (
-                console.log(ingredient),                
-                recipeingredientService.createRecipeIngredient(recipe.id, ingredient.name, ingredient.type,ingredient.quantity, ingredient.unit))
-        ));
-        console.log("test");
-        
+                recipeingredientService.createRecipeIngredient(recipe.id, ingredient.name, ingredient.type, ingredient.quantity, ingredient.unit))
+            ));
+
         Recipeingredients = tempRecipeIngredient.map(ri => ({
             where: {
-                recipeId: recipe.id,
-                ingredientId: ri.ingredientId,
+                recipeId_ingredientId: {
+                    recipeId: recipe.id,
+                    ingredientId: ri.ingredientId
+                }
             },
             create: {
                 ingredient: {
@@ -118,8 +118,7 @@ export async function updateRecipe(id,
             },
         }));
     }
-    console.log(Recipeingredients);
-    
+
     name = name ? name : recipe.name
     date = date ? date : recipe.date
     autor = autor ? autor : recipe.autor
