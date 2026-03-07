@@ -2,10 +2,27 @@
 import Bandeau from "../../Bandeau/Bandeau"
 import { Recipe } from "../../lib/type"
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+
+
+async function deleteRecipe(name: String) {
+    const router = useRouter()
+    await fetch('http://localhost:3001/api/recipe/name/' + name, {
+        method: 'Delete',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+    }
+    )
+    router.push('/');
+}
 
 export default function Recipeclient({ recipe }: { recipe: Recipe }) {
 
     const list_instructions : string[] = recipe.instructions
+    console.log(recipe);
     
     return (
         <div>
@@ -33,8 +50,8 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                                 <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Ingredients</h3>
                                 <ul className="list-disc pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
                                     {
-                                        recipe.ingredients.map(ingredient => (
-                                            <li>{ingredient.quantity} {ingredient.unit} {ingredient.ingredient.name}</li>
+                                        recipe.ingredients.map((ingredient, index) => (
+                                            <li key={index}>{ingredient.quantity} {ingredient.unit} {ingredient.ingredient.name}</li>
                                         ))
                                     }
                                 </ul>
@@ -45,8 +62,8 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                                 <h3 className="text-xl font-semibold text-teal-600 dark:text-teal-400 mb-2">Instructions</h3>
                                 <ol className="list-decimal pl-5 space-y-1 text-gray-700 dark:text-gray-200 text-sm">
                                     {
-                                        list_instructions.map(instruction => (
-                                            <li>{instruction}</li>
+                                        list_instructions.map((instruction, index) => (
+                                            <li key={index}>{instruction}</li>
                                         ))
                                     }
                                 </ol>
@@ -55,8 +72,13 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
 
                         {/* <!-- Footer CTA --> */}
                         <div className="mt-6 text-right">
-                            <button className="bg-teal-600 hover:bg-teal-700 text-white font-semibold px-4 py-2 rounded-lg transition">Try Now</button>
-                        </div>
+                            <Link href="/" 
+                            onNavigate={() => deleteRecipe(recipe.name)
+
+                            }> 
+                              <button onClick={() => } className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-semibold px-4 py-2 rounded-lg transition">Delete</button>
+                            </Link>
+                          </div>
                     </div>
                 </div>
             </div>

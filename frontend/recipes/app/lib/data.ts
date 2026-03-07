@@ -1,4 +1,4 @@
- 'use server'
+'use server'
 
 import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
@@ -44,7 +44,7 @@ export async function onSubmitStockIngredient(formData: FormData) {
 }
 
 export async function onSubmitRecipe(formData: FormData) {
-   
+
 
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     const data = {
@@ -63,7 +63,7 @@ export async function onSubmitRecipe(formData: FormData) {
         tools: toolsList,
         calorie: formData.get('calorie') as string
     };
-    
+
     const response = await fetch('http://localhost:3001/api/recipe', {
         method: 'POST',
         headers: {
@@ -89,13 +89,13 @@ export async function onSubmitRecipe(formData: FormData) {
         throw new Error(text)
     }
 
-    const  result_picture  = await response_picture.json()
-    
+    const result_picture = await response_picture.json()
+
     const update = {
         id: result.id,
         photo: result_picture.filename
     }
-    
+
     const update_response = await fetch('http://localhost:3001/api/recipe', {
         method: 'PUT',
         headers: {
@@ -108,8 +108,9 @@ export async function onSubmitRecipe(formData: FormData) {
         const text = await update_response.text()
         throw new Error(text)
     }
-    
+
     // revalidatePath('/');
 
 }
+
 
