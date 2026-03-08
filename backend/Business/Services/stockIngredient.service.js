@@ -43,22 +43,22 @@ export async function createStockIngredient(name, type, quantity, unit){
     return StockingredientDAO.createStockIngredient(ingredientId, quantity, unit);
 };
 
-export async function deleteStockIngredient(ingredientId){
-    const existing = await StockingredientDAO.findByIngredientID(ingredientId);
+export async function deleteStockIngredient(ingredientName){
+    const existing = await ingredientDAO.findByName(ingredientName);
     if (!existing) {
         throw new Error("Ingredient doesn't exist");
     }
-    return StockingredientDAO.deleteStockIngredient(ingredientId);
+    return StockingredientDAO.deleteStockIngredient(existing.id);
 };
 
 export async function updateStockIngredient(id, ingredientId, quantity, unit){
-    const ingredient = await StockingredientDAO.findById(id);
+    const stockingredient = await StockingredientDAO.findById(id);
     if (!ingredient) {
         throw new Error("Ingredient doesn't exist");
     }
-    ingredientId = ingredientId ? ingredientId : ingredient.type
-    quantity = quantity ? quantity : ingredient.quantity
-    unit = unit ? unit : ingredient.unit
+    ingredientId = ingredientId ? ingredientId : stockingredient.ingredient.id
+    quantity = quantity ? quantity : stockingredient.quantity
+    unit = unit ? unit : stockingredient.unit
     return StockingredientDAO.updateStockIngredient(id, ingredientId, quantity, unit);
 };
 

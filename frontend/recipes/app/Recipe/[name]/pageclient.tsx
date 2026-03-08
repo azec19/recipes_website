@@ -7,7 +7,6 @@ import Link from 'next/link'
 
 
 async function deleteRecipe(name: String) {
-    const router = useRouter()
     await fetch('http://localhost:3001/api/recipe/name/' + name, {
         method: 'Delete',
         headers: {
@@ -16,7 +15,6 @@ async function deleteRecipe(name: String) {
         },
     }
     )
-    router.push('/');
 }
 
 export default function Recipeclient({ recipe }: { recipe: Recipe }) {
@@ -76,7 +74,7 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                             onNavigate={() => deleteRecipe(recipe.name)
 
                             }> 
-                              <button onClick={() => } className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-semibold px-4 py-2 rounded-lg transition">Delete</button>
+                              <button  className="bg-red-500 hover:bg-red-700 cursor-pointer text-white font-semibold px-4 py-2 rounded-lg transition">Delete</button>
                             </Link>
                           </div>
                     </div>

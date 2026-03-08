@@ -18,7 +18,7 @@ export async function deleteStockIngredient(ingredientId) {
     // Create a new ingredient
     const ingredient = await prisma.StockIngredient.delete({
         where: {
-            ingredientId: ingredientId
+            id: ingredientId
         }, include: {
             ingredient: true,
         },

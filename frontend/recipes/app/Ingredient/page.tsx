@@ -32,11 +32,10 @@ export default async function app() {
         <div>
             <Bandeau />
 
-            <DataGrid ingredients={ingredients} />
+            <DataGrid ingredients={ingredients} onSubmit={onSubmitStockIngredient} />
             <div className="text-center text-[50px]">
                 <h1> Ajout d'un nouvel ingrédient </h1>
             </div>
-            <IngredientForm onSubmit={onSubmitStockIngredient} />
 
         </div>
 

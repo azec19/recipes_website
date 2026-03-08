@@ -53,7 +53,7 @@ export async function createStockIngredient(req, res) {
 
 export async function deleteStockIngredient(req, res) {
     try {
-        const newingredient = await StockingredientService.deleteStockIngredient(req.params.IngredientID);
+        const newingredient = await StockingredientService.deleteStockIngredient(req.params.name);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });

@@ -2,6 +2,7 @@
 
 import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
+import {typeLabelToEnum, unitLabelToEnum } from "../lib/type"
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const res = await fetch('http://localhost:3001/api/recipe');
@@ -21,14 +22,14 @@ export async function fetchAllStockIngredients(): Promise<StockIngredient[]> {
     return json
 }
 
-export async function onSubmitStockIngredient(formData: FormData) {
+export async function onSubmitStockIngredient(Ingredient: StockIngredient) {
     const data = {
-        name: formData.get('name_') as string,
-        type: formData.get('type') as string,
-        quantity: Number(formData.get('quantity')),
-        unit: formData.get('unit') as string,
+        name: Ingredient.ingredient.name,
+        type: typeLabelToEnum(Ingredient.ingredient.type) as string,
+        quantity: Number(Ingredient.quantity),
+        unit: unitLabelToEnum(Ingredient.unit) as string
     };
-
+    
     const response = await fetch('http://localhost:3001/api/stockIngredient', {
         method: 'POST',
         headers: {

@@ -10,7 +10,7 @@ router.get('/stockIngredient/type/:type', StockingredientController.getStockIngr
 router.put('/stockIngredient', StockingredientController.updateStockIngredient);
 router.post('/stockIngredient', StockingredientController.createStockIngredient);
 router.get('/stockIngredient', StockingredientController.getAllStockIngredient);
-router.delete('/stockIngredient/IngredientID/:IngredientID',StockingredientController.deleteStockIngredient);
+router.delete('/stockIngredient/name/:name',StockingredientController.deleteStockIngredient);
 
 
 export default router

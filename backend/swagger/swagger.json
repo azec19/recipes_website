@@ -20,6 +20,10 @@
       "description": "Gestion des ingrédients"
     },
     {
+      "name": "Ingredient",
+      "description": "Gestion des ingrédients"
+    },
+    {
       "name": "StockIngredients",
       "description": "Gestion des ingrédients"
     },
@@ -66,21 +70,21 @@
         }
       }
     },
-    "/users": {
+    "/ingredient": {
       "get": {
-        "summary": "Get all users",
+        "summary": "Get all ingredient",
         "tags": [
-          "Users"
+          "Ingredient"
         ],
         "responses": {
           "200": {
-            "description": "A list of users",
+            "description": "A list of Ingredients",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/User"
+                    "$ref": "#/components/schemas/Ingredient"
                   }
                 }
               }
