@@ -2,7 +2,7 @@
 
 import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
-import {typeLabelToEnum, unitLabelToEnum } from "../lib/type"
+import { typeLabelToEnum, unitLabelToEnum } from "../lib/type"
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const res = await fetch('http://localhost:3001/api/recipe');
@@ -29,7 +29,7 @@ export async function onSubmitStockIngredient(Ingredient: StockIngredient) {
         quantity: Number(Ingredient.quantity),
         unit: unitLabelToEnum(Ingredient.unit) as string
     };
-    
+
     const response = await fetch('http://localhost:3001/api/stockIngredient', {
         method: 'POST',
         headers: {
@@ -38,13 +38,37 @@ export async function onSubmitStockIngredient(Ingredient: StockIngredient) {
         },
         body: JSON.stringify(data),
     })
-    revalidatePath('/');
+    // revalidatePath('/');
     // Handle response if necessary
     const result = await response.json()
     // ...
 }
 
-export async function onSubmitRecipe(formData: FormData) {
+export async function updateStockIngredient(Ingredient: StockIngredient) {
+    const data = {
+        ingredientId: Ingredient.ingredient.id,
+        id:Ingredient.id,
+        quantity: Number(Ingredient.quantity),
+        unit: unitLabelToEnum(Ingredient.unit) as string
+    };
+    console.log(data);
+    const response = await fetch(`http://localhost:3001/api/stockIngredient`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+    console.log(await response.json());
+    
+}
+
+export async function DeleteStockIngredient(name: string) {
+    await fetch(`http://localhost:3001/api/stockIngredient/name/${name}`, {
+        method: 'DELETE',
+    });
+}
+
+
+export async function onSubmitRecipe(formData: FormData) : Promise<{success: boolean, message?: string}> {
 
 
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
@@ -73,9 +97,8 @@ export async function onSubmitRecipe(formData: FormData) {
         },
         body: JSON.stringify(data),
     })
-    if (!response.ok) {
-        const text = await response.text()
-        throw new Error(text)
+    if (!response.ok) { 
+        return {success: false, message: (await response.json()).message}
     }
     const result = await response.json()
     const picture = formData.get('picture') as File
@@ -85,9 +108,10 @@ export async function onSubmitRecipe(formData: FormData) {
         method: 'POST',
         body: formData_picture
     })
+    
     if (!response_picture.ok) {
-        const text = await response_picture.text()
-        throw new Error(text)
+        deleteRecipe(data.name)
+        return {success: false, message: (await response_picture.json()).message}
     }
 
     const result_picture = await response_picture.json()
@@ -106,12 +130,22 @@ export async function onSubmitRecipe(formData: FormData) {
         body: JSON.stringify(update),
     })
     if (!update_response.ok) {
-        const text = await update_response.text()
-        throw new Error(text)
+        deleteRecipe(data.name)
+        return {success: false, message: (await update_response.json()).message}
     }
+    return {success: true, message: await update_response.text()}
 
-    // revalidatePath('/');
+}
 
+export async function deleteRecipe(name: String) {
+    await fetch('http://localhost:3001/api/recipe/name/' + name, {
+        method: 'Delete',
+        headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+    }
+    )
 }
 
 

@@ -29,7 +29,7 @@ export async function createRecipe(req, res) {
             req.body.calorie,);       
         res.status(201).json(newrecipe);
     } catch (error) {
-        res.status(400).json({ message: error.message + " : " + req.body.Name});
+        res.status(400).json({ message: error.message});
     }
 };
 

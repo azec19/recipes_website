@@ -1,16 +1,21 @@
 
 'use client'
 
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import GridComponent from "./datagrid";
 import { Difficulties, Mood, typeLabelToEnum, unitLabelToEnum } from "../lib/type"
 import { listIngredients } from '../lib/Formstore';
 import { log } from "console";
 
 type Props = {
-    onSubmit: (formData: FormData) => Promise<void>;
+    onSubmit: (formData: FormData) => Promise<{success: boolean, message?: string}>;
 };
 
 export default function formRecipe({ onSubmit }: Props) {
+    const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const { list, reset } = listIngredients()
 
@@ -24,17 +29,37 @@ export default function formRecipe({ onSubmit }: Props) {
 
 
 
-    const submit = async (formData: FormData) => {
-        // tu peux enrichir les données
-
-        list.forEach((ingredient) => ingredient.ingredient.type = typeLabelToEnum(ingredient.ingredient.type))
-        list.forEach((ingredient) => ingredient.unit = unitLabelToEnum(ingredient.unit))
-        formData.append('ingredients', JSON.stringify(list))
-        const list_instructions = formData.get('instructions') as string
-        formData.append('instructions', JSON.stringify(list_instructions.split('\n')))
+    const submit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault(); // Empêche la réinitialisation du formulaire
         
-        await onSubmit(formData)
-        reset() // reset Zustand après succès
+        try {
+            setIsLoading(true);
+            setError(null);
+            
+            const formData = new FormData(e.currentTarget);
+            
+            list.forEach((ingredient) => ingredient.ingredient.type = typeLabelToEnum(ingredient.ingredient.type))
+            list.forEach((ingredient) => ingredient.unit = unitLabelToEnum(ingredient.unit))
+            formData.append('ingredients', JSON.stringify(list))
+            const list_instructions = formData.get('instructions') as string
+            formData.append('instructions', JSON.stringify(list_instructions.split('\n')))
+            
+            const result = await onSubmit(formData)
+            
+            if (result.success) {
+                reset() // reset Zustand après succès
+                router.push('/') // redirige vers la page d'accueil
+            } else {
+                // Affiche le message d'erreur mais garde les données
+                
+                setError(result.message || 'Une erreur est survenue lors de la création de la recette')
+            }
+        } catch (err) {
+            setError('Une erreur inattendue est survenue')
+            console.error(err)
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     return (
@@ -43,14 +68,22 @@ export default function formRecipe({ onSubmit }: Props) {
                 <div className="text-center text-[50px]">
                     <h1> Ajouter une nouvelle recette </h1>
                 </div>
+                {error && (
+                    <div className="mx-auto w-full max-w-[550px] mb-4">
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+                            <strong className="font-bold">Erreur:</strong>
+                            <span className="block sm:inline ml-2">{error}</span>
+                        </div>
+                    </div>
+                )}
                 <div className="flex items-center justify-center p-12">
                     <div className="mx-auto w-full max-w-[550px] bg-white">
-                        <form action={submit}>
+                        <form onSubmit={submit}>
                             <div className="mb-5">
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Nom de la recette
                                 </label>
-                                <input type="text" placeholder="Nom" name="name"
+                                <input required type="text" placeholder="Nom" name="name"
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
@@ -59,7 +92,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Date de création
                                         </label>
-                                        <input type="text" placeholder="Date" name="date"
+                                        <input required type="text" placeholder="Date" name="date"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
@@ -81,14 +114,14 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Auteur de la recette
                                 </label>
-                                <input type="text" placeholder="Auteur" name="autor"
+                                <input required type="text" placeholder="Auteur" name="autor"
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="mb-5">
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Description de la recette
                                 </label>
-                                <textarea placeholder="Description" rows={3} name="description"
+                                <textarea required placeholder="Description" rows={3} name="description"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
                             <div className="mb-5">
@@ -101,7 +134,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Instructions pour la recette (séparer les instructions par des sauts de lignes pour établir une liste)
                                 </label>
-                                <textarea placeholder="Instructions" rows={6} name="instructions"
+                                <textarea required placeholder="Instructions" rows={6} name="instructions"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
 
@@ -111,7 +144,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Temps de préparation
                                         </label>
-                                        <input type="number" placeholder="Preparation time" name="preparation_time"
+                                        <input required type="number" placeholder="Preparation time" name="preparation_time"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
@@ -120,7 +153,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="time" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Temps de cuisson
                                         </label>
-                                        <input type="number" placeholder="Cooking time" name="cooking_time"
+                                        <input required type="number" placeholder="Cooking time" name="cooking_time"
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
@@ -129,7 +162,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Nombre de personne prévu
                                 </label>
-                                <input type="text" placeholder="Quantité/Nombre de personne" name="quantity"
+                                <input required type="text" placeholder="Quantité/Nombre de personne" name="quantity"
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
@@ -144,7 +177,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             </svg>
                                             <span className="text-gray-600 font-medium">Upload file</span>
                                         </label>
-                                        <input id="upload" type="file" className="hidden" name="picture" />
+                                        <input required id="upload" type="file" className="hidden" name="picture" />
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -167,17 +200,19 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                     Outils nécessaires (séparer les ustensiles par des virgules pour établir une liste)
                                 </label>
-                                <textarea placeholder="Outils nécessaires" rows={4} name="tools"
+                                <textarea required placeholder="Outils nécessaires" rows={4} name="tools"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                     Calorie, type d'apport nutritionel
                                 </label>
-                                <textarea placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie"
+                                <textarea required placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie"
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
-                            <button type="submit" className="hover:bg-[#6b64f29f] cursor-pointer rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none">Submit</button>
+                            <button type="submit" disabled={isLoading} className="hover:bg-[#6b64f29f] cursor-pointer rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none disabled:opacity-50 disabled:cursor-not-allowed">
+                                {isLoading ? 'Envoi en cours...' : 'Submit'}
+                            </button>
                         </form>
                     </div>
                 </div>

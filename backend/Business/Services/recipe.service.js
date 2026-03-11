@@ -5,7 +5,7 @@ import recipeingredientService from './recipeIngredient.service.js'
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
     if (!recipes) {
-        throw new Error("No recipes found");
+        throw new Error("Aucune recette trouvé");
     }
     return recipes;
 };
@@ -28,14 +28,14 @@ export async function createRecipe(name,
 
     const existing = await recipeDAO.findByName(name);
     if (existing) {
-        throw new Error("Recipe already exists");
+        throw new Error("La recette existe déjà");
     }
 
 
 
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
-        throw new Error("Date is invalid");
+        throw new Error("La Date est invalide");
 
     const recipe = await recipeDAO.CreateRecipe(name,
         date_,
@@ -59,7 +59,7 @@ export async function createRecipe(name,
 export async function getRecipeByName(name) {
     const recipe = await recipeDAO.findByName(name);
     if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new Error("La recette n'a pas été trouvée");
     }
     return recipe;
 };
@@ -67,7 +67,7 @@ export async function getRecipeByName(name) {
 export async function getRecipeByFullTextSearch(text) {
     const ingredients = await ingredientDAO.FullTextSearch(text);
     if (!ingredients) {
-        throw new Error("Ingredient not found");
+        throw new Error("L'ingrédient n'a pas été trouvé");
     }
     return ingredients;
 };
@@ -89,7 +89,7 @@ export async function updateRecipe(id,
     calorie,) {
     const recipe = await recipeDAO.findById(id);
     if (!recipe) {
-        throw new Error("Recipe doesn't exist");
+        throw new Error("La recette n'existe pas");
     }
 
     let Recipeingredients = []
@@ -153,7 +153,7 @@ export async function updateRecipe(id,
 export async function deleteRecipe(name) {
     const recipe = await recipeDAO.findByName(name);
     if (!recipe) {
-        throw new Error("Recipe doesn't exist");
+        throw new Error("La recette n'existe pas");
     }
     return recipeDAO.DeleteRecipe(name);
 };
@@ -161,7 +161,7 @@ export async function deleteRecipe(name) {
 export async function getRecipeByAutor(autor) {
     const recipe = await recipeDAO.findByAutor(autor);
     if (!recipe) {
-        throw new Error("Recipe not found");
+        throw new Error("La recette n'a pas été trouvée");
     }
     return recipe;
 }
@@ -196,38 +196,6 @@ export async function getRecipesByCookingTime(time) {
     return result
 }
 
-// check in a list of ingredient object if an ingredient string is included
-// function SearchIngredientByName(IngredientsList, Ingredient) {
-//     for (const ingredient of IngredientsList) {
-//         if (recipeingredientService.getRecipeIngredientById ingredient.Name === Ingredient.Name) {
-//             return true;
-//         }
-//     }
-//     return false
-
-// }
-
-// la liste d'ingredients, tu sais pas trop ce qu'il y a dedans. Faudra donc faire la fonction quand tu sauras.
-// export async function getRecipesByIngredients(ingredients) {
-
-//     const recipes = await recipeDAO.GetAllRecipe();
-//     var result = []
-//     recipes.forEach(recipe => {
-//         var flag = true
-//         ingredients.forEach(ingredient => {
-//             flag = flag && SearchIngredientByName(recipe.Ingredients, ingredient)
-//         });
-//         if (flag)
-//             result.push(recipe)
-//     });
-//     return result
-// }
-
-
-
-
-
-
 const recipeService = {
     getAllRecipe,
     createRecipe,
@@ -238,7 +206,6 @@ const recipeService = {
     getRecipeByMood,
     getRecipesByPreparationTime,
     getRecipesByCookingTime,
-    // getRecipesByIngredients
 }
 
 export default recipeService;

@@ -14,6 +14,7 @@ import {
   GridOptions
 } from 'ag-grid-community';
 import { StockIngredient, Types_, Units_ } from "../lib/type"
+import {updateStockIngredient, DeleteStockIngredient} from "../lib/data"
 
 // Register all Community features
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -37,18 +38,11 @@ const rowSelection: RowSelectionOptions = {
 async function onRowValueChanged(event: CellValueChangedEvent<StockIngredient>) {
   const updatedIngredient = event.data;
   console.log(updatedIngredient);
-  
-  await fetch(`/api/stockIngredient`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(updatedIngredient),
-  });
+  updateStockIngredient(updatedIngredient)  
 }
 
 async function DeleteIngredient(name: string) {
-  await fetch(`/api/stockIngredient/name/${name}`, {
-    method: 'DELETE',
-  });
+  DeleteStockIngredient(name)
 }
 
 const gridOptions: GridOptions = {
@@ -151,7 +145,7 @@ export default function GridComponent(Props: Props) {
         data.quantity = 1;
       setRowData([data, ...rowData]);
       
-      Props.onSubmit(data)
+      // Props.onSubmit(data)
     },
     [rowData],
   );
