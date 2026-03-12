@@ -1,0 +1,33 @@
+{
+    "get": {
+        "summary": "Get recipe with less than *time* for cooking time",
+        "tags": [
+            "Recipes"
+        ],
+        "parameters": [
+            {
+                "name": "time",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "integer"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/recipe.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

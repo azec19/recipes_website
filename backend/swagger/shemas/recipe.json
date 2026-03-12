@@ -1,0 +1,61 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "name": {
+            "type": "string"
+        },
+        "date": {
+            "type": "string"
+        },
+        "autor": {
+            "type": "string"
+        },
+        "description": {
+            "type": "string"
+        },
+        "instructions": {
+            "type": "string"
+        },
+        "ingredients": {
+            "type": "array",
+            "items": {
+                "$ref": "./recipeIngredient.json"
+            }
+        },
+        "mood": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "enum": ["CHILL", "PARTY", "BEFORE", "MAIN_DISHES", "DESERT"]
+            }
+        },
+        "preparation_time": {
+            "type": "integer"
+        },
+        "cooking_time": {
+            "type": "integer"
+        },
+        "quantity": {
+            "type": "string"
+        },
+        "difficultie": {
+            "type": "string",
+            "enum": ["EASY", "MEDIUM", "TECHNICAL", "HARD", "IMPOSSIBLE"]
+        },
+        "photo": {
+            "type": "string"
+        },
+        "tools": {
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
+        "calorie": {
+            "type": "string"
+        }
+    }
+}

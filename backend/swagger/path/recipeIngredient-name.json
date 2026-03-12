@@ -1,0 +1,51 @@
+{
+    "get": {
+        "summary": "Get recipeIngredient by name",
+        "tags": [
+            "RecipeIngredients"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The recipeIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipeIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "delete": {
+        "summary": "Delete recipeIngredient by name",
+        "tags": [
+            "RecipeIngredients"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Ingredient deleted successfully"
+            }
+        }
+    }
+}

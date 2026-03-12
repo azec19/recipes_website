@@ -1,0 +1,79 @@
+{
+    "get": {
+        "summary": "Get all recipes",
+        "tags": [
+            "Recipes"
+        ],
+        "responses": {
+            "200": {
+                "description": "A list recipes",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/recipe.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "summary": "Create a new Recipe",
+        "tags": [
+            "Recipes"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/recipe.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The newly created recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipe.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "summary": "Update recipe by name",
+        "tags": [
+            "Recipes"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/recipe.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The updated recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipe.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

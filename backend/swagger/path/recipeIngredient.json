@@ -1,0 +1,79 @@
+{
+    "get": {
+        "summary": "Get all recipeIngredients",
+        "tags": [
+            "RecipeIngredients"
+        ],
+        "responses": {
+            "200": {
+                "description": "A list recipeIngredients",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/recipeIngredient.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "summary": "Create a new Ingredient",
+        "tags": [
+            "RecipeIngredients"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/recipeIngredient.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The newly created recipeIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipeIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "summary": "Update recipeIngredient by id",
+        "tags": [
+            "RecipeIngredients"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/recipeIngredient.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The updated recipeIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipeIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

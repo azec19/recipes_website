@@ -1,0 +1,33 @@
+{
+    "get": {
+        "summary": "Get recipe by Autor",
+        "tags": [
+            "Recipes"
+        ],
+        "parameters": [
+            {
+                "name": "autor",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/recipe.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

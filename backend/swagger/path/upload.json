@@ -1,0 +1,33 @@
+{
+        "post": {
+            "summary": "Upload a file",
+            "tags": [
+                "Image"
+            ],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "multipart/form-data": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "file": {
+                                    "type": "string",
+                                    "format": "binary",
+                                    "description": "Le fichier à téléverser (champ **file**)."
+                                }
+                            },
+                            "required": [
+                                "file"
+                            ]
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "The newly created user"
+                }
+            }
+        }
+}

@@ -1,0 +1,51 @@
+{
+    "get": {
+        "summary": "Get all ingredient",
+        "tags": [
+            "Ingredient"
+        ],
+        "responses": {
+            "200": {
+                "description": "A list of Ingredients",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/ingredient.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "summary": "Create a new user",
+        "tags": [
+            "Ingredient"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/ingredient.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The newly created user",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/ingredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "integer"
+        },
+        "ingredientID": {
+            "type": "integer"
+        },
+        "quantity": {
+            "type": "number",
+            "format": "float"
+        },
+        "unit": {
+            "type": "string"
+        }
+    }
+}

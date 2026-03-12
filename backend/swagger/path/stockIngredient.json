@@ -1,0 +1,79 @@
+{
+    "get": {
+        "summary": "Get all stockIngredients",
+        "tags": [
+            "StockIngredients"
+        ],
+        "responses": {
+            "200": {
+                "description": "A list stockIngredients",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/stockIngredient.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "post": {
+        "summary": "Create a new Ingredient",
+        "tags": [
+            "StockIngredients"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/stockIngredient.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The newly created stockIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/stockIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "summary": "Update stockIngredient by id",
+        "tags": [
+            "StockIngredients"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "$ref": "../shemas/stockIngredient.json"
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "The updated stockIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/stockIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

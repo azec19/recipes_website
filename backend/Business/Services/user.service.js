@@ -8,37 +8,41 @@ export async function getUserById(id) {
     return user;
 };
 
+export async function getUserByName(name) {
+    return await userDAO.findByName(name);
+};
+
 export async function getAllUser() {
     const users = await userDAO.GetAllUser();
     if (!users) {
-        throw new Error("User not found");
+        throw new Error("No users in Database");
     }
     return users;
 };
 
-export async function createUser(name, email){
-    const existing = await userDAO.findByemail(email);
+export async function createUser(name, password){
+    const existing = await userDAO.findByName(name);
     if (existing) {
-        throw new Error("Email already in use");
+        throw new Error("Name already in use");
     }
-    return userDAO.createUser(name, email);
+    return userDAO.createUser(name, password);
 };
 
-export async function deleteUser(email){
-    const existing = await userDAO.findByemail(email);
+export async function deleteUser(name){
+    const existing = await userDAO.findByName(name);
     if (!existing) {
         throw new Error("User doesn't exist");
     }
     return userDAO.deleteUser(email);
 };
 
-export async function updateUser(id, email, name){
-    const existing = await userDAO.findByemail(email);
+export async function updateUser(id, name, hashedPassword){
+    const existing = await userDAO.findByName(name);
     if (!existing) {
         throw new Error("User doesn't exist");
     }
-    return userDAO.updateUser(id, email, name);
+    return userDAO.updateUser(id, name, hashedPassword);
 };
 
-const userService = { getUserById, createUser, getAllUser,deleteUser, updateUser };
+const userService = { getUserById, getUserByName, createUser, getAllUser,deleteUser, updateUser };
 export default userService;

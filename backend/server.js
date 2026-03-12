@@ -3,7 +3,6 @@
 import 'dotenv/config'
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
-import swaggerDocument from './swagger/swagger.json' with { type: 'json' }
 
 // Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
@@ -12,6 +11,12 @@ import ingredientRouter from './Presentation/Routes/ingredient.routes.js'
 import recipeIngredientRouter from './Presentation/Routes/recipeIngredient.route.js'
 import recipeRouter from './Presentation/Routes/recipe.routes.js'
 import uploadRouter from './Presentation/Routes/upload.routes.js'
+import authenticateJWT from './Token_Auth/authenticateJWT.js'
+import authRoutes from './Presentation/Routes/auth.routes.js';
+import SwaggerParser from '@apidevtools/swagger-parser'
+
+//middleware who manage JWT token
+import './Token_Auth/passport.js';
 
 const app = express()
 const PORT = process.env.PORT ?? 3000
@@ -22,22 +27,24 @@ app.use(express.json())
 // Healthcheck simple
 app.get('/', (_req, res) => res.send('API OK'))
 
+//Login parts
+app.get('/auth', authRoutes)
+
 // Swagger uniquement sur /api-docs
+const swaggerDocument = await SwaggerParser.bundle('./swagger/swagger.json')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
-
-
-// Middleware to serve static files (optional)
-app.use(express.static('public'));
-app.use('/images', express.static('upload'));
+// Middleware to serve static files from upload folder
+// app.use(express.static('public')); a supprimer si ca marche
+app.use('/images', authenticateJWT, express.static('upload'));
 
 // Toutes les routes applicatives
-app.use('/', userRouter)     
-app.use('/', ingredientRouter)
-app.use('/', stockIngredientRouter)
-app.use('/', recipeIngredientRouter)
-app.use('/', recipeRouter)
-app.use('/', uploadRouter)
+app.use('/api/users', authenticateJWT, userRouter)     
+app.use('/api/ingredient', authenticateJWT, ingredientRouter)
+app.use('/api/stockIngredient', authenticateJWT, stockIngredientRouter)
+app.use('/api/recipeIngredient', authenticateJWT, recipeIngredientRouter)
+app.use('/api/recipe', authenticateJWT, recipeRouter)
+app.use('/api/upload', authenticateJWT, uploadRouter)
 
 // 404 si aucune route ne matche (hors Swagger)
 app.use((req, res, _next) => {

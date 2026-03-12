@@ -6,11 +6,11 @@ import RecipeingredientController from '../Controllers/recipeIngredient.controll
 
 const router = Router()
 // Define routes
-router.get('/recipeIngredient/id/:id', RecipeingredientController.getRecipeIngredientById);
-router.put('/recipeIngredient', RecipeingredientController.updateRecipeIngredient);
-router.post('/recipeIngredient', RecipeingredientController.createRecipeIngredient);
-router.get('/recipeIngredient', RecipeingredientController.getAllRecipeIngredient);
-router.delete('/recipeIngredient/id/:id', RecipeingredientController.deleteRecipeIngredient);
+router.get('/id/:id', RecipeingredientController.getRecipeIngredientById);
+router.put('/', RecipeingredientController.updateRecipeIngredient);
+router.post('/', RecipeingredientController.createRecipeIngredient);
+router.get('/', RecipeingredientController.getAllRecipeIngredient);
+router.delete('/id/:id', RecipeingredientController.deleteRecipeIngredient);
 
 
 export default router

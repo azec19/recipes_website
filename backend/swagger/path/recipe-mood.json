@@ -1,0 +1,42 @@
+{
+    "get": {
+        "summary": "Get recipe by mood",
+        "tags": [
+            "Recipes"
+        ],
+        "parameters": [
+            {
+                "name": "mood",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "CHILL",
+                            "PARTY",
+                            "BEFORE",
+                            "MAIN_DISHES",
+                            "DESERT"
+                        ]
+                    }
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/recipe.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

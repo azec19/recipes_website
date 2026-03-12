@@ -1,34 +1,34 @@
 import { prisma } from './prisma.js'
 
-export async function createUser(name, email) {
+export async function createUser(name, password) {
     // Create a new user
     const user = await prisma.user.create({
         data: {
             name: name,
-            email: email,
+            password: password,
         },
     })
     return user
 }
 
-export async function deleteUser(email) {
+export async function deleteUser(name) {
     // Create a new user
     const user = await prisma.user.delete({
         where: {
-            email: email,
+            name: name,
         },
     })
     return user
 }
 
-export async function updateUser(id, email, name) {
+export async function updateUser(id, name, password) {
     // Create a new user
     const user = await prisma.user.update({
         where: {
             id: id,
         },
         data: {
-            email: email,
+            password: password,
             name: name,
         }
     })
@@ -50,14 +50,14 @@ export async function findById(id) {
     })
 }
 
-export async function findByemail(email) {
+export async function findByName(Name) {
     // Fetch users with right ID
     return await prisma.user.findUnique({
         where: {
-            email: email,
+            name: Name,
         },
     })
 }
 
-const userRepository = {findById, findByemail, createUser, GetAllUser, deleteUser, updateUser};
+const userRepository = {findById, findByName, createUser, GetAllUser, deleteUser, updateUser};
 export default userRepository;

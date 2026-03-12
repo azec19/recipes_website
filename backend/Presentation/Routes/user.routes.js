@@ -7,11 +7,11 @@ import userController from '../Controllers/user.controller.js'
 const router = Router()
 
 // Define routes
-router.get('/users/id/:id', userController.getUserById);
-router.put('/users/id/:id', userController.updateUser);
-router.post('/users', userController.createUser);
-router.get('/users', userController.getAllUser);
-router.delete('/users/email/:email', userController.deleteUser);
+router.get('/id/:id', userController.getUserById);
+router.put('/id/:id', userController.updateUser);
+router.post('/', userController.createUser);
+router.get('/', userController.getAllUser);
+router.delete('/name/:name', userController.deleteUser);
 
 
 export default router

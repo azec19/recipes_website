@@ -5,12 +5,12 @@ import uploadService from '../../Business/Services/upload.service.js'
 const router = express.Router();
 
 // Route pour uploader une image avec validation du type
-router.post('/upload', 
+router.post('/', 
         uploadService.uploadMiddleware.single('file'),
         uploadService.fileValidation,
         uploadController.uploadImage);
 
 // Route pour supprimer une image (optionnel)
-router.delete('/upload/:filename', uploadController.deleteImage);
+router.delete('/:filename', uploadController.deleteImage);
 
 export default router;

@@ -1,0 +1,51 @@
+{
+    "get": {
+        "summary": "Get stockIngredient by name",
+        "tags": [
+            "StockIngredients"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The stockIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/stockIngredient.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "delete": {
+        "summary": "Delete stockIngredient by name",
+        "tags": [
+            "StockIngredients"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Ingredient deleted successfully"
+            }
+        }
+    }
+}

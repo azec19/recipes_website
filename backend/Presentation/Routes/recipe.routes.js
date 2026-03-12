@@ -7,17 +7,17 @@ import recipeController from '../Controllers/recipe.controller.js'
 const router = Router()
 // Define routes
 
-router.get('/recipe', recipeController.getAllRecipe);
-router.post('/recipe', recipeController.createRecipe);
-router.put('/recipe', recipeController.updateRecipe);
-// router.get('/recipe/image/:filename', recipeController.getImageByName);
-router.get('/recipe/name/:name', recipeController.getRecipeByName);
-router.delete('/recipe/name/:name', recipeController.deleteRecipe);
-router.get('/recipe/autor/:autor', recipeController.getRecipeByAutor);
-router.get('/recipe/mood/:mood', recipeController.getRecipeByMood);
-router.get('/recipe/preparation_time/:time', recipeController.getRecipesByPreparationTime);
-router.get('/recipe/cooking_time/:time', recipeController.getRecipesByCookingTime);
-// router.post('/recipe/Ingredient', recipeController.getRecipesByIngredients);
+router.get('/', recipeController.getAllRecipe);
+router.post('/', recipeController.createRecipe);
+router.put('/', recipeController.updateRecipe);
+// router.get('//image/:filename', recipeController.getImageByName);
+router.get('/name/:name', recipeController.getRecipeByName);
+router.delete('/name/:name', recipeController.deleteRecipe);
+router.get('/autor/:autor', recipeController.getRecipeByAutor);
+router.get('/mood/:mood', recipeController.getRecipeByMood);
+router.get('/preparation_time/:time', recipeController.getRecipesByPreparationTime);
+router.get('/cooking_time/:time', recipeController.getRecipesByCookingTime);
+// router.post('//Ingredient', recipeController.getRecipesByIngredients);
 
 
 export default router

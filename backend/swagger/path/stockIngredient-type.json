@@ -1,0 +1,33 @@
+{
+    "get": {
+        "summary": "Get stockIngredient by type",
+        "tags": [
+            "StockIngredients"
+        ],
+        "parameters": [
+            {
+                "type": "type",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The stockIngredient",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "../shemas/stockIngredient.json"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

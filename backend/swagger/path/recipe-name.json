@@ -1,0 +1,51 @@
+{
+    "get": {
+        "summary": "Get recipe by name",
+        "tags": [
+            "Recipes"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "The recipe",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../shemas/recipe.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "delete": {
+        "summary": "Delete recipe by name",
+        "tags": [
+            "Recipes"
+        ],
+        "parameters": [
+            {
+                "name": "name",
+                "in": "path",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Recipe deleted successfully"
+            }
+        }
+    }
+}

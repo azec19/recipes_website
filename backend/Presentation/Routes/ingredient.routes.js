@@ -6,12 +6,12 @@ import ingredientController from '../Controllers/ingredient.controller.js'
 
 const router = Router()
 // Define routes
-router.get('/ingredient/name/:name', ingredientController.getIngredientByName);
-router.get('/ingredient/type/:type', ingredientController.getIngredientByType);
-router.put('/ingredient', ingredientController.updateIngredient);
-router.post('/ingredient', ingredientController.createIngredient);
-router.get('/ingredient', ingredientController.getAllIngredient);
-router.delete('/ingredient/name/:name', ingredientController.deleteIngredient);
+router.get('/name/:name', ingredientController.getIngredientByName);
+router.get('/type/:type', ingredientController.getIngredientByType);
+router.put('/', ingredientController.updateIngredient);
+router.post('/', ingredientController.createIngredient);
+router.get('/', ingredientController.getAllIngredient);
+router.delete('/name/:name', ingredientController.deleteIngredient);
 
 
 export default router

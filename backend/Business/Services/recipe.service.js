@@ -5,7 +5,7 @@ import recipeingredientService from './recipeIngredient.service.js'
 export async function getAllRecipe() {
     const recipes = await recipeDAO.GetAllRecipe();
     if (!recipes) {
-        throw new Error("Aucune recette trouvé");
+        throw new Error("Aucune recette trouvée");
     }
     return recipes;
 };
