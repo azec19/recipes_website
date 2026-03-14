@@ -14,6 +14,8 @@ import uploadRouter from './Presentation/Routes/upload.routes.js'
 import authenticateJWT from './Token_Auth/authenticateJWT.js'
 import authRoutes from './Presentation/Routes/auth.routes.js';
 import SwaggerParser from '@apidevtools/swagger-parser'
+import cookieParser from "cookie-parser"
+import cors from "cors"
 
 //middleware who manage JWT token
 import './Token_Auth/passport.js';
@@ -21,22 +23,30 @@ import './Token_Auth/passport.js';
 const app = express()
 const PORT = process.env.PORT ?? 3000
 
+
 // Middlewares de base
 app.use(express.json())
+app.use(cookieParser())
+
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true
+}))
 
 // Healthcheck simple
 app.get('/', (_req, res) => res.send('API OK'))
 
+
+
 //Login parts
-app.get('/auth', authRoutes)
+app.use('/auth', authRoutes)
 
 // Swagger uniquement sur /api-docs
 const swaggerDocument = await SwaggerParser.bundle('./swagger/swagger.json')
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 // Middleware to serve static files from upload folder
-// app.use(express.static('public')); a supprimer si ca marche
-app.use('/images', authenticateJWT, express.static('upload'));
+app.use('/images', express.static('upload'));
 
 // Toutes les routes applicatives
 app.use('/api/users', authenticateJWT, userRouter)     

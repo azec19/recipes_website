@@ -5,7 +5,12 @@ import SearchBar from "./AddRecipe/searchBar"
 import RecipeContent from "./AddRecipe/uniqueRecipe"
 import { useState, useMemo } from 'react'
 
-export default function Recipeclient({ recipes } : { recipes: Recipe[]}) {
+type Props = {
+    recipes: Recipe[];
+};
+
+export default function Recipeclient(Props: Props) {
+    const recipes = Props.recipes
     const [searchBarinput, setSearchBarinput] = useState('')
 
     const filteredRecipes = useMemo(() => {
@@ -16,8 +21,6 @@ export default function Recipeclient({ recipes } : { recipes: Recipe[]}) {
 
     return (
         <div>
-
-
             <Bandeau />
             <h1 className="text-center font-inika text-[50px]">List des recettes</h1>
             <SearchBar value_={searchBarinput} onChange_={setSearchBarinput} />

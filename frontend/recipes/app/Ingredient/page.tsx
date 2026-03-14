@@ -6,15 +6,23 @@ import IngredientForm from "./addForm"
 
 const ROUNDED = 8
 
-
-
 export default async function app() {
 
+    type response = StockIngredient[] | {message: string}
+    
+    const ingredients: response = await fetchAllStockIngredients()
+    console.log(ingredients);
+    
+    if ('message' in ingredients)
+        return (
+        <div>
+            <Bandeau />
 
+            <div className="flex m-[50px] items-center text-3xl justify-center text-red-700" ><strong className="font-bold">Vous n'êtes actuellement pas connecté.</strong></div>
 
+        </div>
 
-
-    const ingredients: StockIngredient[] = await fetchAllStockIngredients()
+    )
     ingredients.sort((a: StockIngredient, b: StockIngredient) => {
         const nameA = a.ingredient.name.toUpperCase(); // ignore upper and lowercase
         const nameB = b.ingredient.name.toUpperCase(); // ignore upper and lowercase

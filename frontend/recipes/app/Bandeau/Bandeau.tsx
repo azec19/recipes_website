@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import {deleteCookie} from '../lib/data'
 
 export default function Bandeau() {
   return (
@@ -44,10 +45,15 @@ export default function Bandeau() {
         </div>
 
         <div className="flex-1 flex justify-end">
-          <button
-            className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2">
-            Log in
-          </button>
+          <Link
+            className="cursor-pointer bg-white text-black rounded-xl mt-5 px-7 py-2"
+            href="/login"
+            onNavigate={(e) => {
+              deleteCookie()
+            }}
+          >
+            Log out
+          </Link>
         </div>
 
       </main>

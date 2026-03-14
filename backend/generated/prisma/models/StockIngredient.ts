@@ -41,6 +41,7 @@ export type StockIngredientSumAggregateOutputType = {
 export type StockIngredientMinAggregateOutputType = {
   id: number | null
   ingredientId: number | null
+  user: string | null
   quantity: number | null
   unit: $Enums.Units | null
 }
@@ -48,6 +49,7 @@ export type StockIngredientMinAggregateOutputType = {
 export type StockIngredientMaxAggregateOutputType = {
   id: number | null
   ingredientId: number | null
+  user: string | null
   quantity: number | null
   unit: $Enums.Units | null
 }
@@ -55,6 +57,7 @@ export type StockIngredientMaxAggregateOutputType = {
 export type StockIngredientCountAggregateOutputType = {
   id: number
   ingredientId: number
+  user: number
   quantity: number
   unit: number
   _all: number
@@ -76,6 +79,7 @@ export type StockIngredientSumAggregateInputType = {
 export type StockIngredientMinAggregateInputType = {
   id?: true
   ingredientId?: true
+  user?: true
   quantity?: true
   unit?: true
 }
@@ -83,6 +87,7 @@ export type StockIngredientMinAggregateInputType = {
 export type StockIngredientMaxAggregateInputType = {
   id?: true
   ingredientId?: true
+  user?: true
   quantity?: true
   unit?: true
 }
@@ -90,6 +95,7 @@ export type StockIngredientMaxAggregateInputType = {
 export type StockIngredientCountAggregateInputType = {
   id?: true
   ingredientId?: true
+  user?: true
   quantity?: true
   unit?: true
   _all?: true
@@ -184,6 +190,7 @@ export type StockIngredientGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 export type StockIngredientGroupByOutputType = {
   id: number
   ingredientId: number
+  user: string
   quantity: number
   unit: $Enums.Units
   _count: StockIngredientCountAggregateOutputType | null
@@ -214,6 +221,7 @@ export type StockIngredientWhereInput = {
   NOT?: Prisma.StockIngredientWhereInput | Prisma.StockIngredientWhereInput[]
   id?: Prisma.IntFilter<"StockIngredient"> | number
   ingredientId?: Prisma.IntFilter<"StockIngredient"> | number
+  user?: Prisma.StringFilter<"StockIngredient"> | string
   quantity?: Prisma.FloatFilter<"StockIngredient"> | number
   unit?: Prisma.EnumUnitsFilter<"StockIngredient"> | $Enums.Units
   ingredient?: Prisma.XOR<Prisma.IngredientScalarRelationFilter, Prisma.IngredientWhereInput>
@@ -222,6 +230,7 @@ export type StockIngredientWhereInput = {
 export type StockIngredientOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   ingredientId?: Prisma.SortOrder
+  user?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   ingredient?: Prisma.IngredientOrderByWithRelationInput
@@ -233,6 +242,7 @@ export type StockIngredientWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.StockIngredientWhereInput | Prisma.StockIngredientWhereInput[]
   OR?: Prisma.StockIngredientWhereInput[]
   NOT?: Prisma.StockIngredientWhereInput | Prisma.StockIngredientWhereInput[]
+  user?: Prisma.StringFilter<"StockIngredient"> | string
   quantity?: Prisma.FloatFilter<"StockIngredient"> | number
   unit?: Prisma.EnumUnitsFilter<"StockIngredient"> | $Enums.Units
   ingredient?: Prisma.XOR<Prisma.IngredientScalarRelationFilter, Prisma.IngredientWhereInput>
@@ -241,6 +251,7 @@ export type StockIngredientWhereUniqueInput = Prisma.AtLeast<{
 export type StockIngredientOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   ingredientId?: Prisma.SortOrder
+  user?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
   _count?: Prisma.StockIngredientCountOrderByAggregateInput
@@ -256,11 +267,13 @@ export type StockIngredientScalarWhereWithAggregatesInput = {
   NOT?: Prisma.StockIngredientScalarWhereWithAggregatesInput | Prisma.StockIngredientScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"StockIngredient"> | number
   ingredientId?: Prisma.IntWithAggregatesFilter<"StockIngredient"> | number
+  user?: Prisma.StringWithAggregatesFilter<"StockIngredient"> | string
   quantity?: Prisma.FloatWithAggregatesFilter<"StockIngredient"> | number
   unit?: Prisma.EnumUnitsWithAggregatesFilter<"StockIngredient"> | $Enums.Units
 }
 
 export type StockIngredientCreateInput = {
+  user: string
   quantity: number
   unit: $Enums.Units
   ingredient: Prisma.IngredientCreateNestedOneWithoutStockInput
@@ -269,11 +282,13 @@ export type StockIngredientCreateInput = {
 export type StockIngredientUncheckedCreateInput = {
   id?: number
   ingredientId: number
+  user: string
   quantity: number
   unit: $Enums.Units
 }
 
 export type StockIngredientUpdateInput = {
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
   ingredient?: Prisma.IngredientUpdateOneRequiredWithoutStockNestedInput
@@ -282,6 +297,7 @@ export type StockIngredientUpdateInput = {
 export type StockIngredientUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ingredientId?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
 }
@@ -289,11 +305,13 @@ export type StockIngredientUncheckedUpdateInput = {
 export type StockIngredientCreateManyInput = {
   id?: number
   ingredientId: number
+  user: string
   quantity: number
   unit: $Enums.Units
 }
 
 export type StockIngredientUpdateManyMutationInput = {
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
 }
@@ -301,6 +319,7 @@ export type StockIngredientUpdateManyMutationInput = {
 export type StockIngredientUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   ingredientId?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
 }
@@ -313,6 +332,7 @@ export type StockIngredientNullableScalarRelationFilter = {
 export type StockIngredientCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ingredientId?: Prisma.SortOrder
+  user?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
 }
@@ -326,6 +346,7 @@ export type StockIngredientAvgOrderByAggregateInput = {
 export type StockIngredientMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ingredientId?: Prisma.SortOrder
+  user?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
 }
@@ -333,6 +354,7 @@ export type StockIngredientMaxOrderByAggregateInput = {
 export type StockIngredientMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   ingredientId?: Prisma.SortOrder
+  user?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
   unit?: Prisma.SortOrder
 }
@@ -388,12 +410,14 @@ export type EnumUnitsFieldUpdateOperationsInput = {
 }
 
 export type StockIngredientCreateWithoutIngredientInput = {
+  user: string
   quantity: number
   unit: $Enums.Units
 }
 
 export type StockIngredientUncheckedCreateWithoutIngredientInput = {
   id?: number
+  user: string
   quantity: number
   unit: $Enums.Units
 }
@@ -415,12 +439,14 @@ export type StockIngredientUpdateToOneWithWhereWithoutIngredientInput = {
 }
 
 export type StockIngredientUpdateWithoutIngredientInput = {
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
 }
 
 export type StockIngredientUncheckedUpdateWithoutIngredientInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  user?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.FloatFieldUpdateOperationsInput | number
   unit?: Prisma.EnumUnitsFieldUpdateOperationsInput | $Enums.Units
 }
@@ -430,6 +456,7 @@ export type StockIngredientUncheckedUpdateWithoutIngredientInput = {
 export type StockIngredientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ingredientId?: boolean
+  user?: boolean
   quantity?: boolean
   unit?: boolean
   ingredient?: boolean | Prisma.IngredientDefaultArgs<ExtArgs>
@@ -438,6 +465,7 @@ export type StockIngredientSelect<ExtArgs extends runtime.Types.Extensions.Inter
 export type StockIngredientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ingredientId?: boolean
+  user?: boolean
   quantity?: boolean
   unit?: boolean
   ingredient?: boolean | Prisma.IngredientDefaultArgs<ExtArgs>
@@ -446,6 +474,7 @@ export type StockIngredientSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
 export type StockIngredientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   ingredientId?: boolean
+  user?: boolean
   quantity?: boolean
   unit?: boolean
   ingredient?: boolean | Prisma.IngredientDefaultArgs<ExtArgs>
@@ -454,11 +483,12 @@ export type StockIngredientSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
 export type StockIngredientSelectScalar = {
   id?: boolean
   ingredientId?: boolean
+  user?: boolean
   quantity?: boolean
   unit?: boolean
 }
 
-export type StockIngredientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ingredientId" | "quantity" | "unit", ExtArgs["result"]["stockIngredient"]>
+export type StockIngredientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ingredientId" | "user" | "quantity" | "unit", ExtArgs["result"]["stockIngredient"]>
 export type StockIngredientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   ingredient?: boolean | Prisma.IngredientDefaultArgs<ExtArgs>
 }
@@ -477,6 +507,7 @@ export type $StockIngredientPayload<ExtArgs extends runtime.Types.Extensions.Int
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     ingredientId: number
+    user: string
     quantity: number
     unit: $Enums.Units
   }, ExtArgs["result"]["stockIngredient"]>
@@ -905,6 +936,7 @@ export interface Prisma__StockIngredientClient<T, Null = never, ExtArgs extends 
 export interface StockIngredientFieldRefs {
   readonly id: Prisma.FieldRef<"StockIngredient", 'Int'>
   readonly ingredientId: Prisma.FieldRef<"StockIngredient", 'Int'>
+  readonly user: Prisma.FieldRef<"StockIngredient", 'String'>
   readonly quantity: Prisma.FieldRef<"StockIngredient", 'Float'>
   readonly unit: Prisma.FieldRef<"StockIngredient", 'Units'>
 }

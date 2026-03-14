@@ -53,7 +53,7 @@ enum Difficulties {
 
 model User {
   id    Int    @id @default(autoincrement())
-  name  String @Unique
+  name  String @unique
   password String
 }
 
@@ -70,8 +70,10 @@ model StockIngredient {
   id           Int @id @default(autoincrement())
   ingredientId Int @unique
 
+  user     String
   quantity Float
   unit     Units
+
 
   ingredient Ingredient @relation(fields: [ingredientId], references: [id])
 }

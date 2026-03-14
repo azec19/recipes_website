@@ -9,7 +9,7 @@ const validateRegister = [
 ];
 
 const validateLogin = [
-    body('name').isEmail().notEmpty().withMessage('Oops! Name is required.').trim().escape(),
+    body('name').isLength({ min: 4 }).notEmpty().withMessage('Oops! Name is required.').trim().escape(),
     body('password').notEmpty().withMessage('Oops! Password is required.').trim().escape(),
 ];
 

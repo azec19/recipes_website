@@ -84,7 +84,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     Nom de la recette
                                 </label>
                                 <input required type="text" placeholder="Nom" name="name"
-                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
                                 <div className="w-full px-3 sm:w-1/2">
@@ -93,7 +93,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             Date de création
                                         </label>
                                         <input required type="text" placeholder="Date" name="date"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -102,7 +102,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             Mood
                                         </label>
                                         <select name="mood"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                             {moods.map(mood => (
                                                 <option key={mood} value={mood}>{Mood[mood]}</option>
                                             ))}
@@ -115,7 +115,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     Auteur de la recette
                                 </label>
                                 <input required type="text" placeholder="Auteur" name="autor"
-                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="mb-5">
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
@@ -145,7 +145,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             Temps de préparation
                                         </label>
                                         <input required type="number" placeholder="Preparation time" name="preparation_time"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -154,7 +154,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             Temps de cuisson
                                         </label>
                                         <input required type="number" placeholder="Cooking time" name="cooking_time"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                     Nombre de personne prévu
                                 </label>
                                 <input required type="text" placeholder="Quantité/Nombre de personne" name="quantity"
-                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                    className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
                                 <div className="mb-5 sm:w-1/2">
@@ -187,7 +187,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         </label>
                                         <br />
                                         <select name="difficulty"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                             {difficulties.map(difficultie => (
                                                 <option key={difficultie} value={difficultie}>{Difficulties[difficultie]}</option>
                                             ))}

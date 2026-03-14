@@ -3,6 +3,7 @@ import passport from 'passport';
 const authenticateJWT = (req, res, next) => {
     passport.authenticate('jwt', { session: false }, (err, user, info) => {
         if (err) {
+            console.log(err);
             return res.status(500).json({ message: 'Internal server error' });
         }
 

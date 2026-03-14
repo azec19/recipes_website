@@ -1,8 +1,11 @@
 import userService from "./user.service.js";
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 export async function register(name, password) {
-    const errors = validationResult(req);
+    
     // Check if the user with the given email already exists
+    
     const existingUser = await userService.getUserByName(name);
     if (existingUser) {
         throw new Error("User with this name already exists.");
@@ -12,8 +15,8 @@ export async function register(name, password) {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create the new user in the database
-    const user = userService.createUser(name, hashedPassword)
-
+    const user = await userService.createUser(name, hashedPassword)
+    
     // Generate a JWT token
     const token = jwt.sign(
         { id: user.id },
@@ -23,14 +26,11 @@ export async function register(name, password) {
         }
     );
 
-    return {
-            id: user.id,
-            name: user.name,
-            token: token,
-        }
+    return token
 };
 
 export async function login(name, password) {
+
     const user = await userService.getUserByName(name);
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
@@ -46,10 +46,7 @@ export async function login(name, password) {
         }
     );
 
-    return {
-            name: user.name,
-            token: token,
-        }
+    return token
 };
 
 const authService = {register, login};

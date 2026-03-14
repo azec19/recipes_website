@@ -5,12 +5,21 @@
     "description": "API for managing users",
     "version": "1.0.0"
   },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "servers": [
     {
       "url": "http://localhost:3000"
     }
   ],
-  "tags": [
+    "tags": [
+    {
+      "name": "Login",
+      "description": "Opérations liées à l'authentification"
+    },
     {
       "name": "Users",
       "description": "Opérations liées aux utilisateurs"
@@ -37,59 +46,72 @@
     }
   ],
   "paths": {
+    "/auth/login": {
+      "$ref": "./path/login.json"
+    },
+    "/auth/register": {
+      "$ref": "./path/register.json"
+    },
     "/upload": {
       "$ref": "./path/upload.json"
     },
-    "/ingredient": {
+    "/api/ingredient": {
       "$ref": "./path/ingredient.json"
     },
-    "/users/id/{id}": {
+    "/api/users/id/{id}": {
       "$ref": "./path/users-id.json"
     },
-    "/users/name/{name}": {
+    "/api/users/name/{name}": {
       "$ref": "./path/users-name.json"
-    }, 
-    "/stockIngredient": {
+    },
+    "/api/stockIngredient": {
       "$ref": "./path/stockIngredient.json"
     },
-    "/stockIngredient/name/{name}": {
+    "/api/stockIngredient/name/{name}": {
       "$ref": "./path/stockIngredient-name.json"
-    }, 
-    "/stockIngredient/type/{type}": {
+    },
+    "/api/stockIngredient/type/{type}": {
       "$ref": "./path/stockIngredient-type.json"
-    },  
-    "/recipeIngredient": {
+    },
+    "/api/recipeIngredient": {
       "$ref": "./path/recipeIngredient.json"
     },
-    "/recipeIngredient/name/{name}": {
+    "/api/recipeIngredient/name/{name}": {
       "$ref": "./path/recipeIngredient-name.json"
     },
-    "/recipeIngredient/type/{type}": {
+    "/api/recipeIngredient/type/{type}": {
       "$ref": "./path/recipeIngredient-type.json"
-    }, 
-    "/recipe": {
+    },
+    "/api/recipe": {
       "$ref": "./path/recipe.json"
-    },  
-    "/recipe/name/{name}": {
+    },
+    "/api/recipe/name/{name}": {
       "$ref": "./path/recipe-name.json"
-    },  
-    "/recipe/Autor/{autor}": {
+    },
+    "/api/recipe/Autor/{autor}": {
       "$ref": "./path/recipe-author.json"
-    },  
-    "/recipe/mood/{mood}": {
+    },
+    "/api/recipe/mood/{mood}": {
       "$ref": "./path/recipe-mood.json"
-    },   
-    "/recipe/preparation_time/{time}": {
+    },
+    "/api/recipe/preparation_time/{time}": {
       "$ref": "./path/recipe-preparation_time.json"
-    },  
-    "/recipe/cooking_time/{time}": {
+    },
+    "/api/recipe/cooking_time/{time}": {
       "$ref": "./path/recipe-cooking_time.json"
-    },  
-    "/recipe/Ingredient/": {
+    },
+    "/api/recipe/Ingredient/": {
       "$ref": "./path/recipe-ingredient.json"
     }
   },
   "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
     "schemas": {
       "User": {
         "$ref": "./shemas/user.json"
