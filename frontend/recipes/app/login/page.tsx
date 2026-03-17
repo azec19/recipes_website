@@ -16,7 +16,7 @@ export default function LoginPage() {
         setIsLoading(true);
         try {
             const formData = new FormData(e.currentTarget)
-            const result = await fetch("http://localhost:3001/auth/login", {
+            const result = await fetch(process.env.BACKEND_URL + "/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

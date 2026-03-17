@@ -6,12 +6,12 @@ import {
   ColDef,
   AllCommunityModule,
   ModuleRegistry,
-  CellValueChangedEvent,
   EditableCallbackParams,
   RowSelectionOptions,
   RowEditingStoppedEvent,
   GetRowIdParams,
-  GridOptions
+  GridOptions,
+  RowValueChangedEvent
 } from 'ag-grid-community';
 import { StockIngredient, Types_, Units_ } from "../lib/type"
 import {updateStockIngredient, DeleteStockIngredient} from "../lib/data"
@@ -35,10 +35,13 @@ const rowSelection: RowSelectionOptions = {
 };
 
 
-async function onRowValueChanged(event: CellValueChangedEvent<StockIngredient>) {
+async function onRowValueChanged(event: RowValueChangedEvent<StockIngredient>) {
   const updatedIngredient = event.data;
+  if (!updatedIngredient) {
+    return;
+  }
   console.log(updatedIngredient);
-  updateStockIngredient(updatedIngredient)  
+  updateStockIngredient(updatedIngredient);
 }
 
 async function DeleteIngredient(name: string) {

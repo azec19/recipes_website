@@ -1,10 +1,16 @@
-Verify in services files format of user's input
+V Verify in services files format of user's input
 Security backend and frontend
-Managing error backend and frontend
+V Managing error backend and frontend
 V instructions sous forme de liste partout front + back
-View single recipe + bouttons come back
+V View single recipe + bouttons come back
 Edit recipe
 animations file upload recipe form
 modification type ingredient
 translation unité vue stock ingredient
 instauré express-validator.js
+Erreur quand zero utilisateur dans la page sign in
+Erreur quand backend repond pas
+redirige automatique vers login page
+Change JWT secret
+Real secure credentials database
+cookies https only

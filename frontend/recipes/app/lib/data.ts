@@ -1,5 +1,6 @@
 'use server'
 
+import 'dotenv/config'
 import { StockIngredient, RecipeIngredient, Recipe } from "./type"
 import { revalidatePath } from 'next/cache';
 import { typeLabelToEnum, unitLabelToEnum } from "../lib/type"
@@ -8,7 +9,7 @@ import { cookies } from "next/headers"
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
-    const res = await fetch('http://localhost:3001/api/recipe', {
+    const res = await fetch(process.env.BACKEND_URL + '/api/recipe', {
         headers: {
             Cookie: `token=${token}`
         },
@@ -21,7 +22,7 @@ export async function fetchAllRecipes(): Promise<Recipe[]> {
 export async function fetchRecipesByName(name: string): Promise<Recipe> {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
-    const res = await fetch('http://localhost:3001/api/recipe/name/' + name, {
+    const res = await fetch(process.env.BACKEND_URL + '/api/recipe/name/' + name, {
         headers: {
             Cookie: `token=${token}`
         },
@@ -33,7 +34,7 @@ export async function fetchRecipesByName(name: string): Promise<Recipe> {
 export async function fetchAllStockIngredients(): Promise<StockIngredient[]> {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
-    const res = await fetch('http://localhost:3001/api/stockIngredient', {
+    const res = await fetch(process.env.BACKEND_URL + '/api/stockIngredient', {
         headers: {
             Cookie: `token=${token}`
         },
@@ -52,7 +53,7 @@ export async function onSubmitStockIngredient(Ingredient: StockIngredient) {
         unit: unitLabelToEnum(Ingredient.unit) as string
     };
 
-    const response = await fetch('http://localhost:3001/api/stockIngredient', {
+    const response = await fetch(process.env.BACKEND_URL + '/api/stockIngredient', {
         method: 'POST',
         credentials: "include",
         headers: {
@@ -78,7 +79,7 @@ export async function updateStockIngredient(Ingredient: StockIngredient) {
         unit: unitLabelToEnum(Ingredient.unit) as string
     };
     console.log(data);
-    const response = await fetch(`http://localhost:3001/api/stockIngredient`, {
+    const response = await fetch(process.env.BACKEND_URL + '/api/stockIngredient', {
         method: 'PUT',
         credentials: "include",
         headers: {
@@ -94,7 +95,7 @@ export async function updateStockIngredient(Ingredient: StockIngredient) {
 export async function DeleteStockIngredient(name: string) {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
-    await fetch(`http://localhost:3001/api/stockIngredient/name/${name}`, {
+    await fetch(process.env.BACKEND_URL + `/api/stockIngredient/name/${name}`, {
         method: 'DELETE',
         headers: {
             Cookie: `token=${token}`,
@@ -127,7 +128,7 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
         calorie: formData.get('calorie') as string
     };
 
-    const response = await fetch('http://localhost:3001/api/recipe', {
+    const response = await fetch(process.env.BACKEND_URL + '/api/recipe', {
         method: 'POST',
         headers: {
             Cookie: `token=${token}`,
@@ -143,7 +144,7 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
     const picture = formData.get('picture') as File
     const formData_picture = new FormData()
     formData_picture.append('file', picture)
-    const response_picture = await fetch('http://localhost:3001/api/upload', {
+    const response_picture = await fetch(process.env.BACKEND_URL + '/api/upload', {
         method: 'POST',
         headers: {
             Cookie: `token=${token}`
@@ -163,7 +164,7 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
         photo: result_picture.filename
     }
 
-    const update_response = await fetch('http://localhost:3001/api/recipe', {
+    const update_response = await fetch(process.env.BACKEND_URL + '/api/recipe', {
         method: 'PUT',
         credentials: "include",
         headers: {
@@ -184,7 +185,7 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
 export async function deleteRecipe(name: String) {
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
-    await fetch('http://localhost:3001/api/recipe/name/' + name, {
+    await fetch(process.env.BACKEND_URL + '/api/recipe/name/' + name, {
         method: 'Delete',
         credentials: "include",
         headers: {

@@ -31,8 +31,8 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
         await deleteRecipe(recipe.name);
         router.push('/');
     };
-    // const difficultyLabel = Object.values(Object.values(Difficulties))
-    const difficultyLabel = Difficulties[recipe.difficultie] || recipe.difficultie;
+    // recipe.difficultie est déjà une valeur Difficulties (ex. "Facile").
+    const difficultyLabel = recipe.difficultie;
     
     return (
         <div>

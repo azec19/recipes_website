@@ -28,8 +28,9 @@ const PORT = process.env.PORT ?? 3000
 app.use(express.json())
 app.use(cookieParser())
 
+//mettre ici ce que tu rentes dans la bar du navigateur
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3001",
   credentials: true
 }))
 
