@@ -24,8 +24,7 @@ export default function LoginPage() {
                 body: JSON.stringify({
                     name: formData.get("name"),
                     password: formData.get("password")
-                }),
-                credentials: "include"
+                })
             })
             if (result.ok) {
                 router.push('/') // redirige vers la page d'accueil

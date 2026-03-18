@@ -1,6 +1,6 @@
 "use client"
 import Link from 'next/link'
-import bg from '../../public/background.png'
+import bg from '@/public/background.png'
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
 
@@ -16,7 +16,7 @@ export default function LoginPage() {
         setIsLoading(true);
         try {
             const formData = new FormData(e.currentTarget)
-            const result = await fetch(process.env.BACKEND_URL + "/auth/login", {
+            const result = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -24,8 +24,10 @@ export default function LoginPage() {
                 body: JSON.stringify({
                     name: formData.get("name"),
                     password: formData.get("password")
-                })
+                }),
+                credentials: "include"
             })
+            
             if (result.ok) {
                 setIsLoading(false);
                 router.push('/') // redirige vers la page d'accueil

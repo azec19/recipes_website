@@ -14,3 +14,4 @@ redirige automatique vers login page
 Change JWT secret
 Real secure credentials database
 cookies https only
+ne pas exposer le back sur docker

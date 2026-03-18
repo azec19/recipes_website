@@ -10,6 +10,8 @@ import { deleteRecipe } from "../../lib/data"
 
 
 function getDifficultyColor(difficulty: string): string {
+    console.log(difficulty);
+    
     switch (difficulty) {
         case "EASY": return 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
         case "MEDIUM": return 'bg-gray-300 text-gray-800 dark:bg-gray-600 dark:text-gray-200';

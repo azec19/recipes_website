@@ -1,22 +1,22 @@
 "use client"
 import Link from 'next/link'
-import bg from '@/public/background.png'
-import { useState } from 'react';
+import bg from '@/app/public/background.png'
 import { useRouter } from "next/navigation";
+import { useState } from 'react';
 
 
 
 export default function LoginPage() {
+
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
-
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
         setIsLoading(true);
         try {
             const formData = new FormData(e.currentTarget)
-            const result = await fetch("http://localhost:3000/auth/register", {
+            const result = await fetch("http://localhost:3000/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -27,12 +27,13 @@ export default function LoginPage() {
                 }),
                 credentials: "include"
             })
+            
             if (result.ok) {
+                setIsLoading(false);
                 router.push('/') // redirige vers la page d'accueil
             } else {
                 // Affiche le message d'erreur mais garde les données
-
-                setError((await result.json()).message || 'Une erreur est survenue lors de la création de l\'utilisateur')
+                setError((await result.json()).message || 'Une erreur est survenue lors de l\'authentification')
             }
         }
         catch (err) {
@@ -52,7 +53,7 @@ export default function LoginPage() {
                     <div className="flex flex-col items-center space-y-8">
                         <div className="w-80 rounded-[20px] bg-white p-8" style={{ "boxShadow": "#00000057 1px 3px 4px" }}>
                             <h1 className="mb-4 text-center text-3xl font-bold text-black" style={{ "textShadow": "#00000063 0px 3px 5px" }}>
-                                Bienvenue sur ce site de recettes !
+                                Ravie de vous revoir !
                             </h1>
                             {error && (
                                 <div className="mx-auto w-full max-w-[550px] mb-4">
@@ -84,14 +85,14 @@ export default function LoginPage() {
                                         type="submit"
                                         disabled={isLoading}
                                         className="h-10 w-full cursor-pointer rounded-md bg-gradient-to-br from-[#e7b100] to-[#745900] text-white shadow-md shadow-yellow-950">
-                                        {isLoading ? 'Loading...' : 'Sign Up'}
+                                        {isLoading ? 'Loading...' : 'Sign In'}
                                     </button>
                                 </div>
                             </form>
                             <div className="text-center text-[#969696]">
-                                Vous avez déjà un compte ?
-                                <Link className="cursor-pointer text-[#745900] hover:underline" href="/login"
-                                >Sign in</Link>
+                                Vous n'avez pas de compte actuellement ?
+                                <Link className="cursor-pointer text-[#745900] hover:underline" href="/register"
+                                >Sign up</Link>
                             </div>
                         </div>
                     </div>
