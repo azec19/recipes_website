@@ -50,7 +50,7 @@ export async function deleteRecipeIngredient(ingredientId, recipeId){
     if (!existing) {
         throw new Error("RecipeIngredient doesn't exist");
     }
-    return RecipeIngredientDAO.deleteRecipeIngredient(ingredientId, recipeId);
+    return RecipeIngredientDAO.deleteRecipeIngredient(recipeId, ingredientId);
 };
 
 export async function updateRecipeIngredient(recipeID, ingredientId, quantity, unit){

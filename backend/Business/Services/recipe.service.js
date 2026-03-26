@@ -32,7 +32,7 @@ export async function createRecipe(name,
     }
 
 
-    
+
     const date_ = new Date(date)
     if (date_ == "Invalid Date")
         throw new Error("La Date est invalide");
@@ -100,42 +100,40 @@ export async function updateRecipe(id,
         }
     }
 
-    let Recipeingredients = []
-    if (ingredients) {
-        // recipe.ingredients.forEach(async (ingredient) =>{
-        //     await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId)
-        //     })
-        for (const ingredient of recipe.ingredients) {
-                await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId)
-            }
-        const tempRecipeIngredient = await Promise.all(
-            ingredients.map((ingredient) => (
-                recipeingredientService.createRecipeIngredient(recipe.id, ingredient.ingredient.name, ingredient.ingredient.type, ingredient.quantity, ingredient.unit))
-            ));
-
-        Recipeingredients = tempRecipeIngredient.map(ri => ({
-            where: {
-                recipeId_ingredientId: {
-                    recipeId: recipe.id,
-                    ingredientId: ri.ingredientId
-                }
-            },
-            create: {
-                ingredient: {
-                    connect: { id: ri.ingredientId },
-                },
-                quantity: ri.quantity,
-                unit: ri.unit,
-            },
-        }));
+    // let Recipeingredients = []
+    if (!ingredients)
+        ingredients = recipe.ingredients
+    for (const ingredient of recipe.ingredients) {
+        await recipeingredientService.deleteRecipeIngredient(ingredient.ingredientId, ingredient.recipeId)
     }
+    const tempRecipeIngredient = await Promise.all(
+        ingredients.map((ingredient) => (
+            recipeingredientService.createRecipeIngredient(recipe.id, ingredient.ingredient.name, ingredient.ingredient.type, ingredient.quantity, ingredient.unit))
+        ));
+
+    let Recipeingredients = tempRecipeIngredient.map(ri => ({
+        where: {
+            recipeId_ingredientId: {
+                recipeId: recipe.id,
+                ingredientId: ri.ingredientId
+            }
+        },
+        create: {
+            ingredient: {
+                connect: { id: ri.ingredientId },
+            },
+            quantity: ri.quantity,
+            unit: ri.unit,
+        },
+    }));
+
 
     name = name ? name : recipe.name
     date = date_ ? date_ : (recipe.date instanceof Date ? recipe.date : new Date(recipe.date))
     autor = autor ? autor : recipe.autor
     description = description ? description : recipe.description
-    instructions = instructions ? instructions : recipe.instructions    
-    Recipeingredients = Recipeingredients.length === 0 ? recipe.ingredients : Recipeingredients
+    instructions = instructions ? instructions : recipe.instructions
+    // Recipeingredients = Recipeingredients.length === 0 ? recipe.ingredients : Recipeingredients
     mood = mood ? mood : recipe.mood
     preparation_time = preparation_time ? preparation_time : recipe.preparation_time
     cooking_time = cooking_time ? cooking_time : recipe.cooking_time
@@ -143,8 +141,8 @@ export async function updateRecipe(id,
     difficultie = difficultie ? difficultie : recipe.difficultie
     photo = photo ? photo : recipe.photo
     tools = tools ? tools : recipe.tools
-    calorie = calorie ? calorie : recipe.calorie   
-    
+    calorie = calorie ? calorie : recipe.calorie
+
     return recipeDAO.UpdateRecipe(id, name,
         date,
         autor,

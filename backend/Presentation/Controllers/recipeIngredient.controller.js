@@ -28,8 +28,10 @@ export async function createRecipeIngredient(req, res) {
 };
 
 export async function deleteRecipeIngredient(req, res) {
+    console.log('test');
+    
     try {
-        const newingredient = await RecipeingredientService.deleteRecipeIngredient(req.params.id);
+        const newingredient = await RecipeingredientService.deleteRecipeIngredient(req.body.id, req.body.recipeId);
         res.status(201).json(newingredient);
     } catch (error) {
         res.status(400).json({ message: error.message });
