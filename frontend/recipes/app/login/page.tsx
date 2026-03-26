@@ -72,7 +72,7 @@ export default function LoginPage() {
                                         className="w-full rounded-md bg-[#E9EFF6] p-2.5 text-black placeholder:text-[#6B7280]"
                                         style={{ "boxShadow": "rgb(0 0 0 / 21%) 0px 7px 5px 0px" }} />
                                     <input
-                                        type="text"
+                                        type="password"
                                         placeholder="Mot de passe"
                                         name="password"
                                         className="w-full rounded-md bg-[#E9EFF6] p-2.5 text-black placeholder:text-[#6B7280]"

@@ -55,8 +55,7 @@ export async function updateStockIngredient(id, ingredientId, user_name, quantit
     const stockingredient = await StockingredientDAO.findById(id, user_name);
     if (!stockingredient) {
         throw new Error("Ingredient doesn't exist");
-    }
-    console.log(stockingredient);    
+    }    
     ingredientId = ingredientId ? ingredientId : stockingredient.ingredient.id
     quantity = quantity ? quantity : stockingredient.quantity
     unit = unit ? unit : stockingredient.unit

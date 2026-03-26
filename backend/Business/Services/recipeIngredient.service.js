@@ -29,13 +29,6 @@ export async function getAllRecipeIngredient() {
     return recipeingredients;
 };
 
-// export async function createRecipeIngredient(recipeID, ingredientId, quantity, unit){
-//     const existing = await RecipeIngredientDAO.findByRecipe(recipeID, ingredientId);
-//     if (existing) {
-//         return existing
-//     }
-//     return RecipeIngredientDAO.createRecipeIngredient(recipeID, ingredientId, quantity, unit);
-// };
 
 export async function createRecipeIngredient(recipeID, name, type, quantity, unit){
     var ingredientId = await IngredientService.findByName(name)

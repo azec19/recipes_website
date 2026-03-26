@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useMemo, useState, useCallback, } from 'react'
+import { useRef, useMemo, useState, useCallback, useEffect } from 'react'
 import { AgGridReact } from 'ag-grid-react';
 import {
   ColDef,
@@ -15,15 +15,12 @@ import {
 import { RecipeIngredient, Types_, Units_ } from "../lib/type"
 import { listIngredients } from '../lib/Formstore';
 
-// Register all Community features
-ModuleRegistry.registerModules([AllCommunityModule]);
-
-
-
 const units = Object.values(Object.values(Units_))
 
 const types = Object.values(Object.values(Types_))
 
+// Register all Community features
+ModuleRegistry.registerModules([AllCommunityModule]);
 
 const gridOptions: GridOptions = {
   pagination: true,
@@ -44,6 +41,10 @@ export default function GridComponent() {
   const gridStyle = useMemo(() => ({ height: "100%", width: "100%" }), []);
   const [rowData, setRowData] = useState<RecipeIngredient[]>([]);
   const [pinnedBottomRowData, setPinnedBottomRowData] = useState([]);
+
+  useEffect(() => {
+    setRowData(list);
+  }, [list]);
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([
     { field: "ingredient.name", flex: 2, filter: true, editable: true },
     {

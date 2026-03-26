@@ -16,7 +16,8 @@ export default async function app() {
                 <Bandeau />
 
                 <div className="flex m-[50px] items-center text-3xl justify-center text-red-700" ><strong className="font-bold">Vous n'êtes actuellement pas connecté.</strong></div>
-
+                <script>alert('Vous n\'êtes pas connecté. Vous allez être redirigé');
+          window.location.href = "/login"; </script>
             </div>
 
         )

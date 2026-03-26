@@ -61,8 +61,6 @@ export async function deleteStockIngredient(req, res) {
 };
 
 export async function updateStockIngredient(req, res) {
-    console.log(req.body);
-    
     try {
             const newingredient = await StockingredientService.updateStockIngredient(req.body.id, req.body.ingredientID, req.user.name, req.body.quantity, req.body.unit);
             res.status(201).json(newingredient);

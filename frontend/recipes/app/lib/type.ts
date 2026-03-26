@@ -1,69 +1,94 @@
-export enum Types_ {
-    FECULENT = 'Féculent',
-    LEGUME = 'Légume',
-    FRUIT = 'Fruit',
-    LAITIER = 'Laitier',
-    VIANDE = 'Viande',
-    POISSON = 'Poisson',
-    MATIERE_GRASSE = 'Matière grasse',
-    EPICE = 'Epice',
-    LIQUIDE = 'Liquide',
-    AUTRE = 'Autre'
-}
-export function typeLabelToEnum(value: string): Types_ {
-    return (Object.entries(Types_) as [keyof typeof Types_, string][])
-        .find(([, v]) => v === value)?.[0] as Types_;
+export const Types_ = {
+  FECULENT: 'Féculent',
+  LEGUME: 'Légume',
+  FRUIT: 'Fruit',
+  LAITIER: 'Laitier',
+  VIANDE: 'Viande',
+  POISSON: 'Poisson',
+  MATIERE_GRASSE: 'Matière grasse',
+  EPICE: 'Epice',
+  LIQUIDE: 'Liquide',
+  SAUCE: 'Sauce',
+  AUTRE: 'Autre'
+} as const;
+
+export type TypeKey = keyof typeof Types_;
+export type TypeLabel = typeof Types_[TypeKey];
+export function typeLabelToKey(label: string): TypeKey {
+  // Object.entries → [key, value]
+  console.log(label);
+  
+  return (Object.entries(Types_) as [TypeKey, string][])
+    .find(([, v]) => v === label)?.[0] as TypeKey;
 }
 
-export enum Units_ {
-    KG = 'Kilogramme',
-    GR = 'Gramme',
-    L = 'Litre',
-    CL = 'Centilitre',
-    DL = 'Décilitre',
-    UNITE = 'Unité',
+export const Units_ = {
+    KG: 'Kilogramme',
+    GR: 'Gramme',
+    L: 'Litre',
+    CL: 'Centilitre',
+    DL: 'Décilitre',
+    UNITE: 'Unité',
+} as const;
+
+export type UnitKey = keyof typeof Units_;
+export type UnitLabel = typeof Units_[UnitKey];
+export function unitLabelToKey(label: string): UnitKey {
+  console.log(label);
+  return (Object.entries(Units_) as [UnitKey, string][])
+    .find(([, v]) => v.toLowerCase() === label.toLowerCase())?.[0] as UnitKey;
 }
 
-export function unitLabelToEnum(value: string): Units_ {
-    return (Object.entries(Units_) as [keyof typeof Units_, string][])
-        .find(([, v]) => v === value)?.[0] as Units_;
-}
 export type StockIngredient = {
     id: number;
     quantity: number;
-    unit: Units_;
+    unit: UnitKey;
     ingredient: {
         id: number
         name: string
-        type: Types_
+        type: TypeKey
     }
 }
 
 export type RecipeIngredient = {
     id: number;
     quantity: number;
-    unit: Units_;
+    unit: UnitKey;
     ingredient: {
         id: number
         name: string
-        type: Types_
+        type: TypeKey
     }
 }
 
-export enum Mood {
-    CHILL = "Chill",
-    PARTY = "Party",
-    BEFORE = "Before",
-    MAIN_DISHES = "Main dishe",
-    DESERT = "Desert"
+export const Mood = {
+    CHILL: "Chill",
+    PARTY:  "Festif",
+    BEFORE:  "Apéro",
+    MAIN_DISHES: "Plat principale",
+    DESERT: "Dessert"
 }
 
-export enum Difficulties {
-    EASY = "Facile",
-    MEDIUM = "Moyen",
-    TECHNICAL = "Technique",
-    HARD = "Difficile",
-    IMPOSSIBLE = "Impossible",
+export type MoodKey = keyof typeof Mood;
+export type MoodLabel = typeof Mood[MoodKey];
+export function moodLabelToKey(label: string): MoodKey {
+  return (Object.entries(Mood) as [MoodKey, string][])
+    .find(([, v]) => v.toLowerCase() === label.toLowerCase())?.[0] as MoodKey;
+}
+
+export const Difficulties = {
+    EASY: "Facile",
+    MEDIUM: "Moyen",
+    TECHNICAL: "Technique",
+    HARD: "Difficile",
+    IMPOSSIBLE: "Impossible",
+}
+
+export type DifficultyKey = keyof typeof Difficulties;
+export type DifficultyLabel = typeof Difficulties[DifficultyKey];
+export function difficultieLabelToKey(label: string): DifficultyKey {
+  return (Object.entries(Difficulties) as [DifficultyKey, string][])
+    .find(([, v]) => v.toLowerCase() === label.toLowerCase())?.[0] as DifficultyKey;
 }
 
 export type Recipe = {
@@ -74,11 +99,11 @@ export type Recipe = {
     description: string;
     instructions: string[];
     ingredients: RecipeIngredient[];
-    mood: Mood[];
+    mood: MoodKey[];
     preparation_time: number;
     cooking_time: number;
     quantity: string;
-    difficultie: Difficulties;
+    difficultie: DifficultyKey;
     photo: string;
     tools: string[];
     calorie: string;

@@ -1,6 +1,6 @@
 'use client'
 import Bandeau from "../../Bandeau/Bandeau"
-import { Recipe, Mood, Difficulties } from "../../lib/type"
+import { Recipe, Mood, Difficulties, Units_ } from "../../lib/type"
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
@@ -9,7 +9,7 @@ import { deleteRecipe } from "../../lib/data"
 
 
 
-function getDifficultyColor(difficulty: string): string {
+function getDifficultyColor(difficulty: keyof typeof Difficulties | string): string {
     switch (difficulty) {
         case "EASY": return 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200';
         case "MEDIUM": return 'bg-gray-300 text-gray-800 dark:bg-gray-600 dark:text-gray-200';
@@ -29,8 +29,11 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
         await deleteRecipe(recipe.name);
         router.push('/');
     };
-    // recipe.difficultie est déjà une valeur Difficulties (ex. "Facile").
-    const difficultyLabel = recipe.difficultie;
+
+    const difficultyKey = recipe.difficultie as keyof typeof Difficulties;
+    const difficultyLabel = Difficulties[difficultyKey] ?? recipe.difficultie;
+
+
     
     return (
         <div>
@@ -71,7 +74,7 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                             </div>
                             <div className="bg-gray-700 p-4 rounded-lg">
                                 <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">Difficulté</h4>
-                                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(recipe.difficultie)}`}>
+                                <span className={`inline-block px-3 py-1 rounded-full text-sm font-medium ${getDifficultyColor(difficultyKey)}`}>
                                     {difficultyLabel}
                                 </span>
                             </div>
@@ -97,11 +100,14 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                             <div className="mb-8">
                                 <h3 className="text-2xl font-semibold text-gray-300 mb-4">Ambiance</h3>
                                 <div className="flex flex-wrap gap-2">
-                                    {recipe.mood.map((mood, index) => (
-                                        <span key={index} className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
-                                            {mood}
-                                        </span>
-                                    ))}
+                                    {recipe.mood.map((mood, index) => {
+                                        const moodLabel = Mood[mood as keyof typeof Mood] ?? mood;
+                                        return (
+                                            <span key={index} className="bg-gray-600 text-white px-3 py-1 rounded-full text-sm font-medium">
+                                                {moodLabel}
+                                            </span>
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -110,14 +116,15 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                         <div className="mb-8">
                             <h3 className="text-2xl font-semibold text-gray-300 mb-4">Ingrédients</h3>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                                {recipe.ingredients.map((ingredient, index) => (
-                                    <li key={index} className="flex items-center bg-gray-700 p-3 rounded-lg">
+                                {recipe.ingredients.map((ingredient, index) => {
+                                    const unitLabel = Units_[ingredient.unit];
+                                    return (<li key={index} className="flex items-center bg-gray-700 p-3 rounded-lg">
                                         <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                                         <span className="text-white">
-                                            {ingredient.quantity} {ingredient.unit} {ingredient.ingredient.name}
+                                            {ingredient.quantity} {unitLabel} de {ingredient.ingredient.name}
                                         </span>
-                                    </li>
-                                ))}
+                                    </li>)
+                                })}
                             </ul>
                         </div>
 
@@ -152,7 +159,12 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                         )}
 
                         {/* Footer CTA */}
-                        <div className="flex justify-end pt-6 border-t border-gray-600">
+                        <div className="flex justify-end pt-6 border-t border-gray-600 space-x-4">
+                            <Link href={`/EditRecipe/${encodeURIComponent(recipe.name)}`}>
+                                <button className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg">
+                                    Éditer la recette
+                                </button>
+                            </Link>
                             <button
                                 onClick={handleDelete}
                                 className="bg-red-500 hover:bg-red-600 text-white font-semibold px-6 py-3 rounded-lg transition duration-200 shadow-md hover:shadow-lg"

@@ -10,7 +10,6 @@ export async function getAllRecipe(req, res) {
 };
 
 export async function createRecipe(req, res) {
-    
     try {
         const newrecipe = await recipeService.createRecipe(
             req.body.name,

@@ -40,7 +40,6 @@ async function onRowValueChanged(event: RowValueChangedEvent<StockIngredient>) {
   if (!updatedIngredient) {
     return;
   }
-  console.log(updatedIngredient);
   updateStockIngredient(updatedIngredient);
 }
 

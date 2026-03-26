@@ -1,63 +1,73 @@
-
 'use client'
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import GridComponent from "./datagrid";
-import { Difficulties, Mood, typeLabelToKey, unitLabelToKey } from "../lib/type"
-import { listIngredients } from '../lib/Formstore';
-import { log } from "console";
+import { useState, useEffect } from "react";
+import GridComponent from "../../AddRecipe/datagrid";
+import { Difficulties, Mood, Recipe, Units_, Types_, RecipeIngredient, unitLabelToKey, typeLabelToKey } from "../../lib/type"
+import { listIngredients } from '../../lib/Formstore';
 
 type Props = {
+    recipe: Recipe;
     onSubmit: (formData: FormData) => Promise<{ success: boolean, message?: string }>;
 };
 
-export default function formRecipe({ onSubmit }: Props) {
+export default function EditForm({ recipe, onSubmit }: Props) {
     const [file, setFile] = useState<File | null>(null);
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { list, reset } = listIngredients()
+    const { list, reset, setList } = listIngredients()
 
     type Moods = keyof typeof Mood
     const moods: Moods[] = Object.keys(Mood) as Moods[];
 
-
     type Difficulties = keyof typeof Difficulties
     const difficulties: Difficulties[] = Object.keys(Difficulties) as Difficulties[];
 
+    useEffect(() => {
+        // Pré-remplir les ingrédients
 
-
+        setList(recipe.ingredients.map((ingredient) => {
+            const new_ingredient : any = {
+                quantity: ingredient.quantity,
+                id: ingredient.id,
+                unit: Units_[ingredient.unit],
+                ingredient: {
+                    name: ingredient.ingredient.name,
+                    id: ingredient.ingredient.id,
+                    type: Types_[ingredient.ingredient.type]
+                }
+            }
+            return new_ingredient;
+        }));
+    }, [recipe, setList]);
 
     const submit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // Empêche la réinitialisation du formulaire
+        e.preventDefault();
 
         try {
             setIsLoading(true);
             setError(null);
 
             const formData = new FormData(e.currentTarget);
-            
+            formData.append('id', recipe.id.toString()); // Ajouter l'id pour update
             formData.append('ingredients', JSON.stringify(list.map((ingredient) => {
-                ingredient.unit = unitLabelToKey(ingredient.unit)
-                ingredient.ingredient.type = typeLabelToKey(ingredient.ingredient.type)
-                return ingredient
-            })))
-            console.log(formData.get('ingredients'));
-            
+                            ingredient.unit = unitLabelToKey(ingredient.unit)
+                            ingredient.ingredient.type = typeLabelToKey(ingredient.ingredient.type)
+                            return ingredient
+                        })))
             const list_instructions = formData.get('instructions') as string
+            
             formData.append('instructions', JSON.stringify(list_instructions.split('\n')))
-
+            
             const result = await onSubmit(formData)
 
             if (result.success) {
-                reset() // reset Zustand après succès
-                router.push('/') // redirige vers la page d'accueil
+                reset()
+                router.push(`/Recipe/${encodeURIComponent(formData.get('name') as string)}`) // Rediriger vers la page de la recette
             } else {
-                // Affiche le message d'erreur mais garde les données
-
-                setError(result.message || 'Une erreur est survenue lors de la création de la recette')
+                setError(result.message || 'Une erreur est survenue lors de la modification de la recette')
             }
         } catch (err) {
             setError('Une erreur inattendue est survenue')
@@ -71,7 +81,7 @@ export default function formRecipe({ onSubmit }: Props) {
         <div className="flex justify-center items-center">
             <div className="bg-white rounded-xl w-[50vw] text-black font-inika">
                 <div className="text-center text-[50px]">
-                    <h1> Ajouter une nouvelle recette </h1>
+                    <h1> Modifier la recette </h1>
                 </div>
                 {error && (
                     <div className="mx-auto w-full max-w-[550px] mb-4">
@@ -88,7 +98,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Nom de la recette
                                 </label>
-                                <input required type="text" placeholder="Nom" name="name"
+                                <input required type="text" placeholder="Nom" name="name" defaultValue={recipe.name}
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
@@ -97,8 +107,8 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Date de création
                                         </label>
-                                        <input required type="date" placeholder="Date" name="date"
-                                            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        <input required type="date" placeholder="Date" name="date" defaultValue={recipe.date.toString().split('T')[0]}
+                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
                                 <div className="w-full px-3 sm:w-1/2">
@@ -106,7 +116,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="time" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Mood
                                         </label>
-                                        <select name="mood"
+                                        <select name="mood" defaultValue={recipe.mood[0]}
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                             {moods.map(mood => (
                                                 <option key={mood} value={mood}>{Mood[mood]}</option>
@@ -119,14 +129,14 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Auteur de la recette
                                 </label>
-                                <input required type="text" placeholder="Auteur" name="autor"
+                                <input required type="text" placeholder="Auteur" name="autor" defaultValue={recipe.autor}
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="mb-5">
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Description de la recette
                                 </label>
-                                <textarea required placeholder="Description" rows={3} name="description"
+                                <textarea required placeholder="Description" rows={3} name="description" defaultValue={recipe.description}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
                             <div className="mb-5">
@@ -139,7 +149,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Instructions pour la recette (séparer les instructions par des sauts de lignes pour établir une liste)
                                 </label>
-                                <textarea required placeholder="Instructions" rows={6} name="instructions"
+                                <textarea required placeholder="Instructions" rows={6} name="instructions" defaultValue={recipe.instructions?.join('\n')}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
 
@@ -149,7 +159,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="date" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Temps de préparation
                                         </label>
-                                        <input required type="number" placeholder="Preparation time" name="preparation_time"
+                                        <input required type="number" placeholder="Preparation time" name="preparation_time" defaultValue={recipe.preparation_time}
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
@@ -158,7 +168,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                         <label htmlFor="time" className="mb-3 block text-base font-medium text-[#07074D]">
                                             Temps de cuisson
                                         </label>
-                                        <input required type="number" placeholder="Cooking time" name="cooking_time"
+                                        <input required type="number" placeholder="Cooking time" name="cooking_time" defaultValue={recipe.cooking_time}
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                                     </div>
                                 </div>
@@ -167,7 +177,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 block text-base font-medium text-[#07074D]">
                                     Nombre de personne prévu
                                 </label>
-                                <input required type="text" placeholder="Quantité/Nombre de personne" name="quantity"
+                                <input required type="text" placeholder="Quantité/Nombre de personne" name="quantity" defaultValue={recipe.quantity}
                                     className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             </div>
                             <div className="-mx-3 flex flex-wrap">
@@ -181,8 +191,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
                                             {!file && (
-                                                
-                                            <span className="text-gray-600 font-medium">Upload file</span>
+                                                <span className="text-gray-600 font-medium">Upload file (optionnel)</span>
                                             )}
                                             {file && (
                                                 <span className="text-gray-600 font-medium">
@@ -190,7 +199,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                                 </span>
                                             )}
                                         </label>
-                                        <input required id="upload" type="file" className="hidden" name="picture"
+                                        <input id="upload" type="file" className="hidden" name="picture"
                                             onChange={(e) => {
                                                 if (e.target.files && e.target.files[0]) {
                                                     setFile(e.target.files[0]);
@@ -205,7 +214,7 @@ export default function formRecipe({ onSubmit }: Props) {
                                             Difficulté
                                         </label>
                                         <br />
-                                        <select name="difficulty"
+                                        <select name="difficulty" defaultValue={recipe.difficultie}
                                             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium placeholder:text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
                                             {difficulties.map(difficultie => (
                                                 <option key={difficultie} value={difficultie}>{Difficulties[difficultie]}</option>
@@ -219,18 +228,18 @@ export default function formRecipe({ onSubmit }: Props) {
                                 <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                     Outils nécessaires (séparer les ustensiles par des virgules pour établir une liste)
                                 </label>
-                                <textarea required placeholder="Outils nécessaires" rows={4} name="tools"
+                                <textarea required placeholder="Outils nécessaires" rows={4} name="tools" defaultValue={recipe.tools?.join(', ')}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="name" className="mb-3 mr-10 block text-base font-medium text-[#07074D]">
                                     Calorie, type d'apport nutritionel
                                 </label>
-                                <textarea required placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie"
+                                <textarea required placeholder="Calorie, type d'apport nutritionel" rows={4} name="calorie" defaultValue={recipe.calorie}
                                     className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
                             </div>
                             <button type="submit" disabled={isLoading} className="hover:bg-[#6b64f29f] cursor-pointer rounded-md bg-[#6A64F1] py-3 px-8 text-center text-base font-semibold text-white outline-none disabled:opacity-50 disabled:cursor-not-allowed">
-                                {isLoading ? 'Envoi en cours...' : 'Submit'}
+                                {isLoading ? 'Envoi en cours...' : 'Modifier'}
                             </button>
                         </form>
                     </div>

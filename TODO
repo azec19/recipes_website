@@ -4,14 +4,13 @@ V Managing error backend and frontend
 V instructions sous forme de liste partout front + back
 V View single recipe + bouttons come back
 Edit recipe
-animations file upload recipe form
-modification type ingredient
-translation unité vue stock ingredient
+V animations file upload recipe form
+V translation unité vue stock ingredient
 instauré express-validator.js
 Erreur quand zero utilisateur dans la page sign in
-Erreur quand backend repond pas
-redirige automatique vers login page
+V Erreur quand backend repond pas
+V redirige automatique vers login page
 Change JWT secret
 Real secure credentials database
-cookies https only
+V cookies https only
 ne pas exposer le back sur docker

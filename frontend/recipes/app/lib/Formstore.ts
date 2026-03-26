@@ -1,11 +1,12 @@
 import { create } from 'zustand'
-import { Recipe, RecipeIngredient } from "./type"
+import { Recipe, RecipeIngredient, typeLabelToKey, unitLabelToKey } from "./type"
 
 type IngredientStore = {
   list: RecipeIngredient[];
   add: (ingredient: RecipeIngredient) => void;
   remove: (id: string) => void;
   reset: () => void;
+  setList: (ingredients: RecipeIngredient[]) => void;
 };
 
 export const listIngredients = create<IngredientStore>((set) => ({
@@ -24,5 +25,6 @@ export const listIngredients = create<IngredientStore>((set) => ({
     }
   }),
   remove: (name: string) => set((self) => ({ list: self.list.filter((i) => i.ingredient.name !== name) })),
-  reset: () => set(() => ({ list: [] }))
+  reset: () => set(() => ({ list: [] })),
+  setList: (ingredients: RecipeIngredient[]) => set(() => ({ list: ingredients }))
 }))

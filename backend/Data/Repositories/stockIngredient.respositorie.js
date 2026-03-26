@@ -29,8 +29,6 @@ export async function deleteStockIngredient(ingredientId,user_name ) {
 }
 
 export async function updateStockIngredient(id_, ingredientId, user_name, quantity, unit) {
-    console.log(unit);
-    
     const ingredient = await prisma.StockIngredient.update({
         where: {
             id: id_,

@@ -9,19 +9,19 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: process.env.BACKEND_URL + '/api/:path*',
+        destination: 'http://localhost:3000/api/:path*',
       },
       {
         source: '/auth/:path*',
-        destination: process.env.BACKEND_URL + '/auth/:path*',
+        destination: 'http://localhost:3000/auth/:path*',
       },
       {
         source: '/upload',
-        destination: process.env.BACKEND_URL + '/upload',
+        destination: 'http://localhost:3000/upload',
       },
       {
         source: '/images/:path*',
-        destination: process.env.BACKEND_URL + '/images/:path*',
+        destination: 'http://localhost:3000/images/:path*',
       },
     ];
   },
@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [new URL(process.env.BACKEND_URL + '/images/**')],
+    remotePatterns: [new URL('http://localhost:3000/images/**')],
   },
 };
 
