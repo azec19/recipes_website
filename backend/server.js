@@ -56,8 +56,6 @@ app.use('/api/recipeIngredient', authenticateJWT, recipeIngredientRouter)
 app.use('/api/recipe', authenticateJWT, recipeRouter)
 app.use('/api/upload', authenticateJWT, uploadRouter)
 
-
-
 // 404 si aucune route ne matche (hors Swagger)
 app.use((req, res, _next) => {
   if (req.path.startsWith('/api-docs')) return res.end() // laisse Swagger gérer

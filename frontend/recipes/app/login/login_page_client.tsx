@@ -1,10 +1,12 @@
+<<<<<<< HEAD
 "use client"
+=======
+'use client'
+>>>>>>> 77bd296d3690913183e6f9a55bea0d885a5ec2ac
 import Link from 'next/link'
 import bg from '@/public/background.png'
 import { useRouter } from "next/navigation";
 import { useState } from 'react';
-
-
 
 export default function LoginPage() {
 
@@ -17,6 +19,7 @@ export default function LoginPage() {
         try {
             const formData = new FormData(e.currentTarget)
 	    const result = await fetch("/login/route_login", {
+
                 method: "POST",
                 body: JSON.stringify({
                     name: formData.get("name"),
@@ -87,6 +90,7 @@ export default function LoginPage() {
                             </form>
                             <div className="text-center text-[#969696]">
                                 Vous n'avez pas de compte actuellement ? Contactez tanguy ;)
+
                             </div>
                         </div>
                     </div>
@@ -95,3 +99,4 @@ export default function LoginPage() {
         </div>
     )
 }
+

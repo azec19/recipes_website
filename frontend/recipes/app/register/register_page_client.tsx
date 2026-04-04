@@ -16,6 +16,7 @@ export default function RegisterPage() {
         try {
             const formData = new FormData(e.currentTarget)
 	    const result = await fetch("/register/route_register", {
+
                 method: "POST",
                 body: JSON.stringify({
                     name: formData.get("name"),
@@ -50,6 +51,7 @@ export default function RegisterPage() {
                             <h1 className="mb-4 text-center text-3xl font-bold text-black" style={{ "textShadow": "#00000063 0px 3px 5px" }}>
                                 Bienvenue sur ce site de recettes !
 				Vous n'êtes pas censé être sur ce lien. Merci de revenir sur le site.
+
                             </h1>
                             {error && (
                                 <div className="mx-auto w-full max-w-[550px] mb-4">
@@ -97,3 +99,4 @@ export default function RegisterPage() {
         </div>
     )
 }
+
