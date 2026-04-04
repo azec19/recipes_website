@@ -2,8 +2,9 @@ services:
   database:
     container_name: database
     image: postgres:latest
+    restart: always
     environment:
-      POSTGRES_PASSWORD: example
+      POSTGRES_PASSWORD: V4aWHzuhmX16mI8dMyn7
       POSTGRES_USER: azec
       POSTGRES_DB: recipes
     volumes:
@@ -14,6 +15,7 @@ services:
 
   backend:
     container_name: backend
+    restart: always
     build: ./backend
     ports:
       - '3000:3000'
@@ -21,12 +23,15 @@ services:
       database:
         condition: service_started
     volumes:
-      - ./backend:/app
+      - upload-backend:/app/upload
     environment:
       - WATCHPACK_POLLING=true
+    env_file:
+      - .env_backend
 
   frontend:
     container_name: frontend
+    restart: always
     build:
       context: ./frontend/recipes
       args:
@@ -35,9 +40,8 @@ services:
       - '3005:3000'
     depends_on: 
       - backend
-    env_file:
-      - ./frontend/recipes/.env
 
 volumes:
   postgres-data:
+  upload-backend:
 

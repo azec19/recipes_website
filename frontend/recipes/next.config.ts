@@ -9,19 +9,19 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://localhost:3000/api/:path*',
+        destination: 'http://backend:3000/api/:path*',
       },
       {
         source: '/auth/:path*',
-        destination: 'http://localhost:3000/auth/:path*',
+        destination: 'http://backend:3000/auth/:path*',
       },
       {
         source: '/upload',
-        destination: 'http://localhost:3000/upload',
+        destination: 'http://backend:3000/upload',
       },
       {
         source: '/images/:path*',
-        destination: 'http://localhost:3000/images/:path*',
+        destination: 'http://backend:3000/images/:path*',
       },
     ];
   },
@@ -31,7 +31,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [new URL('http://localhost:3000/images/**')],
+    remotePatterns: [new URL('http://backend:3000/images/**')],
   },
 };
 

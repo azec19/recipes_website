@@ -15,7 +15,7 @@ const validateLogin = [
 
 const router = Router();
 
-router.post('/register', validateRegister, authController.Register);
+//router.post('/register', validateRegister, authController.Register);
 router.post('/login', validateLogin, authController.Login);
 
 export default router

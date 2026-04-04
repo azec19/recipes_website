@@ -7,7 +7,7 @@ import { } from "../lib/type"
 import { cookies } from "next/headers"
 import { NextResponse } from 'next/server';
 
-const Backend_URL = "http://localhost:3000"
+const Backend_URL = "http://backend:3000"
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const cookieStore = await cookies()

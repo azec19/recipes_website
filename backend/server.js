@@ -1,6 +1,5 @@
 
 // server.js (ESM)
-import 'dotenv/config'
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 
@@ -30,7 +29,7 @@ app.use(cookieParser())
 
 //mettre ici ce que tu rentes dans la bar du navigateur
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: "https://recipes.dopler.ovh",
   credentials: true
 }))
 
