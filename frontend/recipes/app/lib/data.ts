@@ -288,28 +288,28 @@ export async function deleteCookie() {
     cookieStore.delete('token')
 }
 
-export async function register(formData: FormData): Promise<{ success: boolean, message?: string }> {
-    const cookieStore = await cookies()
-    const result = await fetch(Backend_URL + "/auth/register", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            name: formData.get("name"),
-            password: formData.get("password")
-        }),
-        credentials: "include"
-    })
-    const data = await result.json()
-    if (result.ok) {
-        cookieStore.set("token", data.token, {
-            httpOnly: true,
-            secure: true,
-            path: "/"
-        });
-        return { success: true, message: data.message }
-    }
-    else
-        return { success: false, message: data.message }
-}
+// export async function register(formData: FormData): Promise<{ success: boolean, message?: string }> {
+//     const cookieStore = await cookies()
+//     const result = await fetch(Backend_URL + "/auth/register", {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             name: formData.get("name"),
+//             password: formData.get("password")
+//         }),
+//         credentials: "include"
+//     })
+//     const data = await result.json()
+//     if (result.ok) {
+//         cookieStore.set("token", data.token, {
+//             httpOnly: true,
+//             secure: true,
+//             path: "/"
+//         });
+//         return { success: true, message: data.message }
+//     }
+//     else
+//         return { success: false, message: data.message }
+// }
