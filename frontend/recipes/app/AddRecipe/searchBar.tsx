@@ -15,7 +15,7 @@ export default function SearchBar({value_, onChange_}: {value_: string, onChange
                 onChange={(e) => onChange_(e.target.value)}
                 autoComplete="on"
                 inputMode="search"
-                placeholder="Recipes search"
+                placeholder="Vous cherchez une recette ?"
                 type="search"
             />
         </div>

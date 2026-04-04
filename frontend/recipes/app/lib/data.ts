@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache';
 import {  } from "../lib/type"
 import { cookies } from "next/headers"
 
-const Backend_URL = "http://localhost:3000"
+const Backend_URL = "http://backend:3000"
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const cookieStore = await cookies()
@@ -286,5 +286,3 @@ export async function deleteCookie() {
     const cookieStore = await cookies()
     cookieStore.delete('token')
 }
-
-

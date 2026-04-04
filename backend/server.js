@@ -1,6 +1,5 @@
 
 // server.js (ESM)
-import 'dotenv/config'
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 
@@ -30,7 +29,7 @@ app.use(cookieParser())
 
 //mettre ici ce que tu rentes dans la bar du navigateur
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: "https://recipes.dopler.ovh",
   credentials: true
 }))
 
@@ -50,19 +49,14 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/images', express.static('upload'));
 
 // Toutes les routes applicatives
-// app.use('/api/users', authenticateJWT, userRouter)     
-// app.use('/api/ingredient', authenticateJWT, ingredientRouter)
-// app.use('/api/stockIngredient', authenticateJWT, stockIngredientRouter)
-// app.use('/api/recipeIngredient', authenticateJWT, recipeIngredientRouter)
-// app.use('/api/recipe', authenticateJWT, recipeRouter)
-// app.use('/api/upload', authenticateJWT, uploadRouter)
+app.use('/api/users', authenticateJWT, userRouter)     
+app.use('/api/ingredient', authenticateJWT, ingredientRouter)
+app.use('/api/stockIngredient', authenticateJWT, stockIngredientRouter)
+app.use('/api/recipeIngredient', authenticateJWT, recipeIngredientRouter)
+app.use('/api/recipe', authenticateJWT, recipeRouter)
+app.use('/api/upload', authenticateJWT, uploadRouter)
 
-app.use('/api/users', userRouter)     
-app.use('/api/ingredient', ingredientRouter)
-app.use('/api/stockIngredient', stockIngredientRouter)
-app.use('/api/recipeIngredient', recipeIngredientRouter)
-app.use('/api/recipe', recipeRouter)
-app.use('/api/upload', uploadRouter)
+
 
 // 404 si aucune route ne matche (hors Swagger)
 app.use((req, res, _next) => {

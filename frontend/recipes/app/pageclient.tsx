@@ -22,7 +22,7 @@ export default function Recipeclient(Props: Props) {
     return (
         <div>
             <Bandeau />
-            <h1 className="text-center font-inika text-[50px]">List des recettes</h1>
+            <h1 className="text-center font-inika text-[50px]">Liste des recettes</h1>
             <SearchBar value_={searchBarinput} onChange_={setSearchBarinput} />
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 auto-rows-fr gap-10 w-[90vw] ml-[5vw] mt-[5vh]">
                 {
