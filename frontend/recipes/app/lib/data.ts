@@ -3,8 +3,9 @@
 import 'dotenv/config'
 import { StockIngredient, RecipeIngredient, Recipe, typeLabelToKey, unitLabelToKey } from "./type"
 import { revalidatePath } from 'next/cache';
-import {  } from "../lib/type"
+import { } from "../lib/type"
 import { cookies } from "next/headers"
+import { NextResponse } from 'next/server';
 
 const Backend_URL = "http://localhost:3000"
 
@@ -119,13 +120,13 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
     const token = cookieStore.get("token")?.value
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     console.log(formData.get('ingredients'));
-    
+
     const data = {
         name: formData.get('name') as string,
         date: formData.get('date') as string,
         autor: formData.get('autor') as string,
-        description: formData.get('description') as string,   
-        instructions: JSON.parse(JSON.stringify((formData.get('instructions') as string).split('\n'))),       
+        description: formData.get('description') as string,
+        instructions: JSON.parse(JSON.stringify((formData.get('instructions') as string).split('\n'))),
         ingredients: JSON.parse(formData.get('ingredients') as string),
         mood: JSON.parse(JSON.stringify([formData.get('mood') as string])),
         preparation_time: Number(formData.get('preparation_time')),
@@ -191,8 +192,8 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
 
 }
 
-export async function updateRecipe(formData: FormData){
-    
+export async function updateRecipe(formData: FormData) {
+
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
     const update = {
         id: Number(formData.get('id')),
@@ -211,7 +212,7 @@ export async function updateRecipe(formData: FormData){
         calorie: formData.get('calorie') as string
     };
     const cookieStore = await cookies()
-    const token = cookieStore.get("token")?.value    
+    const token = cookieStore.get("token")?.value
     const update_response = await fetch(Backend_URL + '/api/recipe', {
         method: 'PUT',
         credentials: "include",
@@ -287,4 +288,28 @@ export async function deleteCookie() {
     cookieStore.delete('token')
 }
 
-
+export async function register(formData: FormData): Promise<{ success: boolean, message?: string }> {
+    const cookieStore = await cookies()
+    const result = await fetch(Backend_URL + "/auth/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: formData.get("name"),
+            password: formData.get("password")
+        }),
+        credentials: "include"
+    })
+    const data = await result.json()
+    if (result.ok) {
+        cookieStore.set("token", data.token, {
+            httpOnly: true,
+            secure: true,
+            path: "/"
+        });
+        return { success: true, message: data.message }
+    }
+    else
+        return { success: false, message: data.message }
+}

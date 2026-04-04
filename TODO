@@ -14,3 +14,6 @@ Change JWT secret
 Real secure credentials database
 V cookies https only
 ne pas exposer le back sur docker
+recherche de recettes en fonction des ingrédients
+logo en vert
+affichage unité pas francais
