@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-"use client"
-=======
+
 'use client'
->>>>>>> 77bd296d3690913183e6f9a55bea0d885a5ec2ac
 import Link from 'next/link'
 import bg from '@/public/background.png'
 import { useRouter } from "next/navigation";

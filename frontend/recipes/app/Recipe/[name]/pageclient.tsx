@@ -117,11 +117,13 @@ export default function Recipeclient({ recipe }: { recipe: Recipe }) {
                             <h3 className="text-2xl font-semibold text-gray-300 mb-4">Ingrédients</h3>
                             <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
                                 {recipe.ingredients.map((ingredient, index) => {
-                                    const unitLabel = Units_[ingredient.unit];
+                                    let unitLabel = ''
+                                    if (ingredient.unit !== 'UNITE')
+                                        unitLabel = Units_[ingredient.unit] + ' de';
                                     return (<li key={index} className="flex items-center bg-gray-700 p-3 rounded-lg">
                                         <span className="w-2 h-2 bg-gray-400 rounded-full mr-3"></span>
                                         <span className="text-white">
-                                            {ingredient.quantity} {unitLabel} de {ingredient.ingredient.name}
+                                            {ingredient.quantity} {unitLabel} {ingredient.ingredient.name}
                                         </span>
                                     </li>)
                                 })}

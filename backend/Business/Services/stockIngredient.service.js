@@ -1,6 +1,7 @@
 import StockingredientDAO from '../../Data/Repositories/stockIngredient.respositorie.js'
 import ingredientDAO from '../../Data/Repositories/ingredient.repositorie.js'
 import IngredientService from './ingredient.service.js'
+import { log } from 'node:console';
 
 export async function getStockIngredientByName(name, user_name) {
     const ingredient = await ingredientDAO.findByName(name);
@@ -51,7 +52,7 @@ export async function deleteStockIngredient(ingredientName, user_name){
     return StockingredientDAO.deleteStockIngredient(existing.id, user_name);
 };
 
-export async function updateStockIngredient(id, ingredientId, user_name, quantity, unit){
+export async function updateStockIngredient(id, ingredientId, user_name, quantity, unit){    
     const stockingredient = await StockingredientDAO.findById(id, user_name);
     if (!stockingredient) {
         throw new Error("Ingredient doesn't exist");

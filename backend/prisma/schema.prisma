@@ -24,6 +24,7 @@ enum Mood {
 enum Types {
   FECULENT
   LEGUME
+  CHAMPIGNON
   FRUIT
   LAITIER
   VIANDE
@@ -41,6 +42,8 @@ enum Units {
   CL
   DL
   UNITE
+  CAS
+  CAF
 }
 
 enum Difficulties {

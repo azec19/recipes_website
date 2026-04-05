@@ -5,23 +5,24 @@ const nextConfig: NextConfig = {
   proxy pour rediriger sur le bon port.
   la source vient tj de /api/.... et on redirige simplement en enlevant le "api" */
   /*update, je sais pas vraiment si c'est utile ca*/
+  
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: 'http://backend:3000/api/:path*',
+        destination: process.env.Backend_URL + '/api/:path*',
       },
       {
         source: '/auth/:path*',
-        destination: 'http://backend:3000/auth/:path*',
+        destination: process.env.Backend_URL + '/auth/:path*',
       },
       {
         source: '/upload',
-        destination: 'http://backend:3000/upload',
+        destination: process.env.Backend_URL + '/upload',
       },
       {
         source: '/images/:path*',
-        destination: 'http://backend:3000/images/:path*',
+        destination: process.env.Backend_URL + '/images/:path*',
       },
     ];
   },
@@ -31,7 +32,7 @@ const nextConfig: NextConfig = {
     },
   },
   images: {
-    remotePatterns: [new URL('http://backend:3000/images/**')],
+    remotePatterns: [new URL(process.env.Backend_URL + '/images/**')],
   },
 };
 

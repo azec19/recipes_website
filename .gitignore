@@ -12,7 +12,7 @@ node_modules
 /coverage
 
 # next.js
-/.next/
+.next/
 /out/
 
 # production
@@ -30,7 +30,7 @@ yarn-error.log*
 
 
 #prisma
-/generated/prisma
+backend/generated/prisma/
 
 
 # vercel
@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+#image
+backend/upload/

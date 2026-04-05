@@ -28,7 +28,6 @@ export async function createRecipeIngredient(req, res) {
 };
 
 export async function deleteRecipeIngredient(req, res) {
-    console.log('test');
     
     try {
         const newingredient = await RecipeingredientService.deleteRecipeIngredient(req.body.id, req.body.recipeId);

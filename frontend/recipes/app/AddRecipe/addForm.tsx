@@ -44,7 +44,6 @@ export default function formRecipe({ onSubmit }: Props) {
                 ingredient.ingredient.type = typeLabelToKey(ingredient.ingredient.type)
                 return ingredient
             })))
-            console.log(formData.get('ingredients'));
             
             const list_instructions = formData.get('instructions') as string
             formData.append('instructions', JSON.stringify(list_instructions.split('\n')))

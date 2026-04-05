@@ -36,6 +36,8 @@ const rowSelection: RowSelectionOptions = {
 
 
 async function onRowValueChanged(event: RowValueChangedEvent<StockIngredient>) {
+  
+    console.log('onRowValueChanged');
   const updatedIngredient = event.data;
   if (!updatedIngredient) {
     return;
@@ -135,7 +137,10 @@ export default function GridComponent(Props: Props) {
   }, [rowData]);
 
   const onRowEditingStopped = useCallback(
+    
     (params: RowEditingStoppedEvent) => {
+      
+    console.log('onRowEditingStopped');
       const { data } = params;
 
       setPinnedBottomRowData([]);

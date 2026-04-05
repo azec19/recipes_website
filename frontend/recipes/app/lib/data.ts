@@ -7,7 +7,7 @@ import { } from "../lib/type"
 import { cookies } from "next/headers"
 import { NextResponse } from 'next/server';
 
-const Backend_URL = "http://backend:3000"
+const Backend_URL = process.env.BACKEND_URL
 
 export async function fetchAllRecipes(): Promise<Recipe[]> {
     const cookieStore = await cookies()
@@ -119,7 +119,6 @@ export async function onSubmitRecipe(formData: FormData): Promise<{ success: boo
     const cookieStore = await cookies()
     const token = cookieStore.get("token")?.value
     const toolsList = JSON.parse(JSON.stringify((formData.get('tools') as string).split(",")))
-    console.log(formData.get('ingredients'));
 
     const data = {
         name: formData.get('name') as string,

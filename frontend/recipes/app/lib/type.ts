@@ -1,6 +1,7 @@
 export const Types_ = {
   FECULENT: 'Féculent',
   LEGUME: 'Légume',
+  CHAMPIGNON: 'Champignon',
   FRUIT: 'Fruit',
   LAITIER: 'Laitier',
   VIANDE: 'Viande',
@@ -16,7 +17,6 @@ export type TypeKey = keyof typeof Types_;
 export type TypeLabel = typeof Types_[TypeKey];
 export function typeLabelToKey(label: string): TypeKey {
   // Object.entries → [key, value]
-  console.log(label);
   
   return (Object.entries(Types_) as [TypeKey, string][])
     .find(([, v]) => v === label)?.[0] as TypeKey;
@@ -29,12 +29,13 @@ export const Units_ = {
     CL: 'Centilitre',
     DL: 'Décilitre',
     UNITE: 'Unité',
+    CAS: 'Cuillère à soupe',
+    CAF: 'Cuillère à café'
 } as const;
 
 export type UnitKey = keyof typeof Units_;
 export type UnitLabel = typeof Units_[UnitKey];
 export function unitLabelToKey(label: string): UnitKey {
-  console.log(label);
   return (Object.entries(Units_) as [UnitKey, string][])
     .find(([, v]) => v.toLowerCase() === label.toLowerCase())?.[0] as UnitKey;
 }

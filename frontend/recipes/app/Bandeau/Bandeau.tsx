@@ -11,7 +11,7 @@ export default function Bandeau() {
           <img
             src="/logo.svg"
             alt="Logo"
-            className="dark:invert w-[100px] h-auto max-w-none"
+            className="w-[100px] h-auto max-w-none"
           />
           <div className="text-center sm:items-start sm:text-left">
             <Link

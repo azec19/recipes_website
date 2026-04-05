@@ -19,7 +19,6 @@ export async function createRecipeIngredient(recipeId, ingredientId, quantity, u
 
 export async function deleteRecipeIngredient(recipeId, ingredientId) {
     // Create a new ingredient
-    console.log(recipeId, ingredientId);
     
     const ingredient = await prisma.recipeIngredient.delete({
         where: {

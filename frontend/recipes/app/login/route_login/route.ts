@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-
+const Backend_URL = process.env.BACKEND_URL
 export async function POST(req: Request) {
     const body = await req.json();
 
-    const backendRes = await fetch("http://backend:3000/auth/login", {
+    const backendRes = await fetch(Backend_URL + '/auth/login', {
 
         method: "POST",
         headers: {
