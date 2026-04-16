@@ -33,7 +33,7 @@ export async function deleteUser(name){
     if (!existing) {
         throw new Error("User doesn't exist");
     }
-    return userDAO.deleteUser(email);
+    return userDAO.deleteUser(name);
 };
 
 export async function updateUser(id, name, hashedPassword){
