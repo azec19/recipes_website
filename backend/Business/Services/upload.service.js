@@ -88,7 +88,7 @@ export async function uploadImage(file) {
 // Service pour supprimer une image
 export async function deleteImage(filename) {
     try {
-        const filepath = path.join('upload', filename);
+        const filepath = path.join('upload', path.basename(filename));
         await fs.unlink(filepath);
         return { message: 'Image supprimée avec succès' };
     } catch (error) {
