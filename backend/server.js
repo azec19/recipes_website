@@ -3,6 +3,8 @@
 import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 
+import helmet from "helmet";
+
 // Import ESM du router applicatif
 import userRouter from './Presentation/Routes/user.routes.js'
 import stockIngredientRouter from './Presentation/Routes/stockIngredient.route.js'
@@ -23,8 +25,10 @@ const app = express()
 const PORT = process.env.PORT ?? 3000
 
 
+
 // Middlewares de base
 app.use(express.json())
+app.use(helmet());
 app.use(cookieParser())
 
 //mettre ici ce que tu rentes dans la bar du navigateur
