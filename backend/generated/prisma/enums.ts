@@ -23,6 +23,7 @@ export type Mood = (typeof Mood)[keyof typeof Mood]
 export const Types = {
   FECULENT: 'FECULENT',
   LEGUME: 'LEGUME',
+  CHAMPIGNON: 'CHAMPIGNON',
   FRUIT: 'FRUIT',
   LAITIER: 'LAITIER',
   VIANDE: 'VIANDE',
@@ -42,7 +43,9 @@ export const Units = {
   L: 'L',
   CL: 'CL',
   DL: 'DL',
-  UNITE: 'UNITE'
+  UNITE: 'UNITE',
+  CAS: 'CAS',
+  CAF: 'CAF'
 } as const
 
 export type Units = (typeof Units)[keyof typeof Units]

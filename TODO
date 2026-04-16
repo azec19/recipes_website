@@ -13,7 +13,10 @@ V redirige automatique vers login page
 Change JWT secret
 Real secure credentials database
 V cookies https only
-ne pas exposer le back sur docker
+V ne pas exposer le back sur docker
 recherche de recettes en fonction des ingrédients
 V logo en vert
-affichage unité pas francais
+V affichage unité pas francais
+ustensiles => créé un ustensile vide si virgule tout à la fin
+Rajouter type :  fromage
+rajouter unité : CAF et CAS
