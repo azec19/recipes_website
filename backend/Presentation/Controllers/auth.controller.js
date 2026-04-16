@@ -18,7 +18,7 @@ export async function Login(req, res) {
             httpOnly: true,
             secure: true,        
             sameSite: "lax",
-            maxAge: process.env.COOKIE_EXPIRATION_TMIE,
+            maxAge: process.env.COOKIE_EXPIRATION_TIME,
         })
         res.status(201).json({message: "Logged in"});
     } catch (error) {
