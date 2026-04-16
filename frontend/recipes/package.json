@@ -11,10 +11,6 @@
   "dependencies": {
     "@fontsource/inika": "^5.2.8",
     "ag-grid-react": "^35.0.0",
-    "animejs": "^4.2.2",
-    "cookie-parser": "^1.4.7",
-    "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
     "next": "^16.2.4",
     "react": "19.2.3",
     "react-dom": "19.2.3",
